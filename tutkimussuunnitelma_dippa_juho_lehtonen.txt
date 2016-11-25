@@ -1,4 +1,6 @@
 Diplomityö: Suomalaisten tieteellisten julkaisujen ryhmittely tieteenaloittain <menetelmällä X>
+Suomalaisten tieteellisten julkaisujen ryhmittely tieteenaloittain klusteroimalla
+Clustering of Finnish scientific publications by discipline
 
 Tekijä: Juho Lehtonen, Master’s Programme in Computer, Communications and Information Science, major: computer science (SCI3042)
 
@@ -10,16 +12,15 @@ Diplomityö käsittelee koneoppimisen alaan kuluvaa erästä klusterointimenetel
 
 Tavoitteena on laatia ohjelma, joka automaattisesti ryhmittelee syötetyt julkaisut tieteenaloittain. Ohjelmaa voitaisiin käyttää CSC:n jo nykyään opetus- ja kulttuuriministeriölle tuottamissa bibliometriikka-analyyseissa parantamaan tieteenalakohtaisia vertailutietoja.
 
-Osatavoite 1: Selvittää pienemmällä koeaineistolla avulla onko nykyisessä tieteenalakohtaisessa ryhmittelyssä virheitä. Jos esimerkiksi nykyiseen luokitteluun verrattuna tieteenala puuttuu kokonaan jonkun yliopiston tuloksista, voidaan tutkia kuuluisiko sen olla siellä.
+Osatavoite 1: Selvittää pienemmällä koeaineistolla avulla onko nykyisessä tieteenalakohtaisessa ryhmittelyssä nykytarpeisiin nähden olennaisia puutteita. Jos esimerkiksi nykyiseen luokitteluun verrattuna tieteenala puuttuu kokonaan jonkun yliopiston tuloksista, voidaan tutkia kuuluisiko sen olla siellä.
 
-Osatavoite 2: Ryhmitellä koko aineisto valitulla menetelmällä ja verrata Scopuksen ja Web of Sciencen aineistojen välisiä keskinäisiä eroavaisuuksia sekä eroavaisuuksia nykymenetelmällä saatuihin tieteenalojen vertailutietoihin (ranking).
+Osatavoite 2: Ryhmitellä Suomen aineisto vuodesta 2000 eteenpäin valitulla menetelmällä ja verrata Scopuksen ja Web of Sciencen aineistojen välisiä keskinäisiä eroavaisuuksia sekä eroavaisuuksia nykymenetelmällä saatuihin tieteenalojen vertailutietoihin (ranking).
 
-Aineistona on kahden suuren julkaisutietokannan, Scopuksen ja Web of Sciencen, julkaisujen kuvailutietoja eli metadataa. Lupa datan käyttöön on varmistettu ministeriöstä(Yrjö Leino 21.11.2016). Data on julkaisujen otsikoita, (ilmeisesti automaattisesti tuotettuja) asiasanoja sekä viittauksia muihin joko samasta tietokannasta löytyviin tai löytymättömiin julkaisuihin. (Mikäli viitattu julkaisu kuuluu myös tietokantaan, on myös mahdollista muodostaa julkaisuista verkko, josta voitaisiin tutkia julkaisujen ryhmittymistä tieteenaloittain. Tämä saattaisi kuitenkin vaatia jotain muita kuin klusterointimenetelmiä). Ryhmittelyssä käytettävinä piirteinä olisi artikkeleiden asiasanat ja otsikot tai/ja artikkeleiden keskinäiset viitaukset. 
+Aineistona on kahden suuren julkaisutietokannan, Scopuksen ja Web of Sciencen, julkaisujen kuvailutietoja eli metadataa. Lupa datan käyttöön on varmistettu ministeriöstä(Yrjö Leino 21.11.2016). Data on julkaisujen otsikoita, (ilmeisesti automaattisesti tuotettuja) asiasanoja sekä viittauksia muihin joko samasta tietokannasta löytyviin tai löytymättömiin julkaisuihin. (Mikäli viitattu julkaisu kuuluu myös tietokantaan, on myös mahdollista muodostaa julkaisuista verkko, josta voitaisiin tutkia julkaisujen ryhmittymistä tieteenaloittain. Tämä saattaisi kuitenkin vaatia jotain muita kuin klusterointimenetelmiä. Pitäydyn työssäni klusterointimenetelmissä). Ryhmittelyssä käytettävinä piirteinä olisi artikkeleiden asiasanat ja otsikot tai/ja artikkeleiden keskinäiset viitaukset. 
 
 Ryhmittelyssä kokeilen jotain klusterointimenetelmää tai itseorganisoituvaa karttaa.Menetelmä on vielä valitsematta ja valintaan valintaan vaikuttaa todennäköisesti data. Valmistelevana työnä aion käydä läpi muutaman klusterointimenetelmän sekä tutustua hieman itseorganisoituvaan karttaan. Näistä klusterointimenetelmät ovat minulle opiskeluista tutumpia. Toisaalta itseorganisoituva kartta kiinnostaa muuten vaan.
 
-Kun menetelmä on valittu, ohjelmoin ensin kevyen prototyypin jota voin kokeilla pieneen osaan aineistosta. Mikäli menetelmä ja toteutukseni skaalautuu, toteutan osatavoitteeen 1. Mikäli menetelmä toimii kuten aiottua toteutan osatavoitteen 2. Aineistoa vuodelta 1990 tähän päivään, joten
-koko aineiston analysointi voi vaatia supertietokoneen käyttöä. Itselläni ei ole kokemusta superkoneen käytöstä, joten mikäli siihen asti pääsen joudun kysymään joltain CSC:n asiantuntijalta apua.
+Kun menetelmä on valittu, ohjelmoin ensin kevyen prototyypin jota voin kokeilla pieneen osaan aineistosta. Mikäli menetelmä ja toteutukseni skaalautuu, toteutan osatavoitteeen 1. Mikäli menetelmä toimii kuten aiottua toteutan osatavoitteen 2. Aineistoa on vuodelta 1990 tähän päivään n. 25 miljoonaa julkaisua avainsanoineen ja abstrakteineen. Aineiston sisäisiä viittauksia on n. puoli miljardia. Rajatunkin isomman osan käsittely, kuten osatavoitteen 2 mukaisesti, vaatinee supertietokoneen käyttöä. Itselläni ei ole kokemusta superkoneen käytöstä, joten joudun kysymään CSC:n asiantuntijoilta apua.
 
 Työni tuloksena julkaisujen tieteenalaluokittelu voi tarkentua jolloin kahden nyt samaan alaan luokiteltujen mutta todellisuudessa hieman toisistaan poikkeavan (esim. tyypillinen viitausten määrä / julkaisu) alan julkaisut tulevat mitatuksi oikeudenmukaisemmin. Esimerkiksi teoreettinen ja kokeellinen tähtitiede.
 
