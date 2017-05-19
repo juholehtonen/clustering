@@ -48,14 +48,14 @@ olisi artikkeleiden asiasanat ja otsikot tai/ja artikkeleiden
 keskinäiset viitaukset. 
 
 Ryhmittelyssä kokeilen jotain klusterointimenetelmää tai 
-itseorganisoituvaa karttaa.Menetelmä on vielä valitsematta ja 
+itseorganisoituvaa karttaa. Menetelmä on vielä valitsematta ja 
 valintaan valintaan vaikuttaa todennäköisesti data. Valmistelevana
 työnä aion käydä läpi muutaman klusterointimenetelmän sekä 
 tutustua hieman itseorganisoituvaan karttaan. Näistä 
 klusterointimenetelmät ovat minulle opiskeluista tutumpia. 
 Toisaalta itseorganisoituva kartta kiinnostaa muuten vaan.
 
-Kun menetelmä on valittu, ohjelmoin ensin kevyen prototyypin jota
+Kun menetelmä on valittu, ohjelmoin ensin kevyen prototyypin, jota
 voin kokeilla pieneen osaan aineistosta. Mikäli menetelmä ja 
 toteutukseni skaalautuu, toteutan osatavoitteeen 1. Mikäli 
 menetelmä toimii kuten aiottua toteutan osatavoitteen 2. Aineistoa
