@@ -22,7 +22,7 @@ from utils import GeneralExtractor
 label = 'baseline'
 
 # Load data from the previous step
-with open('data/{0}-preprocessed.txt'.format(label), 'r') as handle:
+with open('../data/{0}-preprocessed.txt'.format(label), 'r') as handle:
   data = cPickle.load(handle)
 
 n_cl = 6
@@ -74,4 +74,5 @@ plt.ylim(y_min, y_max)
 plt.xticks(())
 plt.yticks(())
 plt.show()
+plt.savefig('../img/{0}-plot.png'.format(label), bbox_inches='tight')
 print('plot time: %.2fs' % (time() - t1))

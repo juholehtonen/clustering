@@ -12,7 +12,7 @@ import sys
 # Read the label for a run.
 b_size = sys.argv[1]
 
-filename = 'data/SuomiRyväsData2000'
+filename = '../data/SuomiRyväsData2000'
 
 opening_line = r'[ ]{,11}\d{,12} (?P<identifier>\d{15})'   # Note here is re.match(opening_line).group('identifier')
 journal_line = r'Lehti: (.*)'
@@ -93,6 +93,6 @@ def dataset(batch_size):
 data = dataset(batch_size=b_size)
 #import pprint
 #pprint.pprint(data[:3])
-with open('data/{0}-preprocessed.txt'.format(str(b_size)), 'w') as handle:
+with open('../data/{0}-preprocessed.txt'.format(str(b_size)), 'w') as handle:
     cPickle.dump(data, handle)
 #np.savetxt('data/{0}-preprocessed.txt'.format(label), data)

@@ -25,7 +25,7 @@ from sklearn.preprocessing import FunctionTransformer
 label = 'baseline'
 
 # Load data from the previous step
-with open('data/{0}-preprocessed.txt'.format(label), 'r') as handle:
+with open('../data/{0}-preprocessed.txt'.format(label), 'r') as handle:
   data = cPickle.load(handle)
 # data = np.loadtxt('data/{0}-preprocessed.txt'.format(label))
 

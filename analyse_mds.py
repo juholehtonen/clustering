@@ -21,7 +21,7 @@ from utils import GeneralExtractor
 label = sys.argv[1]
 
 # Load data from the previous step
-with open('data/{0}-preprocessed.txt'.format(label), 'r') as handle:
+with open('../data/{0}-preprocessed.txt'.format(label), 'r') as handle:
   data = cPickle.load(handle)
 # data = np.loadtxt('data/{0}-preprocessed.txt'.format(label))
 
@@ -41,9 +41,8 @@ def plot_embedding(X, title=None):
     plt.xticks([]), plt.yticks([])
     if title is not None:
         plt.title(title)
-    plt.savefig('{0}-plot.png'.format(label), bbox_inches='tight')
+    plt.savefig('../img/{0}-plot.png'.format(label), bbox_inches='tight')
 # ----------------------------------------------------------------------
-
 
 # ----------------------------------------------------------------------
 # MDS  embedding of the dataset
