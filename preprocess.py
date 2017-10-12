@@ -10,7 +10,7 @@ import re
 import sys
 
 # Read the label for a run.
-b_size = sys.argv[1]
+b_size = int(sys.argv[1])
 
 filename = '../data/SuomiRyväsData2000'
 
