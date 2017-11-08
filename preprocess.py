@@ -9,9 +9,6 @@ import pprint
 import re
 import sys
 
-# Read the label for a run.
-b_size = int(sys.argv[1])
-
 filename = '../data/SuomiRyväsData2000'
 
 opening_line = r'[ ]{,11}\d{,12} (?P<identifier>\d{15})'   # Note here is re.match(opening_line).group('identifier')
@@ -26,8 +23,12 @@ keyword_line = r'Avainsana \(tekijät\):  (.*)'
 reference_line = r'Lähde: (.*)'
 closing_line = r' \* '
 
-#used_fields = ['id', 'issn', 'title', 'abstract', 'keyword_publisher', 'keyword', 'reference']
+# Read the parameters for a run.
+b_size = int(sys.argv[1])
+# used_fields = ['id', 'issn', 'title', 'abstract', 'keyword_publisher', 'keyword', 'reference']
 used_fields = ['title', 'keyword', 'reference']
+if len(sys.argv) > 2:
+    used_fields = sys.argv[2].split(',')
 
 
 def dataset(batch_size):
@@ -46,10 +47,15 @@ def dataset(batch_size):
                 current['issn'] = m.group(1)
                 continue
 
-            # m = re.match(discipline_line, line)
-            # if m:
-            #     data['discipline'] = ' '.join([data['discipline'], m.group(1).replace(' & ', '_&_')])
-            #     continue
+            #FIXME: Discipline parsed A & B -> A_&_B but split perhaps in vectorizer.
+            m = re.match(discipline_line, line)
+            if m:
+             value = current.get('discipline')
+             if value:
+                 current['discipline'] = ' '.join([value, m.group(1).replace(' & ', '_&_')])
+             else:
+                 current['discipline'] = m.group(1).replace(' & ', '_&_')
+                 continue
 
             # Note: remember to parse two character words too 'chromosome arm 3p'
             m = re.match(title_line, line)
