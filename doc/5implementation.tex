@@ -1,0 +1,49 @@
+\chapter{Implementation}
+\label{chapter:implementation}
+Here we describe how the methods are implemented to achieve the 
+clustering. First we describe how the raw text data is 
+pre-processed 
+
+We implemented a workflow for clustering using Python's 
+scikit-learn package. 
+
+First data was read from raw files obtained from publishers. 
+(Actually YL probably also preprocessed data before passing it to 
+me.)
+Unrelevant metadata fields were omitted and the relevant were read 
+into a dictionary. We choose to keep title, abstract and keyword
+fields. Terms in keyword fields were concatenated to combined 
+terms: ``allergic\_contact\_dermatitis''. Another option would be to
+count n-grams to preserve the meaning of combined terms. (Justify 
+decision.) Title and abstract fields were treated with a bag of 
+words representation. (Explain.)
+
+
+
+Data was lemmatized. We choose to remove all plain numbers from
+data. Another option is to replace numbers with dummy '\#NUMBER'.
+That could help separate natural sciences from humanities. Because 
+we didn't have proper knowledge on the issue removal was chosen. So 
+numbers would be ignored. That would be a more neutral way to treat 
+them. (How? Explain...)
+
+Running preliminary tests for 2000 publications with tf-idf's maximum and 
+minimum document frequencies set to $max_df=0.5$ 
+and $min_df=2$ (integers denote absolute count value) respectively
+resulted a feature space of 3372 terms and a stop word list of 7475 
+terms. The stop word list included 352 a priori set words and words
+that occurred in too many ($max_df$) or too few ($min_df$) 
+documents. Terms that were filtered out as too frequent or too few
+were for example: ``haemoglobin\_a'', ``jacobian\_matrix'', 
+``parthenogenetic'', ``chelation\_by\_saccharide\_molecules'', 
+``leg\_blood\_supply'', ``computational\_fluid\_dynamics'', 
+``pigment'', ``hdtv'', ``nicotinic\_receptor''.
+
+(Interesting would be to know the frequencies of the filtered-out 
+terms. It didn't come out straight from TfIdfVectroizer class used 
+but taking different levels of $min_df$ and $max_df$ could be used 
+to view different frequency groups.)
+
+When trying with $max_df=0.6$ we get feature space of XXXX and 
+YYYY stop words.
+

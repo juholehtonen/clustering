@@ -1,0 +1,42 @@
+\chapter{Methods}
+\label{chapter:methods}
+In this chapter we present the methods used in the clustering. We 
+follow the logical order the methods are applied on data.
+
+\section{SVD}
+\label{sec:svd}
+There are multiple ways to use input metadata of the publications; 
+put all text to one bin and use text analysis methods to that. 
+Alternatively we could assume different distribution for each 
+metadata field and treat them separately.
+
+\section{Agglomerative clustering}
+\label{sec:agglomerativeclustering}
+There are also multiple methods to use for the problem. LDA is one.
+
+\subsection{Distance metric}
+Data is high dimensional so choosing distance measure is 
+important. The higher the number of dimensions the more similar 
+distance each observation is from every other observation. This 
+known as \emph{curse of dimensionality} \fixme{citation}.
+Possible distance measures are:
+- cosine angle (uncentered Pearson correlation)\fixme{look: 
+\url{https://www.researchgate.net/post/What_is_the_best_distance_
+measure_for_high_dimensional_data/4}}
+-euclidean
+-mahalnobis
+
+\subsection{Linkage methods}
+In this work we use agglomerative hierarchical clustering with 
+Ward's distance metric.\fixme{citation}
+
+\subsubsection{Single linkage}
+\subsubsection{Complete linkage}
+\subsubsection{Average linkage}
+\subsubsection{Ward's method}
+
+\subsection{Complexity}
+Time and space requirements of used agglomerative clustering method
+are $O(N^2)$ for both.\fixme{citation}
+
+

@@ -23,9 +23,10 @@ from sklearn.preprocessing import FunctionTransformer
 # Read the label for a run.
 # label = sys.argv[1]
 label = 'baseline'
+size = 120
 
 # Load data from the previous step
-with open('../data/{0}-preprocessed.txt'.format(label), 'r') as handle:
+with open('data/{0}-preprocessed.txt'.format(size), 'r') as handle:
   data = cPickle.load(handle)
 # data = np.loadtxt('data/{0}-preprocessed.txt'.format(label))
 

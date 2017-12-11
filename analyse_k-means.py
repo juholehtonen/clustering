@@ -12,17 +12,19 @@ import sys
 
 from sklearn.cluster import KMeans
 from sklearn.decomposition import TruncatedSVD
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import (CountVectorizer,
+                                             TfidfVectorizer)
 from sklearn.pipeline import Pipeline
 
-from utils import GeneralExtractor
+from clustering.utils import GeneralExtractor
 
 # Read the label for a run.
 # label = sys.argv[1]
-label = 'baseline'
+label = 'k-means'
+size = 120
 
 # Load data from the previous step
-with open('../data/{0}-preprocessed.txt'.format(label), 'r') as handle:
+with open('data/{0}-preprocessed.txt'.format(size), 'r') as handle:
   data = cPickle.load(handle)
 
 n_cl = 6
@@ -76,3 +78,7 @@ plt.yticks(())
 plt.show()
 plt.savefig('../img/{0}-plot.png'.format(label), bbox_inches='tight')
 print('plot time: %.2fs' % (time() - t1))
+
+if __name__ == '__main__':
+    # calling main function
+    pass
