@@ -1,10 +1,15 @@
 
-@misc{noauthor_clustering_nodate,
-	title = {Clustering text documents using k-means — scikit-learn 0.19.0 documentation},
-	url = {http://scikit-learn.org/stable/auto_examples/text/document_clustering.html#sphx-glr-auto-examples-text-document-clustering-py},
-	urldate = {2017-10-12},
-	annote = {Tips for evaluation: not perhaps Silhouette Coefficient.},
-	file = {Clustering text documents using k-means — scikit-learn 0.19.0 documentation:/home/jlehtone/.mozilla/firefox/ylk3delp.default/zotero/storage/RW257QDW/document_clustering.html:text/html}
+@article{calinski_dendrite_1974,
+	title = {A {Dendrite} {Method} for {Cluster} {Analysis}},
+	volume = {3},
+	doi = {10.1080/03610927408827101},
+	abstract = {A method for identifying clusters of points in a multidimensional Euclidean space is described and its application to taxonomy considered. It reconciles, in a sense, two different approaches to the investigation of the spatial relationships between the points, viz., the agglomerative and the divisive methods. A graph, the shortest dendrite of Florek etal. (1951a), is constructed on a nearest neighbour basis and then divided into clusters by applying the criterion of minimum within cluster sum of squares. This procedure ensures an effective reduction of the number of possible splits. The method may be applied to a dichotomous division, but is perfectly suitable also for a global division into any number of clusters. An informal indicator of the "best number" of clusters is suggested. It is a"variance ratio criterion" giving some insight into the structure of the points. The method is illustrated by three examples, one of which is original. The results obtained by the dendrite method are compared with those obtained by using the agglomerative method or Ward (1963) and the divisive method of Edwards and Cavalli-Sforza (1965).},
+	journal = {Communications in Statistics - Theory and Methods},
+	author = {Caliński, Tadeusz and JA, Harabasz},
+	month = jan,
+	year = {1974},
+	pages = {1--27},
+	file = {Snapshot:/home/jlehtonen/Zotero/storage/CADEP7H5/233096619_A_Dendrite_Method_for_Cluster_Analysis.pdf:application/pdf}
 }
 
 @article{rousseeuw_silhouettes:_1987,
@@ -21,11 +26,63 @@
 	author = {Rousseeuw, Peter J.},
 	month = nov,
 	year = {1987},
-	keywords = {classification, cluster analysis, clustering validity, Graphical display},
+	keywords = {cluster analysis, classification, clustering validity, Graphical display},
 	pages = {53--65},
-	annote = {Presented silhouettes. Silhouette coefficient for a clustered observation is a value limited berween 1 .. -1. Values near 1 mean dense, clear clustering of a object. Zero values indicate object between clusters. Negative values indicate misclustering. Values are computed with:
-s(i) = ai - bi / (max(ai, bi)), where ai... and bi... .
-With silhouettes it is possible to asses the clustering quality without knowing any ground truth or labels. It should be noted that it works better with convex clusters than density based clusters.
-It is possible to take average of all silhouette coefficients of objects in acluster and thus calculate "goodness" of a cluster. This can be repeated for whole clustering to get overall average silhouette value.},
-	file = {ScienceDirect Full Text PDF:/home/jlehtone/.mozilla/firefox/ylk3delp.default/zotero/storage/XRJQGU6Z/Rousseeuw - 1987 - Silhouettes A graphical aid to the interpretation.pdf:application/pdf;ScienceDirect Snapshot:/home/jlehtone/.mozilla/firefox/ylk3delp.default/zotero/storage/JZGJNGDM/0377042787901257.html:text/html}
+	file = {ScienceDirect Full Text PDF:/home/jlehtonen/Zotero/storage/XRJQGU6Z/Rousseeuw - 1987 - Silhouettes A graphical aid to the interpretation.pdf:application/pdf;ScienceDirect Snapshot:/home/jlehtonen/Zotero/storage/JZGJNGDM/0377042787901257.html:text/html}
+}
+
+@misc{noauthor_clustering_nodate,
+	title = {Clustering text documents using k-means — scikit-learn 0.19.0 documentation},
+	url = {http://scikit-learn.org/stable/auto_examples/text/document_clustering.html#sphx-glr-auto-examples-text-document-clustering-py},
+	urldate = {2017-10-12},
+	file = {Clustering text documents using k-means — scikit-learn 0.19.0 documentation:/home/jlehtonen/Zotero/storage/RW257QDW/document_clustering.html:text/html}
+}
+
+@article{janssens_hybrid_2008,
+	title = {A hybrid mapping of information science},
+	volume = {75},
+	issn = {0138-9130, 1588-2861},
+	url = {https://link-springer-com.libproxy.aalto.fi/article/10.1007/s11192-007-2002-7},
+	doi = {10.1007/s11192-007-2002-7},
+	abstract = {Previous studies have shown that hybrid clustering methods that incorporate textual content and bibliometric information can outperform clustering methods that use only one of these components. In thi},
+	language = {en},
+	number = {3},
+	urldate = {2017-08-16},
+	journal = {Scientometrics},
+	author = {Janssens, Frizo and Glänzel, Wolfgang and Moor, Bart De},
+	month = jun,
+	year = {2008},
+	pages = {607--631},
+	file = {Full Text PDF:/home/jlehtonen/Zotero/storage/F74VJN77/Janssens et al. - 2008 - A hybrid mapping of information science.pdf:application/pdf;Snapshot:/home/jlehtonen/Zotero/storage/FAI3UPQT/10.html:text/html}
+}
+
+@article{waltman_new_2012,
+	title = {A new methodology for constructing a publication-level classification system of science},
+	volume = {63},
+	copyright = {© 2012 ASIS\&T},
+	issn = {1532-2890},
+	url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/asi.22748},
+	doi = {10.1002/asi.22748},
+	abstract = {Classifying journals or publications into research areas is an essential element of many bibliometric analyses. Classification usually takes place at the level of journals, where the Web of Science subject categories are the most popular classification system. However, journal-level classification systems have two important limitations: They offer only a limited amount of detail, and they have difficulties with multidisciplinary journals. To avoid these limitations, we introduce a new methodology for constructing classification systems at the level of individual publications. In the proposed methodology, publications are clustered into research areas based on citation relations. The methodology is able to deal with very large numbers of publications. We present an application in which a classification system is produced that includes almost 10 million publications. Based on an extensive analysis of this classification system, we discuss the strengths and the limitations of the proposed methodology. Important strengths are the transparency and relative simplicity of the methodology and its fairly modest computing and memory requirements. The main limitation of the methodology is its exclusive reliance on direct citation relations between publications. The accuracy of the methodology can probably be increased by also taking into account other types of relations–for instance, based on bibliographic coupling.},
+	language = {en},
+	number = {12},
+	urldate = {2019-04-20},
+	journal = {Journal of the American Society for Information Science and Technology},
+	author = {Waltman, Ludo and Eck, Nees Jan van},
+	year = {2012},
+	keywords = {bibliometrics, citation analysis},
+	pages = {2378--2392},
+	file = {Snapshot:/home/jlehtonen/Zotero/storage/N7HTZD55/asi.html:text/html;Submitted Version:/home/jlehtonen/Zotero/storage/GWM3CFA4/Waltman and Eck - 2012 - A new methodology for constructing a publication-l.pdf:application/pdf}
+}
+
+@article{archambault_towards_2011,
+	title = {Towards a multilingual, comprehensive and open scientific journal ontology},
+	abstract = {This paper describes the development of a new journal ontology to facilitate the production of bibliometric data. A number of approaches have been used to design journal-level taxonomies or ontologies, and the scholarly research and practical application of these systems have revealed their various benefits and limitations. To date, however, no single classification scheme has been widely adopted by the international bibliometric community. In light of these factors, the new classification presented here—featuring a hierarchical, three-level classification tree—was developed based on best-practice taxonomies. Categories were modelled on those of existing journal classifications (ISI, CHI, ERA), and their groupings of journals acted as “seeds” or attractors for journals in the new classification. Individual journals were assigned to single, mutually exclusive categories via a hybrid approach combining algorithmic methods and expert judgment. Notably, the classification was designed to be as inclusive as possible of newer fields of inquiry; general and multidisciplinary journals; and the range of arts and humanities disciplines. The new scientific journal ontology is freely available (it can be found at www.sciencemetrix.com) under a creative commons license and is operational in 18 languages.},
+	language = {en},
+	journal = {Proceedings of the 13th international conference of the international society for scientometrics and informetrics},
+	author = {Archambault, Eric and Beauchesne, Olivier H and Caruso, Julie},
+	year = {2011},
+	note = {Durban South Africa},
+	pages = {66--77},
+	file = {Archambault et al. - Towards a multilingual, comprehensive and open sci.pdf:/home/jlehtonen/Zotero/storage/SN3JQ58H/Archambault et al. - Towards a multilingual, comprehensive and open sci.pdf:application/pdf}
 }

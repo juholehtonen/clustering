@@ -424,6 +424,16 @@ publikationer efter disciplin}
 
 % Abstract in Finnish
 % ------------------------------------------------------------------
+% E: Package babel Error: You haven't defined... ??
+% S: sudo dnf install -y texlive-babel-finnish
+% E: Package babel Warning: No hyphenation patterns were 
+%    preloaded for the language `Finnish' into the format.
+% S: Ei vielä näillä korjaantunut. Tästä voi jatkaa.
+%    sudo dnf install -y texlive-hyphen-finnish
+%    sudo texhash
+%    sudo fmtutil-sys --refresh
+%    sudo fmtutil -sys --all
+%    sudo fmtutil -sys --listcfg
 \thesisabstract{finnish}{
 Suomekielinen tiivistelmä
 }

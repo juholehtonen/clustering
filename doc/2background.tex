@@ -1,25 +1,91 @@
 \chapter{Background}
 \label{chapter:background}
 
+% Tiedonhankintaa suunnitellessasi voi miettiä vastauksia mm. 
+% seuraaviin aiheen määrittelyä selventäviin tutkimuskysymyksiin:
+% 
+%     Mistä aiheesta tietoa tarvitaan?
+%       bibliometriikasta, sen määritelmästä sekä klusteroinnista
+%     Mihin tarkoitukseen tietoa tarvitaan?
+%       Aiheen taustan kuvailuun, menetelmien kuvailuun ja 
+%       valitun menetelmän toteuttamiseen
+%     Mikä aiheessa on keskeistä?
+%       Klusterointimenetelmän kokeilu ja tulosten raportointi
+%     Mistä näkökulmasta aihetta lähestytään?
+%       Käytännön implementaation kokeilulla
+%     Mitä aiheesta tiedetään jo ennalta?
+%       Klusteroinnista perusteet, bibliometriikasta vähemmän
+%     Tarvitaanko yleis- vai tieteellistä tietoa?
+%       Bibliometriikasta tarvitaan vähän yleistietoa, 
+%       klusteroinnista tieteellistä.
+%     Tarvitaanko kuva-aineistoa?
+%       Ei muuta kuin itse tuotetut
+%     Minkä ikäistä tietoa tarvitaan?
+%       Yleis- ja taustatiedot vanhoista asioista, aiheen 
+%       oleellinen tieto uusinta
+%     Minkä kielistä tietoa tarvitaan?
+%       suomi ja englanti käy
+
+
 In this chapter we briefly introduce clustering and how it is 
 positioned in the larger field of machine learning. But first we
-describe what bibliometric is.
+describe what bibliometrics is.
 
-\section{Bibliometric}
-\label{sec:bibliometric}
+\section{Bibliometrics}
+\label{sec:bibliometrics}
 
-Bibliometric is a study of written scientific records... 
-\fixme{citation}
+Bibliometrics is a study of written scientific records. The 
+records may be books, articles, letters in scientific journals, 
+conference papers and so on. Bibliometrics studies how these 
+products of research are communicated, how are they related to 
+each other, what kind of properties they have and what can be 
+learned about the science in general by analysing these written 
+scientific artifacts.
+
+These reserch products and relations between them form a 
+network that can reveal something about the structure of 
+different scientific disciplines. Finding the structure of this 
+kind of data set is called classification or clustering.
 
 \fixme{Nykyiset bibliometriikan kayttamat menetelmat 
 kehittyneempia yhdistetty verkkoanalyysia ja klusterointia.}
 
+\subsection{Classification in bibliometrics}
+% Specific charasteristics of classifying the bibliometrics
+Classification of scientific disciplines in bibliometrics can be 
+used to research the different fields of science and their 
+development.
+% Background/history
+% ==================
 
+\fixme{When bibliometric started?}
+There has been lot of study in automatically classificating the 
+science. 
+%Classifying things is the first thing to do when trying to 
+%understand the world. \cite{} 
+%First classifications were made when humans wanted to name 
+%entities of the world.
+% were made by romans/greeks/sumerians... 
+% The whole field of science was comprehended differently then.
+The need for some kind of bibliometric indices rise in the 
+First modern(?) classification was... by... some 
+indexing/publishing/to facilitate communication...
+
+%  
+Currently the most popular classification system is the Thomson 
+Reuter's Web of Science classification. This classification 
+system classifies the journals into one or more research areas. 
+\cite{waltman_new_2012} 
+% It is also manually curated by the publisher. \fixme{Is it? How 
+% does it work?}
+Also a journal level classification system has been developed.
+\cite{archambault_towards_2011}
+% Situation in Finland
 
 \section{Clustering}
 \fixme{Alkuun koneoppimisesta, ohjaamatonta ja ohjattua. Eri 
-ohjaamattomat menetelmat. Mihin kaikille aloille klusterointi voi 
-kayttaa.}
+ohjaamattomat menetelmat. Milla kaikille aloilla klusterointia 
+voi kayttaa.}
 
 \fixme{Ero verkkoanalyysiin: lyhyesti}
 
@@ -41,3 +107,41 @@ clustrs can be chosen.
 \subsection{Evaluating of clustering results}
 Calinski \& Harabazt criterion can be used as an evaluation 
 criterion for deciding the number clusters \fixme{citation}. 
+
+\subsubsection{Manually annotated validation set}
+% Gold standard set. Actually a gold standard set would be a set
+% of all data sets with abstract excluding sets that don't have it.
+We will create a manually annotated validation set for calculating
+precision, recall and metrics derived from those. The validation
+set consists of $500$ publications from three different fields of
+science, two more similar sub fields of computer science, 
+information systems and artifical intelligence, and one more
+distant from those, clinical neurology.
+
+Publications are inspected by title, abstract, keywords, journal
+and publisher assinged disciplines of the journal. Publications
+with critically missing data, unclear discipline assignment and
+heavily applied publications were excluded from validation set.
+Goal was to achieve evaluation measurements based on a quite 
+clearly separated set of publications. More vaguely classificable
+publications were included for comparison. For manually curated 
+validation set with discipline assingment and justifications for
+possible exclusion see appendix (Insert reference!).
+
+When annotating publications, deciding if a publication belonged to
+a discipline or not felt often quite difficult. Often the 
+separation between disciplines felt quite arbitrary. For example
+an article describing using wavelet transformation for coding noisy
+images was decided to belong to CS information systems whereas an
+article describing wavelet based corner detection using SVD was
+decided to belong to CS artifical intelligence.
+For CS artifical intelligence we mostly selected publications which
+mentioned some dimensionalty reduction or machine learning related
+term or concept.
+CS information systems ended up being quite like some ``others'' or
+``the rest'' dump class. It would have publications such as
+``A reference model for conceptualising the convergence of 
+telecommunications and datacommunications service platforms'',
+``Developing a distributed meeting service to support mobile 
+meeting participants'',
+``On voice quality of IP voice over GPRS'',

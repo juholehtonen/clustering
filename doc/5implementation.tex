@@ -5,11 +5,12 @@ clustering. First we describe how the raw text data is
 pre-processed 
 
 We implemented a workflow for clustering using Python's 
-scikit-learn package. 
+scikit-learn package. \fixme{Include a graph visualizing the 
+workflow.}
 
 First data was read from raw files obtained from publishers. 
-(Actually YL probably also preprocessed data before passing it to 
-me.)
+%(Actually YL probably also preprocessed data before passing it 
+% to me.)
 Unrelevant metadata fields were omitted and the relevant were read 
 into a dictionary. We choose to keep title, abstract and keyword
 fields. Terms in keyword fields were concatenated to combined 

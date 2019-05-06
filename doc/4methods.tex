@@ -1,14 +1,40 @@
-\chapter{Methods}
+\chapter{Data and Methods}
 \label{chapter:methods}
-In this chapter we present the methods used in the clustering. We 
-follow the logical order the methods are applied on data.
+In this chapter we present the data and methods used in the 
+clustering. We follow the logical order the methods are applied on 
+the data.
+
+\section{Publication metadata}
+The data consits of X records of Web of Science publication 
+metadata from year Y.
+
+\section{Analyzing textual data}
+Our data here consists of short metadata records describing the 
+publications. Basically the descriptions are natural English 
+language. When analyzing this kind of textual data the often used
+methods involve some kind of counting. We count for example which
+are the most used words, which words appear together and so on.
+
+We can count n-grams.
+\subsection{Preprocessing}
+\subsection{Lemmatizing}
+
+\subsection{Different distributions of different metadata fields}
+\subsubsection{Keyword distribution}
+\subsubsection{Citation distribution}
+- Normalization of citation weight between different disciplines.
+  Different fields of science have different citation practices 
+eg. regarding the number of references per publication. 
+\cite{waltman_new_2012}
+
 
 \section{SVD}
 \label{sec:svd}
 There are multiple ways to use input metadata of the publications; 
-put all text to one bin and use text analysis methods to that. 
+put all text in one bin and use text analysis methods to that. 
 Alternatively we could assume different distribution for each 
-metadata field and treat them separately.
+metadata field \fixme{describe metadata before this} and treat them
+separately.
 
 \section{Agglomerative clustering}
 \label{sec:agglomerativeclustering}
@@ -17,7 +43,7 @@ There are also multiple methods to use for the problem. LDA is one.
 \subsection{Distance metric}
 Data is high dimensional so choosing distance measure is 
 important. The higher the number of dimensions the more similar 
-distance each observation is from every other observation. This 
+distance each observation is from every other observation. This is
 known as \emph{curse of dimensionality} \fixme{citation}.
 Possible distance measures are:
 - cosine angle (uncentered Pearson correlation)\fixme{look: 

@@ -1,0 +1,10 @@
+doc/*.backup
+doc/*.log
+doc/*.aux
+doc/*.bbl
+doc/*.blg
+doc/*.out
+doc/*.pdf
+doc/*.toc
+.pyc
+
