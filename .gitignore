@@ -6,5 +6,6 @@ doc/*.blg
 doc/*.out
 doc/*.pdf
 doc/*.toc
-.pyc
+*.pyc
+*.txt~
 
