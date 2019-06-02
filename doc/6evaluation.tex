@@ -2,20 +2,20 @@
 \label{chapter:evaluation}
 
 We need some sort of tool to measure the ``goodness'' of the 
-clustering. As we work with text data the dimesionality increases 
+clustering. As we work with text data the dimensionality increases 
 quite high and projecting data down to 2 or 3 dimensions for 
 visualization is not a simple task. (We come back to visualization 
 later though.)
 So we have to resort to measurements derived from the 
 resulting clustering itself. If we knew some underlying ground 
-truth behind our clustering problem we could validate our result 
+truth behind our clustering problem, we could validate our result 
 against it. But as mentioned earlier, even defining what actually 
 are the current fields of science depends on who you ask and for 
-what purpose the definition is needed. So the the ground truth 
-here is only one measure for our results.
+what purpose the definition is needed. So the ground truth is only
+one measure for our results here.
 In the lack of ground truth we can use some ``internal'' goodness 
 measure for the resulting clustering. These kind of measures 
-basically try to infer how dense the clusters are compared to how 
+basically try to infer how dense the clusters are compared with how 
 sparse the inter-cluster space is and how well the clusters are 
 separated from each other.
 One such measure to estimate the ``goodness'' of a clustering is 
