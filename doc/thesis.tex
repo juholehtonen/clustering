@@ -67,7 +67,7 @@
 % ------------------------------------------------------------------
 
 
-% Document class for the thesis is report
+% Document class for the thesis is report       
 % ------------------------------------------------------------------
 % You can change this but do so at your own risk - it may break other things.
 % Note that the option pdftext is used for pdflatex; there is no
@@ -79,12 +79,12 @@
 % (ISO-8859-1 works). Change the latin1-option if you use UTF8 
 % (at some point LaTeX did not work with UTF8, but I'm not sure
 % what the current situation is) 
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 % OT1 font encoding seems to work better than T1. Check the rendered
 % PDF file to see if the fonts are encoded properly as vectors (instead
 % of rendered bitmaps). You can do this by zooming very close to any letter 
 % - if the letter is shown pixelated, you should change this setting 
-% (try commenting out the entire line, for example).  
+% (try commenting out the entire line, for example).    
 \usepackage[OT1]{fontenc}
 % The babel package provides hyphenating instructions for LaTeX. Give
 % the languages you wish to use in your thesis as options to the babel
@@ -260,9 +260,8 @@
 \newcommand{\TITLE}{Clustering of Finnish scientific publications 
 by discipline}
 \newcommand{\FTITLE}{Suomalaisten tieteellisten julkaisujen 
-ryhmittely
-tieteenaloittain klusteroimalla}
-\newcommand{\STITLE}{Klustring av finländska vetenskapliga 
+ryhmittely tieteenaloittain klusteroimalla}
+\newcommand{\STITLE}{Klustring av finlÃ¤ndska vetenskapliga 
 publikationer efter disciplin}
 \newcommand{\SUBTITLE}{No subtitle}
 \newcommand{\FSUBTITLE}{Ei alaotsikkoa}
@@ -272,55 +271,58 @@ publikationer efter disciplin}
 \newcommand{\SDATE}{Den 30 November 2017}
 
 % Supervisors and instructors
-% ------------------------------------------------------------------
-% If you have two supervisors, write both names here, separate them with a 
-% double-backslash (see below for an example)
+% ----------------------------------------------------------------
+% If you have two supervisors, write both names here, separate 
+% them with a double-backslash (see below for an example)
 % Also remember to add the package option ``twosupervisors'' or
-% ``twoinstructors'' to the aalto-thesis package so that the titles are in
-% plural.
+% ``twoinstructors'' to the aalto-thesis package so that the 
+% titles are in plural.
 % Example of one supervisor:
-%\newcommand{\SUPERVISOR}{Professor Antti Ylä-Jääski}
-%\newcommand{\FSUPERVISOR}{Professori Antti Ylä-Jääski}
-%\newcommand{\SSUPERVISOR}{Professor Antti Ylä-Jääski}
+%\newcommand{\SUPERVISOR}{Professor Antti Yla-Jaaski}
+%\newcommand{\FSUPERVISOR}{Professori Antti Yla-Jaaski}
+%\newcommand{\SSUPERVISOR}{Professor Antti Yla-Jaaski}
 % Example of twosupervisors:
 \newcommand{\SUPERVISOR}{Professor Samuel Kaski}
 \newcommand{\FSUPERVISOR}{Professori Samuel Kaski}
 \newcommand{\SSUPERVISOR}{Professor Samuel Kaski}
 
 % If you have only one instructor, just write one name here
-\newcommand{\INSTRUCTOR}{Yrjö Leino Lic.Sc. (Tech.)}
-\newcommand{\FINSTRUCTOR}{Tekniikan lisensiaatti Yrjö Leino}
-\newcommand{\SINSTRUCTOR}{Teknologie licentiat Yrjö Leino}
-% If you have two instructors, separate them with \\ to create linefeeds
+\newcommand{\INSTRUCTOR}{YrjÃ¶ Leino Lic.Sc. (Tech.)}
+\newcommand{\FINSTRUCTOR}{Tekniikan lisensiaatti YrjÃ¶ Leino}
+\newcommand{\SINSTRUCTOR}{Teknologie licentiat YrjÃ¶ Leino}
+% If you have two instructors, separate them with \\ to create 
+% linefeeds
 % \newcommand{\INSTRUCTOR}{Olli Ohjaaja M.Sc. (Tech.)\\
 %  Elli Opas M.Sc. (Tech)}
-%\newcommand{\FINSTRUCTOR}{Diplomi-insinööri Olli Ohjaaja\\
-%  Diplomi-insinööri Elli Opas}
-%\newcommand{\SINSTRUCTOR}{Diplomingenjör Olli Ohjaaja\\
-%  Diplomingenjör Elli Opas}
+% \newcommand{\FINSTRUCTOR}{Diplomi-insinoori Olli Ohjaaja\\
+%  Diplomi-insinoori Elli Opas}
+% \newcommand{\SINSTRUCTOR}{Diplomingenjor Olli Ohjaaja\\
+%  Diplomingenjor Elli Opas}
 
 % If you have two supervisors, it is common to write the schools
-% of the supervisors in the cover page. If the following command is defined,
-% then the supervisor names shown here are printed in the cover page. Otherwise,
-% the supervisor names defined above are used.
-%\newcommand{\COVERSUPERVISOR}{Professor Antti Ylä-Jääski, Aalto 
+% of the supervisors in the cover page. If the following command 
+% is defined, then the supervisor names shown here are printed in 
+% the cover page. Otherwise, the supervisor names defined above 
+% are used.
+% \newcommand{\COVERSUPERVISOR}{Professor Antti Yla-Jaaski, Aalto 
 %University\\
-%  Professor Pekka Perustieteilijä, University of Helsinki}
+%  Professor Pekka Perustieteilija, University of Helsinki}
 
-% The same option is for the instructors, if you have multiple instructors.
-% \newcommand{\COVERINSTRUCTOR}{Olli Ohjaaja M.Sc. (Tech.), Aalto University\\
-%  Elli Opas M.Sc. (Tech), Aalto SCI}
+% The same option is for the instructors, if you have multiple 
+% instructors.
+% \newcommand{\COVERINSTRUCTOR}{Olli Ohjaaja M.Sc. (Tech.), Aalto 
+% University\\ Elli Opas M.Sc. (Tech), Aalto SCI}
 
 
 % Other stuff
-% ------------------------------------------------------------------
+% ----------------------------------------------------------------
 \newcommand{\PROFESSORSHIP}{Computer Science}
-\newcommand{\FPROFESSORSHIP}{Tietojenkäsittelytiede}
+\newcommand{\FPROFESSORSHIP}{TietojenkÃ¤sittelytiede}
 \newcommand{\SPROFESSORSHIP}{Datavetenskap}
 % Professorship code is the same in all languages
 \newcommand{\PROFCODE}{SCI3042}
 \newcommand{\KEYWORDS}{clustering, bibliomterics}
-\newcommand{\FKEYWORDS}{ryvästys, bibliometriikka}
+\newcommand{\FKEYWORDS}{ryvÃ¤stys, bibliometriikka}
 \newcommand{\SKEYWORDS}{klusteranalys, bibliometri}
 \newcommand{\LANGUAGE}{English}
 \newcommand{\FLANGUAGE}{Englanti}
@@ -330,7 +332,8 @@ publikationer efter disciplin}
 \newcommand{\AUTHOR}{Juho Lehtonen}
 
 
-% Currently the English versions are used for the PDF file metadata
+% Currently the English versions are used for the PDF file 
+% metadata
 % Set the PDF title
 \hypersetup{pdftitle={\TITLE\ \SUBTITLE}}
 % Set the PDF author
@@ -342,7 +345,7 @@ publikationer efter disciplin}
 
 
 % Layout settings
-% ------------------------------------------------------------------
+% ----------------------------------------------------------------
 
 % When you write in English, you should use the standard LaTeX 
 % paragraph formatting: paragraphs are indented, and there is no 
@@ -356,97 +359,105 @@ publikationer efter disciplin}
 % \setlength{\parindent}{0pt}
 % \setlength{\parskip}{1ex}
 
-% Use this to control how much space there is between each line of text.
-% 1 is normal (no extra space), 1.3 is about one-half more space, and
-% 1.6 is about double line spacing.  
+% Use this to control how much space there is between each line of
+% text. 1 is normal (no extra space), 1.3 is about one-half more 
+% space, and 1.6 is about double line spacing.  
 % \linespread{1} % This is the default
 % \linespread{1.3}
 
 % Bibliography style
-% acm style gives you a basic reference style. It works only with numbered
-% references.
+% acm style gives you a basic reference style. It works only with 
+% numbered references.
 \bibliographystyle{acm}
-% Plainnat is a plain style that works with both numbered and name citations.
+% Plainnat is a plain style that works with both numbered and name
+% citations.
 % \bibliographystyle{plainnat}
 
 
 % Extra hyphenation settings
-% ------------------------------------------------------------------
-% You can list here all the files that are not hyphenated correctly.
-% You can provide many \hyphenation commands and/or separate each word
-% with a space inside a single command. Put hyphens in the places where
-% a word can be hyphenated.
-% Note that (by default) LaTeX will not hyphenate words that already
-% have a hyphen in them (for example, if you write ``structure-modification 
-% operation'', the word structure-modification will never be hyphenated).
-% You need a special package to hyphenate those words.
+% ----------------------------------------------------------------
+% You can list here all the files that are not hyphenated 
+% correctly. You can provide many \hyphenation commands and/or 
+% separate each word with a space inside a single command. Put 
+% hyphens in the places where a word can be hyphenated.
+% Note that (by default) LaTeX will not hyphenate words that 
+% already have a hyphen in them (for example, if you write 
+% ``structure-modification operation'', the word 
+% structure-modification will never be hyphenated). You need a 
+% special package to hyphenate those words.
 \hyphenation{di-gi-taa-li-sta yksi-suun-tai-sta}
 
 
 
 % The preamble ends here, and the document begins. 
 % Place all formatting commands and such before this line.
-% ------------------------------------------------------------------
+% ----------------------------------------------------------------
 \begin{document}
-% This command adds a PDF bookmark to the cover page. You may leave
-% it out if you don't like it...
+% This command adds a PDF bookmark to the cover page. You may 
+% leave it out if you don't like it...
 \pdfbookmark[0]{Cover page}{bookmark.0.cover}
-% This command is defined in aalto-thesis.sty. It controls the page 
-% numbering based on whether the doublenumbering option is specified
+% This command is defined in aalto-thesis.sty. It controls the 
+% page numbering based on whether the doublenumbering option is 
+% specified
 \startcoverpage
 
 % Cover page
-% ------------------------------------------------------------------
+% ----------------------------------------------------------------
 % Options: finnish, english, and swedish
-% These control in which language the cover-page information is shown
+% These control in which language the cover-page information is 
+% shown
 \coverpage{english}
 
 
 % Abstracts
-% ------------------------------------------------------------------
-% Include an abstract in the language that the thesis is written in,
-% and if your native language is Finnish or Swedish, one in that language.
+% ----------------------------------------------------------------
+% Include an abstract in the language that the thesis is written 
+% in, and if your native language is Finnish or Swedish, one in 
+% that language.
 
 % Abstract in English
-% ------------------------------------------------------------------
+% ----------------------------------------------------------------
 \thesisabstract{english}{
 \fixme{Abstract text here.} 
-% Fixme is a command that helps you identify parts of your thesis that still
-% require some work. When compiled in the custom \texttt{mydraft} mode, text
-% parts tagged with fixmes are shown in bold and with fixme tags around them. When
-% compiled in normal mode, the fixme-tagged text is shown normally (without
-% special formatting). The draft mode also causes the ``Draft'' text to appear on
-% the front page, alongside with the document compilation date. The custom
-% \texttt{mydraft} mode is selected by the \texttt{mydraft} option given for the
-% package \texttt{aalto-thesis}, near the top of the \texttt{thesis-example.tex}
-% file.
+% Fixme is a command that helps you identify parts of your thesis 
+% that still require some work. When compiled in the custom 
+% \texttt{mydraft} mode, text parts tagged with fixmes are shown 
+% in bold and with fixme tags around them. When compiled in 
+% normal mode, the fixme-tagged text is shown normally (without
+% special formatting). The draft mode also causes the ``Draft'' 
+% text to appear on the front page, alongside with the document 
+% compilation date. The custom \texttt{mydraft} mode is selected 
+% by the \texttt{mydraft} option given for the package 
+% \texttt{aalto-thesis}, near the top of the 
+% \texttt{thesis-example.tex} file.
 }
 
 % Abstract in Finnish
-% ------------------------------------------------------------------
+% ----------------------------------------------------------------
 % E: Package babel Error: You haven't defined... ??
 % S: sudo dnf install -y texlive-babel-finnish
 % E: Package babel Warning: No hyphenation patterns were 
 %    preloaded for the language `Finnish' into the format.
-% S: Ei vielä näillä korjaantunut. Tästä voi jatkaa.
+% S: Ei viela nailla korjaantunut. Tasta voi jatkaa.
 %    sudo dnf install -y texlive-hyphen-finnish
 %    sudo texhash
 %    sudo fmtutil-sys --refresh
 %    sudo fmtutil -sys --all
 %    sudo fmtutil -sys --listcfg
 \thesisabstract{finnish}{
-Suomekielinen tiivistelmä
+Suomekielinen tiivistelmÃ¤
 }
 
+
 % Abstract in Swedish
-% ------------------------------------------------------------------
+% ----------------------------------------------------------------
 \thesisabstract{swedish}{
-Svensk text här.
+Svensk text hÃ¤r.
 }
 
 
 % Acknowledgements
-% ------------------------------------------------------------------
+% ----------------------------------------------------------------
 % Select the language you use in your acknowledgements
 \selectlanguage{english}
 
@@ -468,7 +479,7 @@ Thank you...
 \noindent\AUTHOR
 
 % Acronyms
-% ------------------------------------------------------------------
+% ----------------------------------------------------------------
 % Use \cleardoublepage so that IF two-sided printing is used 
 % (which is not often for masters theses), then the pages will still
 % start correctly on the right-hand side.
@@ -477,7 +488,7 @@ Thank you...
 \input{acronyms}
 
 % Table of contents
-% ------------------------------------------------------------------
+% ----------------------------------------------------------------
 \cleardoublepage
 % This command adds a PDF bookmark that links to the contents.
 % You can use \addcontentsline{} as well, but that also adds contents
