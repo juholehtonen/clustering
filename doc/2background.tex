@@ -30,86 +30,131 @@
 In this chapter we briefly introduce clustering and how it is 
 positioned in the larger field of machine learning. But first we
 describe what bibliometrics is.
+% Taman esittelyjarjestyksen voi vaihtaa myohemmin
 
 \section{Bibliometrics}
 \label{sec:bibliometrics}
-
+% Mita bibliometriikka on?
+% Valmis --->-v
 Bibliometrics is a study of written scientific records. The 
 records may be books, articles, letters in scientific journals, 
 conference papers and so on. Bibliometrics studies how these 
 products of research are communicated, how are they related to 
 each other, what kind of properties they have and what can be 
-learned about the science in general by analysing these written 
-scientific artifacts.
+learned about the science in general by analysing them.
 
-% Tama on kompelosti ilmaistu, korjaa
-These reserch products and relations between them form a 
-network that can reveal something about the structure of 
-different scientific disciplines. Finding the structure of this 
-kind of data set is called classification or clustering.
+% Mihin bibliometriikka pyrkii vastaamaan?
+Bibliometrics seeks to answer questions like ``Which research area
+does this publication belong to?'', ``What other publications 
+belong to this research area?'', ``When has this research area
+emerged?'', ``What are the most importatant related research areas
+of this discipline?'' an so on.
 
-\fixme{Nykyiset bibliometriikan kayttamat menetelmat 
-kehittyneempia yhdistetty verkkoanalyysia ja klusterointia.}
+% Background/history
+% ==================
+% Mika bibliometriikan historia on?
+% OK --->-v
+Classifying things is often the first thing we do when we observe 
+the world. On the other hand counting the frequenzies of objects
+and comparing these numbers often helps to put things in 
+perspective.
+% Tahan voisi laittaa sidontaa todennakoisyyslaskennalla tjsp.
+One of the earliest studies that is genereally considered
+bibliometrics was Cole's and Eales' analysis to the anatomy 
+literature in 1917 \cite{cole_history_1917}
+\cite{bellis_bibliometrics_2009}. In this study they... \fixme{
+Is this relevant? As an example of purposes of bibliometrics?}
+As the amount of scientific publications has enormously increased
+the need to automatically analyze them has become apparent.
+The basic analysis on top of which more detailed studies can be 
+built on is classifying each publication to research areas and
+disciplines.
+% The need for some kind of bibliometric indices rise in the 
+% First modern(?) classification was... by... some 
+% indexing/publishing/to facilitate communication...
+% At some point more and more automation was needed for bibliomterics
+% There has been lot of study in automatically classificating the 
+% science. 
+
 
 \subsection{Classification in bibliometrics}
 % Specific charasteristics of classifying the bibliometrics
-Classification in bibliometrics can be used to research the 
-different fields of science and their development.
-% Background/history
-% ==================
-
-\fixme{When bibliometric started?}
-There has been lot of study in automatically classificating the 
-science. 
-%Classifying things is the first thing to do when trying to 
-%understand the world. \cite{} 
-%First classifications were made when humans wanted to name 
-%entities of the world.
-% were made by romans/greeks/sumerians... 
-% The whole field of science was comprehended differently then.
-The need for some kind of bibliometric indices rise in the 
-First modern(?) classification was... by... some 
-indexing/publishing/to facilitate communication...
-
-% Existing classification systems
-% ===============================
-Currently the most popular classification system is the Thomson 
-Reuter's Web of Science classification. This classification 
-system classifies the journals into one or more research areas. 
-\cite{waltman_new_2012} 
-% It is also manually curated by the publisher. \fixme{Is it? How 
-% does it work?}
+% Miten bibliometriikkaa voidaan jasentaa / mista se koostuu?
+% Existing classification systems / methods
+% =========================================
+Currently, the most popular systems to classify the publications 
+into research areas are the Thomson 
+Reuter's Web of Science and Elsevier's Scopus classification
+systems. These classification systems classifies the journals into
+one or more research areas. \cite{waltman_new_2012} Publications
+are then classified to research ares based on which journal they
+were published. \fixme{It is not known how these classifications 
+are made exactly?}
 Also an independent journal level classification system has been 
 developed. \cite{archambault_towards_2011}
+Journal level classification system have known limitations.
+They are for example unable to meaningfully classify publications 
+published in multidiscipline journals. 
 Also some discipline specific classification systems exists such 
 as (check them...).
+An alternative classification system is publication level 
+classification where each publication is classified based on some 
+information extracted directly from the publication self such as
+words used in the title and/or abstract, keywords attached by the
+author(s) or publisher or citations to other publications.
+Shu et al. have compared journal and paper level classification
+approaches and found that publication level classification could
+provide better classification \cite{shu_comparing_2019}.
+% Usually classification of publications or journals can be approached 
+% at least from multiple directions. There is clustering based method,
+% the network based method and the combination of the two.
+% In the network method
 
-% Methods used in bibliometrics
-% ===============================
-Previously mentioned classification systems are often used as a 
-basis and reference in bibliometric research. When 
-researching new classification systems bibliometric research 
+Bibliometric research 
 uses mainly three types of methods; citation based, text analysis 
 based or combination of the two \cite{janssens_hybrid_2009}.
-Citation based methods study citations of publications and 
-networks that forms when publications are connected by a 
-citation. Connection between two publications can be 
+Citation based methods study citations of publications and produce
+networks publications as nodes connected by citation as edges.
+Connection between two publications can be 
 formed by a direct citation, bibliometric coupling where 
-publications are connected when a thrid publication cites them 
-both or co-citations where poblications are connected if they 
+publications are connected when a third publication cites them 
+both or co-citations where publications are connected if they 
 cite the same third publication.
+
 Text analysis based methods examine the title, the abstract or 
 the whole text content of the publication itself and classifies 
 the publications or journals by the topic model created 
 \cite{blei_latent_2003}.
 Hybrid models combine both approaches.
 
+% Tama on kompelosti ilmaistu, korjaa
+% Verkkoanalyysin nakokulma
+% These research products and relations between them form a 
+% network that can reveal something about the structure of 
+% different scientific disciplines. Finding the structure of this 
+% kind of data set is called classification or clustering.
+
+
+% Previous results using clustering bibliometrics
+% ===============================================
+% Kirjoitettu yllä olevaan
+
+
 % Situation in Finland
+Efforts to cluster Finnish research include a study by Korenius 
+et al. analysing different hierarchical clustering methods but
+applied to search query results \cite{korenius_hierarchical_2006}.
+Suominen and Toivanen have researched clustering the Finnish
+publications from years 1995-2011 using LDA... \cite{suominen_map_2016}
+
 
 \section{Clustering}
-\fixme{Alkuun koneoppimisesta, ohjaamatonta ja ohjattua. Eri 
-ohjaamattomat menetelmat. Milla kaikille aloilla klusterointia 
-voi kayttaa.}
+Classifying objects is a common task belonging to wider topic of 
+machine learning. Methods can be divided to supervised and 
+unsupervised. Supervised methods require the labels for the training
+set. Unsupervised methods don't need any known labels for the data.
+Unsupervised methods like clustering try to separate unrelated objects
+into separate clusters and collect related objects into same cluster.
 
 \fixme{Ero verkkoanalyysiin: lyhyesti}
 
