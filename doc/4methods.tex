@@ -5,36 +5,68 @@ clustering. We follow the logical order the methods are applied on
 the data.
 
 \section{Publication metadata}
-The data consits of X records of Web of Science publication 
-metadata from year Y.
+The data consits of X records of Clarivative Analytics' 
+(formerly Thomson Reuters) Web of Science publication metadata 
+from year Y.
+
 
 \section{Analyzing textual data}
 Our data here consists of short metadata records describing the 
-publications. Basically the descriptions are natural English 
-language. When analyzing this kind of textual data the often used
-methods involve some kind of counting. We count for example which
+publications. An example of a shortened record:
+\begin{verbatim}
+ Lehti: ACTA OPHTHALMOLOGICA SCANDINAVICA
+ ISSN: 1395-3907
+ Ala: OPHTHALMOLOGY
+ Ilmestymisvuosi:   1999
+ Otsikko: Assessment of diabetic retinopathy using two-field 60 
+ degrees fundus photography. A comparison between[...]
+ Avainsana (KeywordPlus):  OPHTHALMOSCOPY
+ Avainsana (KeywordPlus):  KAPPA
+ [...]
+ Avainsana (tekijät):  diabetic retinopathy
+ Avainsana (tekijät):  diabetic maculopathy
+ [...]
+ Lähde: 0010603696 /  *DIAB CONTR COMPL /  NEW ENGL J MED /  977 
+ /  329 /  1993
+ Lähde: 0034118371 /  *DIAB CONTR COMPL /  ARCH OPHTHALMOL-CHI /  
+ 1344 /  105 /  1987
+ Lähde: 0075276068 /  *DRS RES GROUP /  OPHTHALMOLOGY /  82 /  85 
+ /  1978
+ [..]
+ * 
+\end{verbatim}
+Basically the descriptions are natural English 
+language appended with the citation references. When analyzing 
+this kind of textual data the often used methods involve some 
+kind of counting. We count for example which
 are the most used words, which words appear together and so on.
 
 We can count n-grams.
 \subsection{Preprocessing}
+\fixme{Explain stop words etc.}
 \subsection{Lemmatizing}
 
 \subsection{Different distributions of different metadata fields}
 \subsubsection{Keyword distribution}
 \subsubsection{Citation distribution}
+\fixme{Pitikö tämä aliluku jättää pois?}
 - Normalization of citation weight between different disciplines.
   Different fields of science have different citation practices 
 eg. regarding the number of references per publication. 
 \cite{waltman_new_2012}
 
 
-\section{SVD}
-\label{sec:svd}
+\section{Dimensionality reduction}
+\label{sec:dimensionalityreduction}
 There are multiple ways to use input metadata of the publications; 
 put all text in one bin and use text analysis methods to that. 
 Alternatively we could assume different distribution for each 
 metadata field \fixme{describe metadata before this} and treat them
 separately.
+\subsection{Singular value decomposition}
+Singular value decomposition (SVD) is a common method to reduce 
+the dimensionality of data. 
+\fixme{Vertaa/havainnollista miten eroaa PCA:sta}
 
 \section{Agglomerative clustering}
 \label{sec:agglomerativeclustering}

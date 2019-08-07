@@ -44,11 +44,14 @@ each other, what kind of properties they have and what can be
 learned about the science in general by analysing them.
 
 % Mihin bibliometriikka pyrkii vastaamaan?
-Bibliometrics seeks to answer questions like ``Which research area
+Bibliometrics seeks to answer questions like ``How many 
+publications have an author authored?'', ``What are the referred 
+publications of a document?'', ``Which research area
 does this publication belong to?'', ``What other publications 
 belong to this research area?'', ``When has this research area
 emerged?'', ``What are the most importatant related research areas
-of this discipline?'' an so on.
+of this discipline?'' an so on. \fixme{Lisää yksinkertaisempia 
+kysymyksiä}
 
 % Background/history
 % ==================
@@ -59,11 +62,16 @@ the world. On the other hand counting the frequenzies of objects
 and comparing these numbers often helps to put things in 
 perspective.
 % Tahan voisi laittaa sidontaa todennakoisyyslaskennalla tjsp.
-One of the earliest studies that is genereally considered
+One of the earliest studies that is generally considered
 bibliometrics was Cole's and Eales' analysis to the anatomy 
-literature in 1917 \cite{cole_history_1917}
-\cite{bellis_bibliometrics_2009}. In this study they... \fixme{
-Is this relevant? As an example of purposes of bibliometrics?}
+literature in 1917 \cite{cole_history_1917}. In this study they 
+researched the anatomy literature from 1543 through 1860 with the 
+intention to graph the growth of of the number of documents over 
+the three centuries, to present ``the performance'' of each 
+European country, to observe the most popular topics among 
+scholars from time to time, and to compare the advancement and 
+devolution stages of the research with different societal 
+events \cite{bellis_bibliometrics_2009}.
 As the amount of scientific publications has enormously increased
 the need to automatically analyze them has become apparent.
 The basic analysis on top of which more detailed studies can be 
@@ -89,7 +97,8 @@ systems. These classification systems classifies the journals into
 one or more research areas. \cite{waltman_new_2012} Publications
 are then classified to research ares based on which journal they
 were published. \fixme{It is not known how these classifications 
-are made exactly?}
+are made exactly? Selvitä miten WOS ja Scopus luokittelut 
+muodostetaan.}
 Also an independent journal level classification system has been 
 developed. \cite{archambault_towards_2011}
 Journal level classification system have known limitations.
@@ -101,7 +110,7 @@ An alternative classification system is publication level
 classification where each publication is classified based on some 
 information extracted directly from the publication self such as
 words used in the title and/or abstract, keywords attached by the
-author(s) or publisher or citations to other publications.
+authors or publisher or citations to other publications.
 Shu et al. have compared journal and paper level classification
 approaches and found that publication level classification could
 provide better classification \cite{shu_comparing_2019}.
@@ -110,6 +119,7 @@ provide better classification \cite{shu_comparing_2019}.
 % the network based method and the combination of the two.
 % In the network method
 
+% ACM:n luokittelujärjestelmä esimerkkinä?
 Bibliometric research 
 uses mainly three types of methods; citation based, text analysis 
 based or combination of the two \cite{janssens_hybrid_2009}.
@@ -140,12 +150,25 @@ Hybrid models combine both approaches.
 % Kirjoitettu yllä olevaan
 
 
-% Situation in Finland
+\subsection{Bilbliometrics in Finland}
+Ministry of Education and Culture of Finland provides yearly 
+updated bibliometric analyses of Finnish research activities 
+based on both Clarivative Analytics' Web Of Science citation 
+index \cite[Vipunen service]{noauthor_ministry_2019} 
+and Elsevier's Scopus database \cite[Vipunen 
+service]{noauthor_ministry_2019-1}. The corresponding source 
+system classification for field of science is used and 
+aggregated to match the Statistics Finland classification. CSC - 
+IT Center for Science provides the actual technical implementation 
+of the service. \fixme{Pitää ehkä tarkentaa vielä, kysy YL:ltä}
+
 Efforts to cluster Finnish research include a study by Korenius 
 et al. analysing different hierarchical clustering methods but
 applied to search query results \cite{korenius_hierarchical_2006}.
 Suominen and Toivanen have researched clustering the Finnish
-publications from years 1995-2011 using LDA... \cite{suominen_map_2016}
+publications from years 1995-2011 using LDA... 
+\cite{suominen_map_2016} \fixme{Selvennä että tämä ``kokeilevaa 
+b. analyysia''}
 
 
 \section{Clustering}
@@ -160,6 +183,11 @@ into separate clusters and collect related objects into same cluster.
 
 
 \subsection{Choosing the number of clusters}
+\fixme{Yleisellä tasolla: "tämän tyyppisiä menetelmiä on 
+olemassa", "ne soveltuvat tähän ja tähän käyttötarkoitukseen". 
+Helppo löytää ja käyttää viitteitä; esim. käytetty siinä ja siinä, 
+meta- ja review-tutkimukset}
+
 For K-means the choosing the number of clusters must be done before
 the clustering. This is an unsolved problem. \fixme{citation}
 Usually the 
@@ -181,11 +209,14 @@ criterion for deciding the number clusters \fixme{citation}.
 % Gold standard set. Actually a gold standard set would be a set
 % of all data sets with abstract excluding sets that don't have it.
 We will create a manually annotated validation set for calculating
-precision, recall and metrics derived from those. The validation
+precision, recall and metrics derived from those.
+% määrittele peruskäsitteet kuten precision ja recall
+The validation
 set consists of $500$ publications from three different fields of
 science, two more similar sub fields of computer science, 
 information systems and artifical intelligence, and one more
-distant from those, clinical neurology.
+distant from those, clinical neurology. \fixme{Kerro miten oma 
+käsinryhmitelty aineisto muodostettu.}
 
 Publications are inspected by title, abstract, keywords, journal
 and publisher assinged disciplines of the journal. Publications
