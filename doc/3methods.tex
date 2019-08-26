@@ -9,8 +9,6 @@ The data consits of X records of Clarivative Analytics'
 (formerly Thomson Reuters) Web of Science publication metadata 
 from year Y.
 
-
-\section{Analyzing textual data}
 Our data here consists of short metadata records describing the 
 publications. An example of a shortened record:
 \begin{verbatim}
@@ -33,18 +31,43 @@ publications. An example of a shortened record:
  Lähde: 0075276068 /  *DRS RES GROUP /  OPHTHALMOLOGY /  82 /  85 
  /  1978
  [..]
- * 
 \end{verbatim}
+
+\section{Analyzing textual data}
 Basically the descriptions are natural English 
 language appended with the citation references. When analyzing 
 this kind of textual data the often used methods involve some 
 kind of counting. We count for example which
 are the most used words, which words appear together and so on.
+% We can count n-grams.
+This is called text analysis. One of the main principles was made 
+popular by George Kingsley Zipf. He stated that the frequency of 
+a word in any corpus is approximately inversely proportional to 
+its rank. \fixme{This needs clarification/pruning}
 
-We can count n-grams.
+Next we will describe the steps needed to prepocess the raw data
+so that it can be analysed.
 \subsection{Preprocessing}
 \fixme{Explain stop words etc.}
+We start by parsing the different metadata fields from the raw 
+text records to a structured objects by recognizing the titles of 
+the fields and related field descriptions.
+% After parsing data is written to interim files.
+The preprocessing for text analysis usually also 
+includes the removing of \emph{the stop words} from data. Stop 
+words are the most frequent words in the data like: \emph{``the, 
+of, and, where etc.''} Because these words are present in any text 
+they don't probably tell anything specific about the data, that is 
+about the scientific field of the data. \cite{ref_here}
 \subsection{Lemmatizing}
+Another important preprocessing task is to lemmatize the data. 
+This means replacing each inflectional form of a word with its 
+nominative form. This is done to reduce the number of possible 
+features with multiple inflicted form of a word. [...] 
+\cite{ref_here}. This is normally done against a dictionary. The 
+same lemmatizing should also be done to the stop words before they 
+are removed.
+
 
 \subsection{Different distributions of different metadata fields}
 \subsubsection{Keyword distribution}
