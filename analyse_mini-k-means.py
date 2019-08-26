@@ -67,7 +67,7 @@ from sklearn import metrics
 
 from sklearn.cluster import KMeans, MiniBatchKMeans
 
-import cPickle
+import pickle
 import logging
 from nltk.corpus import stopwords
 from optparse import OptionParser
@@ -141,8 +141,8 @@ logging.info('#' * 24 + ' Starting... ' + '#' *24)
 # #############################################################################
 # Load data from the previous step
 logging.info("Loading prepocessed data")
-with open('../data/{0}-preprocessed.txt'.format(opts.size), 'r') as handle:
-  data = cPickle.load(handle)
+with open('../data/{0}-preprocessed.pickle'.format(opts.size), 'rb') as handle:
+  data = pickle.load(handle)
 
 #labels = dataset.target
 #true_k = np.unique(labels).shape[0]
@@ -228,8 +228,8 @@ logging.info("done in %0.3fs" % (time() - t0))
 logging.info("Silhouette Coefficient: %0.3f"
       % metrics.silhouette_score(X, km.labels_, sample_size=1000))
 X_to_CH = X if opts.n_components else X.toarray()
-logging.info("Calinski-Harabaz Index: %0.3f"
-      % metrics.calinski_harabaz_score(X_to_CH, km.labels_))
+logging.info("Calinski-Harabasz Index: %0.3f"
+      % metrics.calinski_harabasz_score(X_to_CH, km.labels_))
 
 
 if not opts.use_hashing:

@@ -92,7 +92,7 @@ def plot_silhouette(X, labels, n_clusters, method):
     if method == 'K-Means':
         try:
             X = X.todense()
-        except Exception, e:
+        except Exception as e:
             return False
 
     fig, ax1 = plt.subplots()
@@ -124,7 +124,7 @@ def plot_silhouette(X, labels, n_clusters, method):
         size_cluster_i = ith_cluster_silhouette_values.shape[0]
         y_upper = y_lower + size_cluster_i
 
-        color = cm.spectral(float(i) / n_clusters)
+        color = cm.nipy_spectral(float(i) / n_clusters)
         ax1.fill_betweenx(np.arange(y_lower, y_upper), 0, ith_cluster_silhouette_values, facecolor=color,
                           edgecolor=color, alpha=0.7)
 

@@ -4,7 +4,7 @@
 #
 # Usage: python preprocessing.py <label>
 ##################################################################
-import cPickle
+import pickle
 import pprint
 import re
 import sys
@@ -81,7 +81,7 @@ def dataset(batch_size):
 
             m = re.match(abstract_line, line)
             if m and 'abstract' in used_fields:
-                current['abstract'] = f.next()
+                current['abstract'] = f.readline()
                 continue
 
             m = re.match(keyword_publisher_line, line)
@@ -126,7 +126,7 @@ def dataset(batch_size):
 
 print("Prepocessing data with fields: {0}".format(used_fields))
 data = dataset(batch_size=b_size)
-with open('../data/{0}-preprocessed.pickle'.format(str(b_size)), 'w') as handle:
-    cPickle.dump(data, handle)
+with open('../data/{0}-preprocessed.pickle'.format(str(b_size)), 'wb') as handle:
+    pickle.dump(data, handle)
 with open('../data/preprocessed-preview.txt', 'w') as handle:
     handle.write(pprint.pformat(data[:5]))

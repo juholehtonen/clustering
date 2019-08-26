@@ -18,7 +18,7 @@ from sklearn import metrics
 
 from sklearn.cluster import AgglomerativeClustering
 
-import cPickle
+import pickle
 import logging
 from nltk.corpus import stopwords
 import numpy as np
@@ -97,8 +97,8 @@ logging.info('#' * 24 + ' Starting... ' + '#' *24)
 # #############################################################################
 # Load data from the previous step
 logging.info("Loading prepocessed data")
-with open(opts.file, 'r') as handle:
-  data = cPickle.load(handle)
+with open(opts.inputfile, 'rb') as handle:
+  data = pickle.load(handle)
 
 
 #labels = dataset.target
@@ -177,8 +177,8 @@ t0 = time()
 logging.info("Silhouette Coefficient: %0.3f"
       % metrics.silhouette_score(X, ward.labels_, sample_size=1000))
 
-logging.info("Calinski-Harabaz Index: %0.3f"
-      % metrics.calinski_harabaz_score(X, ward.labels_))
+logging.info("Calinski-Harabasz Index: %0.3f"
+      % metrics.calinski_harabasz_score(X, ward.labels_))
 logging.info("Metrics calculated in %fs" % (time() - t0))
 
 if not opts.use_hashing:

@@ -1,2 +1,5 @@
 doit >= 0.31.0
-
+sklearn
+nltk
+matplotlib
+pandas
