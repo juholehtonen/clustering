@@ -30,8 +30,7 @@ publications. An example of a shortened record:
  1344 /  105 /  1987
  Lähde: 0075276068 /  *DRS RES GROUP /  OPHTHALMOLOGY /  82 /  85 
  /  1978
- [..]
-\end{verbatim}
+ \end{verbatim}
 
 \section{Analyzing textual data}
 Basically the descriptions are natural English 
@@ -57,22 +56,33 @@ The preprocessing for text analysis usually also
 includes the removing of \emph{the stop words} from data. Stop 
 words are the most frequent words in the data like: \emph{``the, 
 of, and, where etc.''} Because these words are present in any text 
-they don't probably tell anything specific about the data, that is 
-about the scientific field of the data. \cite{ref_here}
+they probably don't tell much about the topics these records that 
+is about the scientific field of the data. \cite{ref_here}
 \subsection{Lemmatizing}
-Another important preprocessing task is to lemmatize the data. 
-This means replacing each inflectional form of a word with its 
-nominative form. This is done to reduce the number of possible 
-features with multiple inflicted form of a word. [...] 
-\cite{ref_here}. This is normally done against a dictionary. The 
-same lemmatizing should also be done to the stop words before they 
-are removed.
+After removing stop words the next step is to unify the 
+differrent written forms a concept. We might have eg. ``visual'' 
+and ``visually'' or ``dog'' and ``dogs'' and we want them as 
+``visual'' and ``dog'' only.
+There are two possible options to achieve this. 
+\emph{Lemmatizing} means replacing each inflectional form of a 
+word with its nominative form. This is done to reduce the number 
+of possible features with multiple inflicted form of a word. 
+[...] \cite{ref_here}. This is normally done against a dictionary. 
+The same lemmatizing should also be done to the stop words before 
+they are removed.
+
+\emph{Stemming} means stripping the word of its termination such 
+that only the stem of the word is retained. 
 
 
 \subsection{Different distributions of different metadata fields}
+\fixme{Pitikö tämä aliluku jättää pois?} There are multiple ways 
+to use input metadata of the publications; put all text in one 
+bin and use text analysis methods on that. Alternatively we could 
+assume different distribution for each metadata field 
+\fixme{describe metadata before this} and treat them separately.
 \subsubsection{Keyword distribution}
 \subsubsection{Citation distribution}
-\fixme{Pitikö tämä aliluku jättää pois?}
 - Normalization of citation weight between different disciplines.
   Different fields of science have different citation practices 
 eg. regarding the number of references per publication. 
@@ -81,11 +91,8 @@ eg. regarding the number of references per publication.
 
 \section{Dimensionality reduction}
 \label{sec:dimensionalityreduction}
-There are multiple ways to use input metadata of the publications; 
-put all text in one bin and use text analysis methods to that. 
-Alternatively we could assume different distribution for each 
-metadata field \fixme{describe metadata before this} and treat them
-separately.
+
+
 \subsection{Singular value decomposition}
 Singular value decomposition (SVD) is a common method to reduce 
 the dimensionality of data. 
