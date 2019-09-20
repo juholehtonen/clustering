@@ -18,6 +18,8 @@ measure for the resulting clustering. These kind of measures
 basically try to infer how dense the clusters are compared with how 
 sparse the inter-cluster space is and how well the clusters are 
 separated from each other.
+
+\section{Silhouettes}
 One such measure to estimate the ``goodness'' of a clustering is 
 silhouettes. Silhouettes use average proximities which are know 
 to work best with clear, compact and spherical clusters 
@@ -48,6 +50,8 @@ When evaluating the results, Silhouette Coefficient might not be
 the best option. Find out why. V-measure or Adjusted Rand Index
 might be better options \cite{noauthor_clustering_nodate}.
 
+
+\section{``Gold standard set''}
 We could evaluate our clustering by creating an evaluation set with
 hand labeled or verified fields of science. Then we could use
 regular measurement methods that rely on having ground truth 
@@ -57,6 +61,25 @@ documents belonging to two quite similar one more different
 discipline. Based on that ground truth I will calculate precision
 and recall for a clustering.}
 
+
+\section{Precision and recall}
+Recall is the number of items correctly classified divided by the 
+total number of items in that class.
+\begin{equation}
+ Recall = \frac{|\{relevant\ items\} \cap \{retrieved\ items\}|} 
+{\{relevant\ items\}}
+\end{equation}
+Precision is the number of items correctly classified divided by 
+the total number items classified into that class (ie. true and 
+false positives).
+\begin{equation}
+ Precision = \frac{|\{relevant\ items\} \cap \{retrieved\ 
+items\}|} 
+{\{retrieved\ items\}}
+\end{equation}
+
+
+\section{Other metrics}
 Different metrics to evaluate clustering include (from 
 scikit-learn) Adjusted Rand Index, Mutual Information scrores 
 (NMI, AMI), homogenity, completness, V-measure, Fowlkes-Mallows 
