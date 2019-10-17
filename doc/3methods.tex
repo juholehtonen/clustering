@@ -31,13 +31,25 @@ publications. An example of a shortened record:
  Lähde: 0075276068 /  *DRS RES GROUP /  OPHTHALMOLOGY /  82 /  85 
  /  1978
  \end{verbatim}
+ 
+Each metadata record contains the title (``Lehti''), ISSN, the 
+field of science (``Ala'') and publcitaion year 
+(``Ilmestymisvuosi'') of the journal, the title (``Otsikko'') 
+and the abstract of the article, keywords produced by algorithm 
+of the publisher (``Avainsana (KeywordPlus)'') and the authors 
+themselves (``Avainsana (tekijät)'') and the cited references 
+(``Lähde''). \fixme{Tarkista YL:ltä että lähteet ovat nimenomaan 
+artikkelin omat. (Viitteet voivat olla metodologisia, 
+historiallisia ja siten johtaa harhaan). Toisaalta en nyt käytä 
+työssäni viitteitä (keskustelu LM:n kanssa 20.9.). Perustelu: ...}
+
 
  
 \section{Analyzing textual data}
 Basically the descriptions are natural English 
 language appended with the citation references. When analyzing 
 this kind of textual data the often used methods involve some 
-kind of counting. We count for example which
+kind of counting. We count, for example, which
 are the most used words, which words appear together and so on.
 % We can count n-grams.
 This is called text analysis. One of the main principles was made 
@@ -65,12 +77,15 @@ and ``visually'' or ``dog'' and ``dogs'' and we want them as
 redundant repetion the data and also to reduce the dimensions of 
 the feature space. [...] \cite{ref_here}
 There are two possible options to achieve this. 
+
 \emph{Lemmatizing} means replacing each inflectional form of a 
 word with its nominative form, or lemma. The context of the word 
 is used to decide the correct lemma in the case of a word with 
-multiple meanings. Nevertheless these homographic word forms can 
-be problematic and cause ambiguity. The same lemmatizing should 
-also be done to the stop words before they are removed.
+multiple meanings. \fixme{In other words, words surrounding the 
+word to be lemmatized... explain}  Nevertheless these homographic 
+word forms can be problematic and cause ambiguity. The same 
+lemmatizing should also be done to the stop words before they are 
+removed.
 
 \emph{Stemming} means stripping the word of its termination such 
 that only the stem of the word is retained. No conext is used and 
@@ -129,10 +144,10 @@ the dimensionality of data.
 \section{Agglomerative clustering}
 \label{sec:agglomerativeclustering}
 In this work we use agglomerative hierarchical clustering with 
-Ward's distance metric.\cite{ref_here} Agglomerative clustering 
-starts with each document as a cluster of its own and then 
-merges pairs of clusters together as the clustering process goes 
-on.
+Ward's distance metric.\cite{ref_here} \fixme{Miksi, 
+perustelut?} Agglomerative clustering starts with each document 
+as a cluster of its own and then merges pairs of clusters together 
+as the clustering process goes on.
 
 
 \subsection{Distance metric}

@@ -45,12 +45,13 @@ learned about the science in general by analysing them.
 
 % Mihin bibliometriikka pyrkii vastaamaan?
 Bibliometrics seeks to answer questions like ``How many 
-publications have an author authored?'', ``What are the referred 
-publications of a document?'', ``How many publications 
+publications has an author authored?'', ``What are the 
+cited publications of a scientific document?'', ``How many
+publications
 on discipline X been published a year?'', ``Which research area
 does this publication belong to?'', ``What other publications 
 belong to this research area?'', ``When has this research area
-emerged?'', ``What are the most importatant related research areas
+emerged?'', ``What are the most important related research areas
 of this discipline?'' an so on. \fixme{Lisää yksinkertaisempia 
 kysymyksiä}
 
@@ -59,7 +60,7 @@ kysymyksiä}
 % Mika bibliometriikan historia on?
 % OK --->-v
 Classifying things is often the first thing we do when we observe 
-the world. On the other hand counting the frequenzies of objects
+the world. On the other hand, counting the frequenzies of objects
 and comparing these numbers often helps to put things in 
 perspective.
 % Tahan voisi laittaa sidontaa todennakoisyyslaskennalla tjsp.
@@ -94,17 +95,17 @@ disciplines.
 Currently, the most popular systems to classify the publications 
 into research areas are the Thomson 
 Reuter's Web of Science and Elsevier's Scopus classification
-systems. These classification systems classifies the journals into
+systems. These classification systems classify the journals into
 one or more research areas. \cite{waltman_new_2012} Publications
-are then classified to research ares based on which journal they
+are then classified to research areas based on which journal they
 were published. \fixme{It is not known how these classifications 
 are made exactly? Selvitä miten WOS ja Scopus luokittelut 
 muodostetaan.}
 Also an independent journal level classification system has been 
 developed. \cite{archambault_towards_2011}
-Journal level classification system have known limitations.
-They are for example unable to meaningfully classify publications 
-published in multidiscipline journals. 
+Journal level classification systems have known limitations.
+They are, for example, unable to meaningfully classify
+publications published in multidiscipline journals.
 Also some discipline specific classification systems exists such 
 as (check them...).
 An alternative classification system is publication level 
@@ -125,7 +126,10 @@ Bibliometric research
 uses mainly three types of methods; citation based, text analysis 
 based or combination of the two \cite{janssens_hybrid_2009}.
 Citation based methods study citations of publications and produce
-networks publications as nodes connected by citation as edges.
+networks publications as nodes connected by citations as edges. In
+ the rare case of publication having a direct quote including a
+ citation, the citation is not counted unless it is also a
+ citation of the publication itself.
 Connection between two publications can be 
 formed by a direct citation, bibliometric coupling where 
 publications are connected when a third publication cites them 
@@ -136,7 +140,10 @@ Text analysis based methods examine the title, the abstract or
 the whole text content of the publication itself and classifies 
 the publications or journals by the topic model created 
 \cite{blei_latent_2003}.
-Hybrid models combine both approaches.
+Hybrid models combine both approaches. \fixme{Authors and their
+affilations are not used in this work because we cannot uniquely
+identify them and we can't assume their field of science that is
+our interest here.(?)}
 
 % Tama on kompelosti ilmaistu, korjaa
 % Verkkoanalyysin nakokulma
@@ -158,7 +165,7 @@ based on both Clarivative Analytics' Web Of Science citation
 index \cite[Vipunen service]{noauthor_ministry_2019} 
 and Elsevier's Scopus database \cite[Vipunen 
 service]{noauthor_ministry_2019-1}. The corresponding source 
-system classification for field of science is used and 
+system classification for a field of science is used and
 aggregated to match the Statistics Finland classification. CSC - 
 IT Center for Science provides the actual technical implementation 
 of the service. \fixme{Pitää ehkä tarkentaa vielä, kysy YL:ltä}
@@ -169,11 +176,18 @@ applied to search query results \cite{korenius_hierarchical_2006}.
 Suominen and Toivanen have researched clustering the Finnish
 publications from years 1995-2011 using LDA... 
 \cite{suominen_map_2016} \fixme{Selvennä että tämä ``kokeilevaa 
-b. analyysia''}
+b. analyysia''} \fixme{Mitkä olivat tulokset? Miten eroaa mun 
+työstä? Vie myös ``Discussion'' -osioon.}
+
+Our question here is: "How to automatically cluster Finnish
+scientific publications and how does that clustering compare to
+existing fiels of science classification by WOS (and Scopus?)?" We
+ will use hierarchical clustering on features derived from titles,
+  abstracts and keywords in publication metadata.
 
 
 \section{Clustering}
-Classifying objects is a common task belonging to wider field of 
+Classifying objects is a common task belonging to statistics and 
 machine learning. Methods can be divided to supervised and 
 unsupervised. Supervised methods require the labels for the training
 set. Unsupervised methods don't need any known labels for the data.
@@ -191,13 +205,15 @@ Helppo löytää ja käyttää viitteitä; esim. käytetty siinä ja siinä,
 meta- ja review-tutkimukset}
 
 For K-means the choosing the number of clusters must be done before
-the clustering. This is an unsolved problem. \fixme{citation}
+the clustering. \fixme{Selitä miten k-means liittyy tai jätä 
+pois.} This is an unsolved problem. \fixme{citation}
 Usually the 
 problem is dealt by running the algorithm with various number of 
 clusters and then measuring each by some metric. \fixme{citation}
 
 In hierarchical clustering number of clusters can be chosen after 
-the data has been clustered and the dendogram formed. 
+the data has been clustered and the dendogram \fixme{explain more}
+ formed.
 \fixme{citation} By 
 looking the dendogram and using different metrics the number of 
 clustrs can be chosen.
@@ -217,20 +233,35 @@ The validation
 set consists of $500$ publications from three different fields of
 science, two more similar sub fields of computer science, 
 information systems and artifical intelligence, and one more
-distant from those, clinical neurology. \fixme{Kerro miten oma 
-käsinryhmitelty aineisto muodostettu.}
+distant from those, clinical neurology.
 
 Publications are inspected by title, abstract, keywords, journal
-and publisher assinged disciplines of the journal. Publications
+and publisher assinged disciplines of the journal. We checked 
+just by layman's reasoning if the labeled discipline seemed 
+plausible. Because of the journal based 
+classification, most publications had more than one 
+assigned discipline. Only discipline labels named 
+previously were retained because we were wanted test 
+how well our clustering method separated these three 
+groups regardless their labels. So essentially the 
+labels could have been eg. 1, 2, 3. Publications
 with critically missing data, unclear discipline assignment and
 heavily applied publications were excluded from validation set.
 Goal was to achieve evaluation measurements based on a quite 
-clearly separated set of publications. More vaguely classificable
-publications were included for comparison. For manually curated 
-validation set with discipline assingment and justifications for
+clearly separated set of publications. More vaguely classifiable
+publications were included for comparison. We asked an another 
+opininon for publications that could have been in more 
+than one of our categories. For manually curated validation set 
+with discipline assingment and justifications for
 possible exclusion see appendix (Insert reference!).
 
-When annotating publications, deciding if a publication belonged to
+The basic problem is that fields of science can not be 
+defined so that they clearly differ from each other. Where one 
+discipline end the other has already started like metallurgy and 
+material science. Likewise, there are lots of publications that 
+handle topics belonging to more than one discipline, eg. this 
+thesis discusses clustering and bibliometrics. So when annotating 
+publications, deciding if a publication belonged to
 a discipline or not felt often quite difficult. Often the 
 separation between disciplines felt quite arbitrary. For example
 an article describing using wavelet transformation for coding noisy
@@ -247,3 +278,7 @@ telecommunications and datacommunications service platforms'',
 ``Developing a distributed meeting service to support mobile 
 meeting participants'',
 ``On voice quality of IP voice over GPRS'',
+\fixme{Perustele vain yhteen alaan luokittelu. ``Tukeudun 
+WOS-luokitteluun''.}
+\fixme{Selvennä yläluokka-alaluokka-jako: CS general vs. CS 
+information system tai CS artifical intelligence.}
