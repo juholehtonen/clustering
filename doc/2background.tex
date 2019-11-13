@@ -74,7 +74,7 @@ European country, to observe the most popular topics among
 scholars from time to time, and to compare the advancement and 
 devolution stages of the research with different societal 
 events \cite{bellis_bibliometrics_2009}.
-As the amount of scientific publications has enormously increased
+As the number of scientific publications has enormously increased
 the need to automatically analyze them has become apparent.
 The basic analysis on top of which more detailed studies can be 
 built on is classifying each publication to research areas and
@@ -126,7 +126,8 @@ Bibliometric research
 uses mainly three types of methods; citation based, text analysis 
 based or combination of the two \cite{janssens_hybrid_2009}.
 Citation based methods study citations of publications and produce
-networks publications as nodes connected by citations as edges. In
+networks where publications are nodes connected by citations as 
+edges. In
  the rare case of publication having a direct quote including a
  citation, the citation is not counted unless it is also a
  citation of the publication itself.
@@ -137,13 +138,13 @@ both or co-citations where publications are connected if they
 cite the same third publication.
 
 Text analysis based methods examine the title, the abstract or 
-the whole text content of the publication itself and classifies 
+the whole text content of the publication itself and classify 
 the publications or journals by the topic model created 
 \cite{blei_latent_2003}.
-Hybrid models combine both approaches. \fixme{Authors and their
+Hybrid models combine both approaches. Authors and their
 affilations are not used in this work because we cannot uniquely
 identify them and we can't assume their field of science that is
-our interest here.(?)}
+our interest here.
 
 % Tama on kompelosti ilmaistu, korjaa
 % Verkkoanalyysin nakokulma
@@ -158,7 +159,7 @@ our interest here.(?)}
 % Kirjoitettu yllä olevaan
 
 
-\subsection{Bilbliometrics in Finland}
+\subsection{Bibliometrics in Finland}
 Ministry of Education and Culture of Finland provides yearly 
 updated bibliometric analyses of Finnish research activities 
 based on both Clarivative Analytics' Web Of Science citation 
@@ -179,7 +180,8 @@ publications from years 1995-2011 using LDA...
 b. analyysia''} \fixme{Mitkä olivat tulokset? Miten eroaa mun 
 työstä? Vie myös ``Discussion'' -osioon.}
 
-Our question here is: "How to automatically cluster Finnish
+Our research question here is: "How to automatically cluster 
+Finnish
 scientific publications and how does that clustering compare to
 existing fiels of science classification by WOS (and Scopus?)?" We
  will use hierarchical clustering on features derived from titles,
@@ -215,13 +217,45 @@ In hierarchical clustering number of clusters can be chosen after
 the data has been clustered and the dendogram \fixme{explain more}
  formed.
 \fixme{citation} By 
-looking the dendogram and using different metrics the number of 
-clustrs can be chosen.
+looking the dendrogram and using different metrics the number of 
+clusters can be chosen.
 
 
 \subsection{Evaluating of clustering results}
-Calinski \& Harabazt criterion can be used as an evaluation 
-criterion for deciding the number clusters \fixme{citation}. 
+We will use Calinski \& Harabazt criterion (or the variance ratio 
+criterion (VRC)) as an evaluation criterion for 
+deciding the number clusters \cite{calinski_dendrite_1974}. It 
+is defined as
+\begin{equation}
+ VRC_k = \frac{SS_B}{N-k} \frac{SS_W}{k-1},
+\end{equation}
+where $SS_B$ is the overall variance between clusters, $SS_W$ is 
+the over variance within clusters, $k$ is the number of clusters 
+and $N$ is the number of observations.
+
+The overall variance between clusters $SS_B$ is defined as
+\begin{equation}
+ SS_B = \sum_{i=1}^k n_i ||m_i-m||^2,
+\end{equation}
+where $k$ is the number of clusters, $n_i$ is the number of 
+observations in cluster $i$, $m_i$ is centroid of cluster $i$, 
+$m$ is the overall mean of the sample data and $||m_i-m||$ is the 
+Euclidean distance between the two vectors.
+
+The overall variance within clusters $SS_W$ is defined as
+\begin{equation}
+ SS_W = \sum_{i=1}^k \sum_{x\in c_i} ||x-m_i||^2,
+\end{equation}
+where $k$ is the number of clusters, $x$ is the oservation, 
+$c_i$ is the $i$th cluster, $m_i$ is centroid of cluster $i$, and 
+$||x-m_i||$ is the Euclidean distance between the two vectors.
+The larger the Calinski \& Harabazt criterion, the better the 
+cluster structure.
+\fixme{Tämä suoraan: 
+https://www.mathworks.com/help/stats/clustering.evaluation.calinsk
+iharabaszevaluation-class.html pitäisikö kertoa ``omin sanoin''?}
+
+
 
 \subsubsection{Manually annotated validation set}
 % Gold standard set. Actually a gold standard set would be a set
