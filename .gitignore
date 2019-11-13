@@ -8,4 +8,5 @@ doc/*.pdf
 doc/*.toc
 *.pyc
 *.txt~
-
+.doit.*
+.directory
