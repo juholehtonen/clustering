@@ -8,15 +8,13 @@ from time import time
 import cPickle
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
 
 from sklearn.cluster import KMeans
 from sklearn.decomposition import TruncatedSVD
-from sklearn.feature_extraction.text import (CountVectorizer,
-                                             TfidfVectorizer)
+from sklearn.feature_extraction.text import (CountVectorizer)
 from sklearn.pipeline import Pipeline
 
-from clustering.utils import GeneralExtractor
+from clustering.src.utils import GeneralExtractor
 
 # Read the label for a run.
 # label = sys.argv[1]

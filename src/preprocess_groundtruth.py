@@ -1,15 +1,15 @@
 # encoding: utf-8
 ##################################################################
-# Step 1: Preprocess data
+# Step 1: Preprocess data for hand picked disciplines
 #
 # Usage: python preprocessing.py <label>
 ##################################################################
-import pickle
+import cPickle
 import pprint
 import re
 import sys
 
-filename = '../data/SuomiRyväsData2000'
+filename = '../data/raw/SuomiRyväsData2000'
 
 opening_line = r'[ ]{,11}\d{,12} (?P<identifier>\d{15})'  # Note here is re.match(opening_line).group('identifier')
 journal_line = r'Lehti:\s*(.*)\s*'
@@ -27,7 +27,9 @@ term_rep = '_'
 ref_sep = r'(\d+) /.*'
 ref_rep = '\\1'
 ref_clean = r',*\/*\s+(\/*\s*)*'
-
+discipline_1 = 'COMPUTER_SCIENCE_ARTIFICIAL_INTELLIGENCE'
+discipline_2 = 'COMPUTER_SCIENCE_INFORMATION_SYSTEMS'
+discipline_9 = 'CLINICAL_NEUROLOGY'
 
 # Read the parameters for a run.
 b_size = int(sys.argv[1])
@@ -81,7 +83,7 @@ def dataset(batch_size):
 
             m = re.match(abstract_line, line)
             if m and 'abstract' in used_fields:
-                current['abstract'] = f.readline()
+                current['abstract'] = f.next()
                 continue
 
             m = re.match(keyword_publisher_line, line)
@@ -117,16 +119,26 @@ def dataset(batch_size):
 
             m = re.match(closing_line, line)
             if m:
-                datasets.append(current.copy())
+                # print('discipline: {0}'.format(current.get('discipline')))
+                if current.get('discipline') \
+                        and (discipline_1 in current['discipline']
+                             or discipline_2 in current['discipline']
+                             or discipline_9 in current['discipline']):
+                    datasets.append(current.copy())
                 current = {}
                 k += 1
             if k >= batch_size:
                 break
     return datasets
 
-print("Prepocessing data with fields: {0}".format(used_fields))
+# print("Prepocessing data with fields: {0}".format(used_fields))
 data = dataset(batch_size=b_size)
-with open('../data/{0}-preprocessed.pickle'.format(str(b_size)), 'wb') as handle:
-    pickle.dump(data, handle)
-with open('../data/preprocessed-preview.txt', 'w') as handle:
-    handle.write(pprint.pformat(data[:5]))
+with open('../data/interim/ground_truth-preproc_CS-AI-IS_CN'
+          '.pickle', 'w') as handle:
+    cPickle.dump(data, handle)
+with open('../data/interim/ground_truth-preproc_CS-AI-IS_CN.txt', 'w') as handle:
+    for (i, d) in enumerate(data, start=1):
+        for field in ['title', 'abstract', 'keyword', 'keyword_publisher', 'journal', 'discipline']:
+            if d.get(field):
+                handle.write('{0}  {1}:'.format(i, field) + d[field] + '\n')
+        handle.write('\n\n')

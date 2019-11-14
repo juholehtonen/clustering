@@ -10,3 +10,4 @@ doc/*.toc
 *.txt~
 .doit.*
 .directory
+img/*

@@ -27,8 +27,8 @@ n_feat = n_features[0]
 results_tmpl = '{size}-{k}-{ncomp}-{algorithm}-results.txt'
 preprocess_tmpl = '{size}-preprocessed.pickle'
 preprocess_view = '{size}-preprocessed.txt'
-preprocess_file = '../data/{0}-preprocessed.pickle'.format(size)
-# preprocess_file = '../data/ground-truth_CS-AI-IS-CN_preprocessed.pickle'
+preprocess_file = '../data/interim/{0}-preprocessed.pickle'.format(size)
+# preprocess_file = '../data/interim/ground-truth_CS-AI-IS-CN_preprocessed.pickle'
 imagefile = '../img/{0}-{1}-{2}-{3}-plot.png'
 
 #def task_preprocess_groundtruth():
@@ -37,7 +37,7 @@ imagefile = '../img/{0}-{1}-{2}-{3}-plot.png'
 #    return {
 #        #'name': 'size: {0}'.format(size),
 #        'file_dep': ['preprocess_groundtruth.py'],
-#        'targets': ['../data/ground_truth-preproc_CS-AI-IS_CN.pickle'],
+#        'targets': ['../data/interim/ground_truth-preproc_CS-AI-IS_CN.pickle'],
 #        'actions': ['python preprocess_groundtruth.py %s' % size],
 #        'verbosity': 2
 #    }
@@ -62,7 +62,7 @@ def task_preprocess_small():
     return {
         #'name': 'size: {0}'.format(size),
         'file_dep': ['preprocess.py'],
-        'targets': ['../data/%s-preprocessed.txt' % size],
+        'targets': ['../data/interim/%s-preprocessed.txt' % size],
         'actions': ['python preprocess.py {0}'.format(size)],
     }
 
@@ -75,7 +75,7 @@ def task_preprocess_small():
 #     return {
 #         #'name': label,
 #         'file_dep': ['analyse_mds.py',
-#                      '../data/%s-preprocessed.txt' % size],
+#                      '../data/interim/%s-preprocessed.txt' % size],
 #         'targets': [imagefile.format(size, vect, label, 2)],
 #         'actions': ['python analyse_mds.py {0} {1}'.format(size, vect)],
 #     }
@@ -89,7 +89,7 @@ def task_analyze_mini_k_means():
     return {
         #'name': label,
         'file_dep': ['analyse_mini-k-means.py',
-                     '../data/%s-preprocessed.pickle' % size],
+                     '../data/interim/%s-preprocessed.pickle' % size],
         'targets': [imagefile.format(size, k, n_comp_str, 'kmeans')],
         'actions': ['python analyse_mini-k-means.py {0}'.format(options)],
     }

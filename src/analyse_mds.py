@@ -23,7 +23,7 @@ size = int(sys.argv[1])
 vect = sys.argv[2]
 
 # Load data from the previous step
-with open('../data/{0}-preprocessed.txt'.format(size), 'r') as handle:
+with open('../data/interim/{0}-preprocessed.txt'.format(size), 'r') as handle:
   data = cPickle.load(handle)
 # data = np.loadtxt('data/{0}-preprocessed.txt'.format(label))
 
