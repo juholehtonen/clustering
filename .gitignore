@@ -11,3 +11,4 @@ doc/*.toc
 .doit.*
 .directory
 img/*
+data/*
