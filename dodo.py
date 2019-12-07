@@ -41,20 +41,24 @@ imagefile = '../img/{0}-{1}-{2}-{3}-plot.png'
 #        'actions': ['python preprocess_groundtruth.py %s' % size],
 #        'verbosity': 2
 #    }
+import nltk
+
 
 def task_init():
-    """Done only once"""
-    def init_nltk():
-        import nltk
-        nltk.download('stopwords')
-        nltk.download('punkt')
-        nltk.download('averaged_perceptron_tagger')
-        nltk.download('wordnet')
+    """
+    Initialize NLTK corpora etc.
 
+    FIXME: This should run only once but seems to ignore 'targets'.
+    """
+    def init_nltk(corpus):
+        nltk.download(corpus)
+
+    corps = ['stopwords', 'punkt', 'averaged_perceptron_tagger', 'wordnet']
     return {
-        'actions': [init_nltk],
-        'targets': ['/home/jlehtonen/nltk_data']
+        'targets': ['~/nltk_data/corpora/wordnet.zip'],
+        'actions': [(init_nltk, [corps])]
     }
+
 
 def task_preprocess_small():
     """Step 1: preprocess data"""
@@ -94,7 +98,8 @@ def task_analyze_mini_k_means():
         'actions': ['python analyse_mini-k-means.py {0}'.format(options)],
     }
 
-def task_analyze_hierarchial():
+
+def task_analyze_hierarchical():
     """Step 2: cluster data"""
     options = '--file {5} --n-clusters {1} --lsa {2} --n-features {3} --fields {4} --size {0}'\
               .format(size, k, n_comp, n_feat, analysis_fields, preprocess_file)
