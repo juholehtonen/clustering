@@ -22,22 +22,22 @@ keyword_publisher_line = r'Avainsana \(KeywordPlus\):\s*(.*)\s*'
 keyword_line = r'Avainsana \(tekijät\):\s*(.*)\s*'
 reference_line = r'Lähde:\s*(.*)\s*'
 closing_line = r' \* '
-term_sep = r',*\s+[:&]*\s*'
-term_rep = '_'
+term_sep = r',*\s+[:&]*\s*'   # ',,,  :&::   '
+term_repl = '_'   # replacement for `term_sep`
 ref_sep = r'(\d+) /.*'
-ref_rep = '\\1'
+ref_repl = '\\1'   # replacement for `ref_sep`
 ref_clean = r',*\/*\s+(\/*\s*)*'
 
 
 # Read the parameters for a run.
-b_size = int(sys.argv[1])
+sample_size = int(sys.argv[1])
 used_fields = ['id', 'journal', 'issn', 'discipline', 'year', 'title', 'abstract', 'keyword_publisher', 'keyword',
                'reference']
 if len(sys.argv) > 2:
     used_fields = sys.argv[2].split(',')
 
 
-def dataset(batch_size):
+def get_data(batch_size):
     datasets = []
     current = {}
     k = 0
@@ -58,10 +58,10 @@ def dataset(batch_size):
                 current['issn'] = m.group(1)
                 continue
 
-            # FIXME: Discipline parsed A & B -> A_&_B but split perhaps in vectorizer.
+            # FIXME: Discipline parsed 'A & B C' -> 'A_B_C' but split perhaps in vectorizer.
             m = re.match(discipline_line, line)
             if m and 'discipline' in used_fields:
-                term = re.sub(term_sep, term_rep, m.group(1))
+                term = re.sub(term_sep, term_repl, m.group(1))
                 value = current.get('discipline')
                 if value:
                     current['discipline'] = ' '.join([value, term])
@@ -79,6 +79,7 @@ def dataset(batch_size):
                 current['title'] = m.group(1)
                 continue
 
+            # We assume the whole abstract is the next line (only)
             m = re.match(abstract_line, line)
             if m and 'abstract' in used_fields:
                 current['abstract'] = f.readline()
@@ -86,7 +87,7 @@ def dataset(batch_size):
 
             m = re.match(keyword_publisher_line, line)
             if m and 'keyword_publisher' in used_fields:
-                term = re.sub(term_sep, term_rep, m.group(1))
+                term = re.sub(term_sep, term_repl, m.group(1))
                 value = current.get('keyword_publisher')
                 if value:
                     current['keyword_publisher'] = ' '.join([value, term])
@@ -96,7 +97,7 @@ def dataset(batch_size):
 
             m = re.match(keyword_line, line)
             if m and 'keyword' in used_fields:
-                term = re.sub(term_sep, term_rep, m.group(1))
+                term = re.sub(term_sep, term_repl, m.group(1))
                 value = current.get('keyword')
                 if value:
                     current['keyword'] = ' '.join([value, term])
@@ -106,8 +107,8 @@ def dataset(batch_size):
 
             m = re.match(reference_line, line)
             if m and 'reference' in used_fields:
-                ref = re.sub(ref_sep, ref_rep, m.group(1)).strip(' /')
-                ref = re.sub(ref_clean, ref_rep, ref)
+                ref = re.sub(ref_sep, ref_repl, m.group(1)).strip(' /')
+                ref = re.sub(ref_clean, ref_repl, ref)
                 value = current.get('reference')
                 if value:
                     current['reference'] = ' '.join([value, ref])
@@ -124,9 +125,10 @@ def dataset(batch_size):
                 break
     return datasets
 
-print("Prepocessing data with fields: {0}".format(used_fields))
-data = dataset(batch_size=b_size)
-with open('../data/interim/{0}-preprocessed.pickle'.format(str(b_size)), 'wb') as handle:
+
+print("Pre-processing data with fields: {0}".format(used_fields))
+data = get_data(batch_size=sample_size)
+with open('../data/interim/{0}-preprocessed.pickle'.format(str(sample_size)), 'wb') as handle:
     pickle.dump(data, handle)
 with open('../data/interim/preprocessed-preview.txt', 'w') as handle:
     handle.write(pprint.pformat(data[:5]))

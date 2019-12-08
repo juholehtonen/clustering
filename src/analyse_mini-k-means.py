@@ -2,7 +2,7 @@
 =======================================
 Clustering text documents using k-means
 =======================================
-From: http://scikit-learn.org/stable/auto_examples/text/document_clustering.html
+From: https://scikit-learn.org/stable/auto_examples/text/plot_document_clustering.html
 
 This is an example showing how the scikit-learn can be used to cluster
 documents by topics using a bag-of-words approach. This example uses

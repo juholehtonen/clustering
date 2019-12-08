@@ -12,7 +12,7 @@ from sklearn.pipeline import Pipeline
 import preprocess
 from hetero_feature_union import ItemSelector
 
-data = preprocess.dataset()
+data = preprocess.get_data()
 
 
 vec = DictVectorizer()
