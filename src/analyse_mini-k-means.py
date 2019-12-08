@@ -118,6 +118,7 @@ op.add_option("--n-clusters",
 def is_interactive():
     return not hasattr(sys.modules['__main__'], '__file__')
 
+
 # work-around for Jupyter notebook and IPython console
 argv = [] if is_interactive() else sys.argv[1:]
 (opts, args) = op.parse_args(argv)
@@ -125,7 +126,7 @@ if len(args) > 0:
     op.error("this script takes no arguments.")
     sys.exit(1)
 
-# Display progress logs on stdout
+# Define log file name and start log
 results_filename = '../data/processed/'
 for o in [opts.size, opts.n_clusters]:
     results_filename = results_filename + str(o) + '-'
@@ -140,13 +141,11 @@ logging.info('#' * 24 + ' Starting... ' + '#' *24)
 
 # #############################################################################
 # Load data from the previous step
-logging.info("Loading prepocessed data")
+logging.info("Loading pre-processed data")
 with open('../data/interim/{0}-preprocessed.pickle'.format(
         opts.size), 'rb') as handle:
     data = pickle.load(handle)
 
-#labels = dataset.target
-#true_k = np.unique(labels).shape[0]
 stopwords_ext = list(set(ENGLISH_STOP_WORDS).union(stopwords.words('english')))
 stopwords_ext += ['reserved', 'rights', 'science', 'elsevier', '2000']
 
