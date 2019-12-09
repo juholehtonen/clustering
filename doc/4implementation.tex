@@ -10,31 +10,70 @@ Here we describe how the methods are implemented to achieve the
 clustering. First we describe how the raw text data is 
 pre-processed 
 
-We implemented a workflow for clustering using Python's 
-scikit-learn package. \fixme{Include a graph visualizing the 
-workflow.}
+We implemented the workflow for clustering using Python's 
+\texttt{scikit-learn} package completed with 
+pre-processing managed with \texttt{doit} workflow. See Figure 
+\ref{fig:wf} for the workflow graph.
 
+\begin{figure}[ht]
+  \begin{center}    
+    \input{images/workflow.tex}
+    \caption{The workflow of the clustering.}
+    \label{fig:wf}
+  \end{center}
+\end{figure}
+
+\section{Prepocessing}
 First data was read from raw files obtained from publishers. 
 %(Actually YL probably also preprocessed data before passing it 
 % to me.)
-Unrelevant metadata fields were omitted and the relevant were read 
-into a dictionary. We choose to keep title, abstract and keyword
-fields. Terms in keyword fields were concatenated to combined 
-terms: ``allergic\_contact\_dermatitis''. Another option would be to
-count n-grams to preserve the meaning of combined terms. (Justify 
-decision.) Title and abstract fields were treated with a bag of 
-words representation. (Explain.)
+Unrelevant metadata fields like \emph{journal}, \emph{year}, 
+\emph{issn} and \emph{references} were omitted and the relevant 
+were read into a dictionary. We choose to keep \emph{title}, 
+\emph{abstract} and \emph{keyword} fields. Terms in keyword 
+fields were concatenated into combined 
+terms: ``allergic\_contact\_dermatitis''. This is related 
+to the counting of words in a metadata and will be explained 
+soon.
 
+\section{Tokenizing}
+The metadata in chosen fields was then tokenized with
+punctuation and whitespace separating the tokens (words). We 
+get for example ``Pluto is a smart dog'' --> ``Pluto'', ``is'', 
+``a'', ``smart'' and ``dog''. This strategy is known as \emph{Bag 
+of Words} representation because each word is taken as is 
+ignoring all its positional information in relation to other 
+words. Another option would be to form n-grams to preserve the 
+meaning of combined terms. Eg. ``allergic'', ``contact'', 
+``dermatitis'', ``allergic contact'', ``contact dermatitis''. Here 
+single words are called 1-grams, word pairs are called 2-grams and 
+so on. Counting the n-grams would expand the feature space n-fold 
+though and we wanted to avoid the computational cost.
+
+\section{Lemmatizing}
+After getting the words we lemmatized them against WordNet 
+lemmatizer.
 % After parsing data is written to interim files.
-
-
-Data was lemmatized. We choose to remove all plain numbers from
+We choose to remove all plain numbers from
 data. Another option is to replace numbers with dummy '\#NUMBER'.
 That could help separate natural sciences from humanities. Because 
 we didn't have proper knowledge on the issue removal was chosen. So 
 numbers would be ignored. That would be a more neutral way to treat 
-them. (How? Explain...)
+them. \fixme{How? Explain...}
 
+\section{Removing stop words}
+Stop words had to be lemmatized also before data could be 
+filtered to remove those. We used NLTK modules English stop words 
+combined with \texttt{scikit-learn's} stop words and our own stop 
+word list consisting mainly standard publisher notices 
+(\emph{``reserved'', ``rights''} and publising years).
+
+\section{Counting}
+After removing stop words term frequencies were counted and 
+normalized with inverse document frequencies (\emph{tf-idf} 
+normalization). In this point we ahve the data vectorized.
+
+\section{Clustering}
 Running preliminary tests for 2000 publications with tf-idf's maximum and 
 minimum document frequencies set to $max_df=0.5$ 
 and $min_df=2$ (integers denote absolute count value) respectively
