@@ -64,7 +64,7 @@ import random
 import sys
 from time import time
 
-from utils import GeneralExtractor, plot_silhouette
+from utils import GeneralExtractor, plot_silhouette, identity_tokenizer, LemmaTokenizer
 from lemmatizer import NLTKPreprocessor
 
 
@@ -139,14 +139,20 @@ logging.info("Extracting features from the training dataset using a sparse vecto
 min_df = 2
 
 t_total = t0 = time()
-vectorizer = TfidfVectorizer(max_df=opts.max_df, max_features=opts.n_features,
-                             min_df=min_df, stop_words=stopwords_ext,
-                             use_idf=opts.use_idf, vocabulary=None,
-                             tokenizer=lambda x: x, preprocessor=None,
-                             lowercase=False)
+vectorizer = TfidfVectorizer(max_df=opts.max_df,
+                             max_features=opts.n_features,
+                             min_df=min_df,
+                             # stop_words=stopwords_ext,
+                             use_idf=opts.use_idf,
+                             # vocabulary=None,
+                             tokenizer=lambda x: x,
+                             # tokenizer=LemmaTokenizer,
+                             # preprocessor=None,
+                             lowercase=False,
+                             analyzer='word')
 
 vectrzr = make_pipeline(GeneralExtractor(fields=opts.fields.split(',')),
-                        NLTKPreprocessor(),
+                        NLTKPreprocessor(stopwords=stopwords_ext),
                         vectorizer)
 X = vectrzr.fit_transform(data)
 logging.info('Feature extraction steps: {0}'.format([s[0] for s in vectrzr.steps]))

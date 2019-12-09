@@ -86,6 +86,9 @@ class LemmaTokenizer(object):
 
 
 def identity_tokenizer(doc):
+    if not doc:
+        print('Trying to tokenize None type. Replacing with blank string instead.')
+        doc = ''
     return doc
 
 def plot_silhouette(X, labels, n_clusters, method):

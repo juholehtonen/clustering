@@ -124,10 +124,14 @@ if opts.use_hashing:
                                        alternate_sign=False, norm='l2',
                                        binary=False)
 else:
-    vectorizer = TfidfVectorizer(max_df=opts.max_df, max_features=opts.n_features,
-                                 min_df=min_df, stop_words=stopwords_ext,
-                                 use_idf=opts.use_idf, vocabulary=None,
-                                 tokenizer=lambda x: x, preprocessor=None,
+    vectorizer = TfidfVectorizer(max_df=opts.max_df,
+                                 max_features=opts.n_features,
+                                 min_df=min_df,
+                                 stop_words=stopwords_ext,
+                                 use_idf=opts.use_idf,
+                                 vocabulary=None,
+                                 tokenizer=lambda x: x,
+                                 preprocessor=None,
                                  lowercase=False)
 
 vectrzr = make_pipeline(GeneralExtractor(fields=opts.fields.split(',')),
