@@ -46,26 +46,27 @@ necessary to get a good convergence.
 # License: BSD 3 clause
 
 from __future__ import print_function
-
-from sklearn.decomposition import TruncatedSVD
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction.stop_words import ENGLISH_STOP_WORDS
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import Normalizer
-from sklearn import metrics
-
-from sklearn.cluster import KMeans, MiniBatchKMeans
-
-import pickle
 import logging
 from nltk.corpus import stopwords
+import pickle
 from optparse import OptionParser
 import random
 import sys
 from time import time
 
-from utils import GeneralExtractor, plot_silhouette, identity_tokenizer, LemmaTokenizer
+from sklearn import metrics
+from sklearn.cluster import KMeans, MiniBatchKMeans
+from sklearn.decomposition import TruncatedSVD
+from sklearn.feature_extraction.stop_words import ENGLISH_STOP_WORDS
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import Normalizer
+
 from lemmatizer import NLTKPreprocessor
+from utils import (GeneralExtractor,
+                   plot_silhouette,
+                   identity_tokenizer,
+                   LemmaTokenizer)
 
 
 # parse commandline arguments

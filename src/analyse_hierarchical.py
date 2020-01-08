@@ -6,30 +6,31 @@
 ##################################################################
 from __future__ import print_function
 
+import logging
+from nltk.corpus import stopwords
+import numpy as np
+from optparse import OptionParser
+import pandas as pd
+import pickle
+import random
+import sys
+from time import time
+
+from sklearn import metrics
+from sklearn.cluster import AgglomerativeClustering
 from sklearn.decomposition import TruncatedSVD
-from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.stop_words import ENGLISH_STOP_WORDS
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import (Normalizer,
                                    FunctionTransformer)
-from sklearn import metrics
 
-from sklearn.cluster import AgglomerativeClustering
-
-import pickle
-import logging
-from nltk.corpus import stopwords
-import numpy as np
-from optparse import OptionParser
-import pandas as pd
-import random
-import sys
-from time import time
-
-from utils import GeneralExtractor, plot_silhouette, LemmaTokenizer
 from lemmatizer import NLTKPreprocessor
+from utils import (GeneralExtractor,
+                   plot_silhouette,
+                   LemmaTokenizer)
 
 
 # parse commandline arguments
