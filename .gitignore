@@ -10,5 +10,6 @@ doc/*.toc
 *.txt~
 .doit.*
 .directory
+.ipynb*
 img/*
 data/*
