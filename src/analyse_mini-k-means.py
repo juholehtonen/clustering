@@ -16,15 +16,6 @@ Two feature extraction methods can be used in this example:
     the Inverse Document Frequency (IDF) vector collected feature-wise over
     the corpus.
 
-  - HashingVectorizer hashes word occurrences to a fixed dimensional space,
-    possibly with collisions. The word count vectors are then normalized to
-    each have l2-norm equal to one (projected to the euclidean unit-ball) which
-    seems to be important for k-means to work in high dimensional space.
-
-    HashingVectorizer does not provide IDF weighting as this is a stateless
-    model (the fit method does nothing). When IDF weighting is needed it can
-    be added by pipelining its output to a TfidfTransformer instance.
-
 Two algorithms are demoed: ordinary k-means and its more scalable cousin
 minibatch k-means.
 
@@ -55,61 +46,58 @@ necessary to get a good convergence.
 # License: BSD 3 clause
 
 from __future__ import print_function
-
-from sklearn.decomposition import TruncatedSVD
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction.text import HashingVectorizer
-from sklearn.feature_extraction.text import TfidfTransformer
-from sklearn.feature_extraction.stop_words import ENGLISH_STOP_WORDS
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import Normalizer
-from sklearn import metrics
-
-from sklearn.cluster import KMeans, MiniBatchKMeans
-
-import pickle
 import logging
 from nltk.corpus import stopwords
+import pickle
 from optparse import OptionParser
 import random
 import sys
 from time import time
 
-from utils import GeneralExtractor, plot_silhouette
+from sklearn import metrics
+from sklearn.cluster import KMeans, MiniBatchKMeans
+from sklearn.decomposition import TruncatedSVD
+from sklearn.feature_extraction.stop_words import ENGLISH_STOP_WORDS
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import Normalizer
+
 from lemmatizer import NLTKPreprocessor
+from utils import (GeneralExtractor,
+                   plot_silhouette,
+                   identity_tokenizer,
+                   LemmaTokenizer)
 
 
 # parse commandline arguments
 op = OptionParser()
+op.add_option("--size",
+              dest="size", type="int", default=400,
+              help="Size of the preprocessed data to be used.")
 op.add_option("--fields",
               dest="fields", type="string",
               help="Metadata fields to run analysis with.")
+op.add_option("--n-clusters",
+              dest="n_clusters", type="int", default=16,
+              help="Number of clusters to be used.")
 op.add_option("--lsa",
               dest="n_components", type="int",
               help="Preprocess documents with latent semantic analysis.")
+op.add_option("--n-features", type=int, default=10000,
+              help="Maximum number of features (dimensions)"
+                   " to extract from text.")
 op.add_option("--no-minibatch",
               action="store_false", dest="minibatch", default=True,
               help="Use ordinary k-means algorithm (in batch mode).")
 op.add_option("--no-idf",
               action="store_false", dest="use_idf", default=True,
               help="Disable Inverse Document Frequency feature weighting.")
-op.add_option("--use-hashing",
-              action="store_true", default=False,
-              help="Use a hashing feature vectorizer")
-op.add_option("--n-features", type=int, default=10000,
-              help="Maximum number of features (dimensions)"
-                   " to extract from text.")
 op.add_option("--max-df", dest="max_df", type=float, default=0.1,
               help="TfidfVectorizer's max_df parameter")
 op.add_option("--verbose",
               action="store_true", dest="verbose", default=False,
               help="Print progress reports inside k-means algorithm.")
-op.add_option("--size",
-              dest="size", type="int", default=400,
-              help="Size of the preprocessed data to be used.")
-op.add_option("--n-clusters",
-              dest="n_clusters", type="int", default=16,
-              help="Number of clusters to be used.")
+
 
 # print(__doc__)
 # op.print_help()
@@ -118,6 +106,7 @@ op.add_option("--n-clusters",
 def is_interactive():
     return not hasattr(sys.modules['__main__'], '__file__')
 
+
 # work-around for Jupyter notebook and IPython console
 argv = [] if is_interactive() else sys.argv[1:]
 (opts, args) = op.parse_args(argv)
@@ -125,7 +114,7 @@ if len(args) > 0:
     op.error("this script takes no arguments.")
     sys.exit(1)
 
-# Display progress logs on stdout
+# Define log file name and start log
 results_filename = '../data/processed/'
 for o in [opts.size, opts.n_clusters]:
     results_filename = results_filename + str(o) + '-'
@@ -140,13 +129,11 @@ logging.info('#' * 24 + ' Starting... ' + '#' *24)
 
 # #############################################################################
 # Load data from the previous step
-logging.info("Loading prepocessed data")
+logging.info("Loading pre-processed data")
 with open('../data/interim/{0}-preprocessed.pickle'.format(
         opts.size), 'rb') as handle:
     data = pickle.load(handle)
 
-#labels = dataset.target
-#true_k = np.unique(labels).shape[0]
 stopwords_ext = list(set(ENGLISH_STOP_WORDS).union(stopwords.words('english')))
 stopwords_ext += ['reserved', 'rights', 'science', 'elsevier', '2000']
 
@@ -154,27 +141,20 @@ logging.info("Extracting features from the training dataset using a sparse vecto
 min_df = 2
 
 t_total = t0 = time()
-if opts.use_hashing:
-    if opts.use_idf:
-        # Perform an IDF normalization on the output of HashingVectorizer
-        hasher = HashingVectorizer(n_features=opts.n_features,
-                                   stop_words=stopwords_ext, alternate_sign=False,
-                                   norm=None, binary=False)
-        vectorizer = make_pipeline(hasher, TfidfTransformer())
-    else:
-        vectorizer = HashingVectorizer(n_features=opts.n_features,
-                                       stop_words=stopwords_ext,
-                                       alternate_sign=False, norm='l2',
-                                       binary=False)
-else:
-    vectorizer = TfidfVectorizer(max_df=opts.max_df, max_features=opts.n_features,
-                                 min_df=min_df, stop_words=stopwords_ext,
-                                 use_idf=opts.use_idf, vocabulary=None,
-                                 tokenizer=lambda x: x, preprocessor=None,
-                                 lowercase=False)
+vectorizer = TfidfVectorizer(max_df=opts.max_df,
+                             max_features=opts.n_features,
+                             min_df=min_df,
+                             # stop_words=stopwords_ext,
+                             use_idf=opts.use_idf,
+                             # vocabulary=None,
+                             tokenizer=lambda x: x,
+                             # tokenizer=LemmaTokenizer,
+                             # preprocessor=None,
+                             lowercase=False,
+                             analyzer='word')
 
 vectrzr = make_pipeline(GeneralExtractor(fields=opts.fields.split(',')),
-                        NLTKPreprocessor(),
+                        NLTKPreprocessor(stopwords=stopwords_ext),
                         vectorizer)
 X = vectrzr.fit_transform(data)
 logging.info('Feature extraction steps: {0}'.format([s[0] for s in vectrzr.steps]))
@@ -233,21 +213,18 @@ logging.info("Calinski-Harabasz Index: %0.3f"
       % metrics.calinski_harabasz_score(X_to_CH, km.labels_))
 
 
-if not opts.use_hashing:
-    logging.info("Top terms per cluster:")
-
-    if opts.n_components:
-        original_space_centroids = svd.inverse_transform(km.cluster_centers_)
-        order_centroids = original_space_centroids.argsort()[:, ::-1]
+logging.info("Top terms per cluster:")
+if opts.n_components:
+    original_space_centroids = svd.inverse_transform(km.cluster_centers_)
+    order_centroids = original_space_centroids.argsort()[:, ::-1]
 #        logging.info("original_space_centroids: \n{0}".format(original_space_centroids[:, ::600]))
 #        logging.info("order_centroids: \n{0}".format(order_centroids[:, ::600]))
-    else:
-        order_centroids = km.cluster_centers_.argsort()[:, ::-1]
-
-    terms = vectorizer.get_feature_names()
-    for i in range(opts.n_clusters):
-        top_for_i = ' '.join([ terms[j] for j in order_centroids[i, :15] ])
-        logging.info("Cluster {0}: {1}".format(i, top_for_i))
+else:
+    order_centroids = km.cluster_centers_.argsort()[:, ::-1]
+terms = vectorizer.get_feature_names()
+for i in range(opts.n_clusters):
+    top_for_i = ' '.join([ terms[j] for j in order_centroids[i, :15] ])
+    logging.info("Cluster {0}: {1}".format(i, top_for_i))
 
 logging.info('Sample of publications per cluster:')
 t0 = time()
