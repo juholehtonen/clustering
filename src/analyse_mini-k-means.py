@@ -71,32 +71,33 @@ from utils import (GeneralExtractor,
 
 # parse commandline arguments
 op = OptionParser()
+op.add_option("--size",
+              dest="size", type="int", default=400,
+              help="Size of the preprocessed data to be used.")
 op.add_option("--fields",
               dest="fields", type="string",
               help="Metadata fields to run analysis with.")
+op.add_option("--n-clusters",
+              dest="n_clusters", type="int", default=16,
+              help="Number of clusters to be used.")
 op.add_option("--lsa",
               dest="n_components", type="int",
               help="Preprocess documents with latent semantic analysis.")
+op.add_option("--n-features", type=int, default=10000,
+              help="Maximum number of features (dimensions)"
+                   " to extract from text.")
 op.add_option("--no-minibatch",
               action="store_false", dest="minibatch", default=True,
               help="Use ordinary k-means algorithm (in batch mode).")
 op.add_option("--no-idf",
               action="store_false", dest="use_idf", default=True,
               help="Disable Inverse Document Frequency feature weighting.")
-op.add_option("--n-features", type=int, default=10000,
-              help="Maximum number of features (dimensions)"
-                   " to extract from text.")
 op.add_option("--max-df", dest="max_df", type=float, default=0.1,
               help="TfidfVectorizer's max_df parameter")
 op.add_option("--verbose",
               action="store_true", dest="verbose", default=False,
               help="Print progress reports inside k-means algorithm.")
-op.add_option("--size",
-              dest="size", type="int", default=400,
-              help="Size of the preprocessed data to be used.")
-op.add_option("--n-clusters",
-              dest="n_clusters", type="int", default=16,
-              help="Number of clusters to be used.")
+
 
 # print(__doc__)
 # op.print_help()
