@@ -5,6 +5,7 @@ clustering. We follow the logical order the methods are applied on
 the data.
 
 \section{Publication metadata}
+\label{section:metadata}
 The data consits of X records of Clarivative Analytics' 
 (formerly Thomson Reuters) Web of Science publication metadata 
 from year Y.
@@ -18,6 +19,9 @@ publications. An example of a shortened record:
  Ilmestymisvuosi:   1999
  Otsikko: Assessment of diabetic retinopathy using two-field 60 
  degrees fundus photography. A comparison between[...]
+ Abstrakti
+ Purpose: To assess the severity of diabetic retinopathy and 
+ maculopathy bycomparing[...]
  Avainsana (KeywordPlus):  OPHTHALMOSCOPY
  Avainsana (KeywordPlus):  KAPPA
  [...]
@@ -32,13 +36,15 @@ publications. An example of a shortened record:
  /  1978
  \end{verbatim}
  
-Each metadata record contains the title (``Lehti''), ISSN, the 
-field of science (``Ala'') and publication year 
-(``Ilmestymisvuosi'') of the journal, the title (``Otsikko'') 
-and the abstract of the article, keywords produced by algorithm 
-of the publisher (``Avainsana (KeywordPlus)'') and the authors 
-themselves (``Avainsana (tekijät)'') and the cited references 
-(``Lähde''). \fixme{Tarkista YL:ltä että lähteet ovat nimenomaan 
+Each metadata record contains the title (``\texttt{Lehti}''), 
+ISSN, the field of science (``\texttt{Ala}'') and publication 
+year (``\texttt{Ilmestymisvuosi}'') of the journal, the title 
+(``\texttt{Otsikko}'') and the abstract of the article 
+(``\texttt{Abstrakti}''), keywords produced by algorithm 
+of the publisher (``\texttt{Avainsana (KeywordPlus)}'') and the 
+authors themselves (``\texttt{Avainsana (tekijät)}'') and the 
+cited references (``\texttt{Lähde}''). \fixme{Tarkista YL:ltä 
+että lähteet ovat nimenomaan 
 artikkelin omat. (Viitteet voivat olla metodologisia, 
 historiallisia ja siten johtaa harhaan). Toisaalta en nyt käytä 
 työssäni viitteitä (keskustelu LM:n kanssa 20.9.). Perustelu: ...}
@@ -100,9 +106,25 @@ but poorer recall true positive rate compared to stemming.
 The clustering algorithms don't understand text documents but 
 require numerical input. To enable the handling of the textual 
 data by the clustering algorithms we have to transform it into 
-numerical form. This is called vectorizing. \fixme{Tämä 
-seuraavaan implementaatiolukuun? Ei sittenkään, pitää selittää 
-tässä kyllä.}
+numerical form. This is called vectorizing.
+
+After we have lemmatized the terms we count the occurences 
+of each term in each document. The resulting term occurence 
+frequencies are normalized to decrease the importance of the 
+tokens that occur in the majority of documents. Usually these are 
+common terms not specific to the topic of the document. 
+These normalized occurence frequencies are called term 
+frequency inverse document frequencies, \textbf{TF-IDF}, and 
+they form the features of a document. The size of the feature 
+space is determined by the number of counted unique terms in all 
+documents of the collection. \fixme{Kaava tähän, lähde, TF-IDF}
+
+Here the size of the feature space is in the order of the the 
+size of the English language corpus ie. in tens of thousands. The 
+document feature matrix is very sparse, a single document only 
+having handful of terms of the whole corpus. \fixme{Tähän 
+esimerkiksi ko. matriisin palanen?}
+
 
 \subsection{Topic modeling}
 \fixme{Kuuluko tämä aihe mukaan?}
