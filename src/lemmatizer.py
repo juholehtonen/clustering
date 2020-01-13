@@ -43,10 +43,10 @@ class NLTKPreprocessor(BaseEstimator, TransformerMixin):
 
     def tokenize(self, document):
         # Break the document into sentences
-        # TODO: Data contains sentences without space: "First sent.Second sent."
+        # TODO JPL: Data contains sentences without space: "First sent.Second sent."
         for sent in sent_tokenize(document):
             # Break the sentence into part of speech tagged tokens
-            # TODO: Part of speech analysis obsolete for keywords (different meaning)
+            # TODO JPL: Part of speech analysis obsolete for keywords (different meaning)
             #for token, tag in pos_tag(wordpunct_tokenize(sent)):
             for token, tag in pos_tag(regexp_tokenize(sent, token_re, gaps=False)):
                 # Apply preprocessing to the token

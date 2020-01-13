@@ -154,6 +154,8 @@ vectorizer = TfidfVectorizer(max_df=opts.max_df,
                              analyzer='word')
 
 vectrzr = make_pipeline(GeneralExtractor(fields=opts.fields.split(',')),
+# FIXME: Onko tässä tokenointi (vektorisoijan sisällä) ja lemmatisointi (NLTKPreprocessor) väärinpäin?
+# FIXME: Tokenointi itseasiassa lemmatisoijan yhteydessä
                         NLTKPreprocessor(stopwords=stopwords_ext),
                         vectorizer)
 X = vectrzr.fit_transform(data)
