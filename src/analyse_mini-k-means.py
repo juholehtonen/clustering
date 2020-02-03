@@ -194,24 +194,28 @@ if opts.n_components:
 #        logging.info("order_centroids: \n{0}".format(order_centroids[:, ::600]))
 else:
     order_centroids = km.cluster_centers_.argsort()[:, ::-1]
-for i in range(opts.n_clusters):
-    top_for_i = ' '.join([ terms[j] for j in order_centroids[i, :15] ])
-    logging.info("  Cluster {0}: {1}".format(i, top_for_i))
+for k in range(opts.n_clusters):
+    top_for_k = ' '.join([ terms[j] for j in order_centroids[k, :15] ])
+    logging.info("  Cluster {0}: {1}".format(k, top_for_k))
+
 
 logging.info('Sample of publications per cluster:')
 t0 = time()
+sample_max = 5
 with open('../data/interim/{0}-preprocessed.pickle'.format(
         opts.size), 'rb') as handle:
     data = pickle.load(handle)
-for i in range(opts.n_clusters):
-    pubs = [d for (d, l) in zip(data, km.labels_) if l == i]
-    sample_size = 15 if len(pubs) > 15 else len(pubs) - 1
-    pubs_sample = random.sample(pubs, sample_size)
-    logging.info('  Cluster {0}:'.format(i))
+for k in range(opts.n_clusters):
+    cluster_k_pubs = [d for (d, l) in zip(data, km.labels_) if l == k]
+    sample_size = sample_max if len(cluster_k_pubs) > sample_max else len(cluster_k_pubs) - 1
+    pubs_sample = random.sample(cluster_k_pubs, sample_size)
+    logging.info('  Cluster {0}:'.format(k))
+    # FIXME: Tie publication's info columns to available fields
     for p in pubs_sample:
-        logging.info('          ' + p['title'][:80]
+        pub_info = '          ' + p['title'][:80]\
                      + (80 - len(p['title'])) * ' ' + '|'
-                     + p['discipline'][:30])
+        pub_info += p['discipline'][:30] if p.get('discipline') else ''
+        logging.info(pub_info)
 logging.info("  Done in %fs" % (time() - t0))
 
 #with open('../data/processed/{0}-results.txt'.format(opts.size),
