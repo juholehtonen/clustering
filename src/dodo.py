@@ -76,6 +76,17 @@ def task_preprocess_small():
     }
 
 
+def task_vectorize():
+    """Step 2: vectorize data"""
+    options = '--size {0} --n-clusters {1} --no-minibatch --lsa {2} --n-features {3} --fields {4}'\
+              .format(size, k, n_comp, n_feat, analysis_fields)
+    return {
+        'file_dep': ['vectorize.py',
+                     '../data/interim/%s-preprocessed.pickle' % size],
+        'targets': ['../data/interim/{0}-0.1-2-{1}-vectorized.npz'.format(size, n_feat)],
+        'actions': ['python vectorize.py {0}'.format(options)],
+    }
+
 # def task_analyze_mds():
 #     """Step 1.5: 2D embedding of data"""
 #     pass
@@ -91,7 +102,7 @@ def task_preprocess_small():
 
 
 def task_analyze_mini_k_means():
-    """Step 2: cluster data"""
+    """Step 3: cluster data"""
     label = 'minikm'
     options = '--size {0} --n-clusters {1} --no-minibatch --lsa {2} --n-features {3} --fields {4}'\
               .format(size, k, n_comp, n_feat, analysis_fields)
@@ -104,17 +115,17 @@ def task_analyze_mini_k_means():
     }
 
 
-def task_analyze_hierarchical():
-    """Step 2: cluster data"""
-    options = '--file {5} --n-clusters {1} --lsa {2} --n-features {3} --fields {4} --size {0}'\
-              .format(size, k, n_comp, n_feat, analysis_fields, preprocess_file)
-    return {
-        #'name': label,
-        'file_dep': ['analyse_hierarchical.py',
-                     '%s' % preprocess_file],
-        'targets': [imagefile.format(size, k, n_comp_str, 'hierarchical')],
-        'actions': ['python analyse_hierarchical.py {0}'.format(options)],
-    }
+# def task_analyze_hierarchical():
+#     """Step 3: cluster data"""
+#     options = '--file {5} --n-clusters {1} --lsa {2} --n-features {3} --fields {4} --size {0}'\
+#               .format(size, k, n_comp, n_feat, analysis_fields, preprocess_file)
+#     return {
+#         #'name': label,
+#         'file_dep': ['analyse_hierarchical.py',
+#                      '%s' % preprocess_file],
+#         'targets': [imagefile.format(size, k, n_comp_str, 'hierarchical')],
+#         'actions': ['python analyse_hierarchical.py {0}'.format(options)],
+#     }
 
 
 # def task_show_images():

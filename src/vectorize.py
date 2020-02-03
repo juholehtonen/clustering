@@ -50,22 +50,17 @@ import logging
 from nltk.corpus import stopwords
 import pickle
 from optparse import OptionParser
-import random
 import scipy.sparse
 import sys
 from time import time
 
-from sklearn import metrics
-from sklearn.cluster import KMeans, MiniBatchKMeans
-from sklearn.decomposition import TruncatedSVD
+
 from sklearn.feature_extraction.stop_words import ENGLISH_STOP_WORDS
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import Normalizer
 
 from lemmatizer import NLTKPreprocessor
 from utils import (GeneralExtractor,
-                   plot_silhouette,
                    identity_tokenizer,
                    LemmaTokenizer)
 
@@ -84,19 +79,21 @@ op.add_option("--n-clusters",
 op.add_option("--lsa",
               dest="n_components", type="int",
               help="Preprocess documents with latent semantic analysis.")
-op.add_option("--n-features", type=int, default=10000,
+op.add_option("--n-features",
+              dest="n_features", type=int, default=10000,
               help="Maximum number of features (dimensions)"
                    " to extract from text.")
 op.add_option("--no-minibatch",
-              action="store_false", dest="minibatch", default=True,
+              dest="minibatch", action="store_false", default=True,
               help="Use ordinary k-means algorithm (in batch mode).")
 op.add_option("--no-idf",
-              action="store_false", dest="use_idf", default=True,
+              dest="use_idf", action="store_false", default=True,
               help="Disable Inverse Document Frequency feature weighting.")
-op.add_option("--max-df", dest="max_df", type=float, default=0.1,
+op.add_option("--max-df",
+              dest="max_df", type=float, default=0.1,
               help="TfidfVectorizer's max_df parameter")
 op.add_option("--verbose",
-              action="store_true", dest="verbose", default=False,
+              dest="verbose", action="store_true", default=False,
               help="Print progress reports inside k-means algorithm.")
 
 
@@ -126,97 +123,52 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(message)s',
                     datefmt="%Y-%m-%d %H:%M",
                     filename=results_filename)
-logging.info('#' * 18 + ' Starting clustering  ' + '#' *18)
+logging.info('#' * 17 + ' Starting vectorization ' + '#' *17)
 
 # #############################################################################
 # Load data from the previous step
-logging.info("Loading vectorized data")
-t_total = time()
-min_df = 2
-X = scipy.sparse.load_npz('../data/interim/{0}-{1}-{2}-{3}-vectorized.npz'.format(opts.size, opts.max_df, min_df, opts.n_features))
-with open('../data/interim/{0}-vectorizer_feature_names.pickle'.format(opts.size), 'rb') as handle:
-    terms = pickle.load(handle)
-
-# #############################################################################
-# Dimensionality reduction
-if opts.n_components:
-    logging.info("Performing dimensionality reduction using LSA")
-    t0 = time()
-    # Vectorizer results are normalized, which makes KMeans behave as
-    # spherical k-means for better results. Since LSA/SVD results are
-    # not normalized, we have to redo the normalization.
-    svd = TruncatedSVD(opts.n_components)
-    normalizer = Normalizer(copy=False)
-    lsa = make_pipeline(svd, normalizer)
-
-    X = lsa.fit_transform(X)
-
-    logging.info("  Done in %fs" % (time() - t0))
-
-    explained_variance = svd.explained_variance_ratio_.sum()
-    logging.info("  Explained variance of the SVD step: {0}% with {1} components".format(
-        int(explained_variance * 100), opts.n_components))
-
-
-# #############################################################################
-# Do the actual clustering
-
-if opts.minibatch:
-    km = MiniBatchKMeans(n_clusters=opts.n_clusters, init='k-means++', n_init=1,
-                         init_size=1000, batch_size=1000, verbose=opts.verbose)
-else:
-    km = KMeans(n_clusters=opts.n_clusters, init='k-means++', max_iter=100, n_init=1,
-                verbose=opts.verbose)
-
-logging.info("Clustering sparse data with %s" % km)
-t0 = time()
-km.fit(X)
-logging.info("  Done in %0.3fs" % (time() - t0))
-
-
-#logging.info("Homogeneity: %0.3f" % metrics.homogeneity_score(labels, km.labels_))
-#logging.info("Completeness: %0.3f" % metrics.completeness_score(labels, km.labels_))
-#logging.info("V-measure: %0.3f" % metrics.v_measure_score(labels, km.labels_))
-#logging.info("Adjusted Rand-Index: %.3f"
-#      % metrics.adjusted_rand_score(labels, km.labels_))
-logging.info("  Silhouette Coefficient: %0.3f"
-      % metrics.silhouette_score(X, km.labels_, sample_size=1000))
-X_to_CH = X if opts.n_components else X.toarray()
-logging.info("  Calinski-Harabasz Index: %0.3f"
-      % metrics.calinski_harabasz_score(X_to_CH, km.labels_))
-
-
-logging.info("Top terms per cluster:")
-if opts.n_components:
-    original_space_centroids = svd.inverse_transform(km.cluster_centers_)
-    order_centroids = original_space_centroids.argsort()[:, ::-1]
-#        logging.info("original_space_centroids: \n{0}".format(original_space_centroids[:, ::600]))
-#        logging.info("order_centroids: \n{0}".format(order_centroids[:, ::600]))
-else:
-    order_centroids = km.cluster_centers_.argsort()[:, ::-1]
-for i in range(opts.n_clusters):
-    top_for_i = ' '.join([ terms[j] for j in order_centroids[i, :15] ])
-    logging.info("  Cluster {0}: {1}".format(i, top_for_i))
-
-logging.info('Sample of publications per cluster:')
-t0 = time()
+logging.info("Loading pre-processed data")
 with open('../data/interim/{0}-preprocessed.pickle'.format(
         opts.size), 'rb') as handle:
     data = pickle.load(handle)
-for i in range(opts.n_clusters):
-    pubs = [d for (d, l) in zip(data, km.labels_) if l == i]
-    sample_size = 15 if len(pubs) > 15 else len(pubs) - 1
-    pubs_sample = random.sample(pubs, sample_size)
-    logging.info('  Cluster {0}:'.format(i))
-    for p in pubs_sample:
-        logging.info('          ' + p['title'][:80]
-                     + (80 - len(p['title'])) * ' ' + '|'
-                     + p['discipline'][:30])
-logging.info("  Done in %fs" % (time() - t0))
 
-#with open('../data/processed/{0}-results.txt'.format(opts.size),
-# 'w') as handle:
-#    handle.write(results)
+stopwords_ext = list(set(ENGLISH_STOP_WORDS).union(stopwords.words('english')))
+stopwords_ext += ['reserved', 'rights', 'science', 'elsevier', '2000']
 
-plot_silhouette(X, km.labels_, opts.n_clusters, 'K-Means')
-logging.info("Total running time: %fs" % (time() - t_total))
+logging.info("Extracting features from the training dataset using a sparse vectorizer")
+min_df = 2
+
+t0 = time()
+vectorizer = TfidfVectorizer(max_df=opts.max_df,
+                             max_features=opts.n_features,
+                             min_df=min_df,
+                             # stop_words=stopwords_ext,
+                             use_idf=opts.use_idf,
+                             # vocabulary=None,
+                             tokenizer=lambda x: x,
+                             # tokenizer=LemmaTokenizer,
+                             # preprocessor=None,
+                             lowercase=False,
+                             analyzer='word')
+
+vectrzr = make_pipeline(GeneralExtractor(fields=opts.fields.split(',')),
+# FIXME: Onko tässä tokenointi (vektorisoijan sisällä) ja lemmatisointi (NLTKPreprocessor) väärinpäin?
+# FIXME: Tokenointi itseasiassa lemmatisoijan yhteydessä
+                        NLTKPreprocessor(stopwords=stopwords_ext),
+                        vectorizer)
+X = vectrzr.fit_transform(data)
+
+# Save vectorized data and the vectorizer for the next step
+scipy.sparse.save_npz('../data/interim/{0}-{1}-{2}-{3}-vectorized.npz'.format(opts.size, opts.max_df, min_df, opts.n_features), X)
+terms = vectorizer.get_feature_names()
+with open('../data/interim/{0}-vectorizer_feature_names.pickle'.format(str(opts.size)), 'wb') as handle:
+    pickle.dump(terms, handle)
+
+logging.info('  Feature extraction steps: {0}'.format([s[0] for s in vectrzr.steps]))
+logging.info('  TfidfVectorizer, max_df: {0}, min_df: {1}, max_features: {2}, n_stopwords: {3}'
+             .format(opts.max_df, min_df, opts.n_features, len(stopwords_ext)))
+logging.info('  Vectorizer tokenizer: {0}'.format(vectorizer.tokenizer.__class__))
+logging.info('  Pre-tokenizer: {0}'.format(vectrzr.steps[1][0]))
+logging.info("  n_samples: %d, n_features: %d" % X.shape)
+logging.info("  Total discarded terms, cut by min_df and max_df: {0}".format(len(vectorizer.stop_words_) - len(stopwords_ext)))
+logging.info("  Done in {0}".format((time() - t0)))
