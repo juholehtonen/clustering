@@ -7,7 +7,7 @@
 
 # labels = ['mds', 'baseline']
 labels = ['mds']
-#vect = 'countvectorizer'
+# vect = 'countvectorizer'
 vect = 'tfidfvectorizer'
 # Define metadata fields used in clustering analysis
 analysis_fields = 'title,abstract,keyword'
@@ -31,7 +31,7 @@ preprocess_file = '../data/interim/{0}-preprocessed.pickle'.format(size)
 # preprocess_file = '../data/interim/ground-truth_CS-AI-IS-CN_preprocessed.pickle'
 imagefile = '../img/{0}-{1}-{2}-{3}-plot.png'
 
-#def task_preprocess_groundtruth():
+# def task_preprocess_groundtruth():
 #    """Step 1: preprocess data"""
 #    size = 20000
 #    return {

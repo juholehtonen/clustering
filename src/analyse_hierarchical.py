@@ -140,14 +140,14 @@ vectrzr = make_pipeline(GeneralExtractor(fields=opts.fields.split(',')),
                         vectorizer,
                         FunctionTransformer(lambda x: x.todense(), accept_sparse=True))
 X = vectrzr.fit_transform(data)
-logging.info("done in {0}".format((time() - t0)))
-logging.info('Feature extraction steps: {0}'.format([s[0] for s in vectrzr.steps]))
-logging.info('TfidfVectorizer, max_df: {0}, min_df: {1}, max_features: {2}, n_stopwords: {3}'
+logging.info('  Feature extraction steps: {0}'.format([s[0] for s in vectrzr.steps]))
+logging.info('  TfidfVectorizer, max_df: {0}, min_df: {1}, max_features: {2}, n_stopwords: {3}'
              .format(opts.max_df, min_df, opts.n_features, len(stopwords_ext)))
-logging.info('Vectorizer tokenizer: {0}'.format(vectorizer.tokenizer.__class__))
-logging.info('Pre-tokenizer: {0}'.format(vectrzr.steps[1][0]))
-logging.info("n_samples: %d, n_features: %d" % X.shape)
-logging.info("total discarded terms: {0}".format(len(vectorizer.stop_words_) - len(stopwords_ext)))
+logging.info('  Vectorizer tokenizer: {0}'.format(vectorizer.tokenizer.__class__))
+logging.info('  Pre-tokenizer: {0}'.format(vectrzr.steps[1][0]))
+logging.info("  n_samples: %d, n_features: %d" % X.shape)
+logging.info("  Total discarded terms: {0}".format(len(vectorizer.stop_words_) - len(stopwords_ext)))
+logging.info("  Done in {0}".format((time() - t0)))
 
 if opts.n_components:
     logging.info("Performing dimensionality reduction using LSA")
@@ -161,10 +161,10 @@ if opts.n_components:
 
     X = lsa.fit_transform(X)
 
-    logging.info("done in %fs" % (time() - t0))
+    logging.info("  Done in %fs" % (time() - t0))
 
     explained_variance = svd.explained_variance_ratio_.sum()
-    logging.info("Explained variance of the SVD step: {0}% with {1} components".format(
+    logging.info("  Explained variance of the SVD step: {0}% with {1} components".format(
         int(explained_variance * 100), opts.n_components))
 
 

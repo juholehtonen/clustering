@@ -159,14 +159,15 @@ vectrzr = make_pipeline(GeneralExtractor(fields=opts.fields.split(',')),
                         NLTKPreprocessor(stopwords=stopwords_ext),
                         vectorizer)
 X = vectrzr.fit_transform(data)
-logging.info('Feature extraction steps: {0}'.format([s[0] for s in vectrzr.steps]))
-logging.info('TfidfVectorizer, max_df: {0}, min_df: {1}, max_features: {2}, n_stopwords: {3}'
+logging.info('  Feature extraction steps: {0}'.format([s[0] for s in vectrzr.steps]))
+logging.info('  TfidfVectorizer, max_df: {0}, min_df: {1}, max_features: {2}, n_stopwords: {3}'
              .format(opts.max_df, min_df, opts.n_features, len(stopwords_ext)))
-logging.info('Vectorizer tokenizer: {0}'.format(vectorizer.tokenizer.__class__))
-logging.info('Pre-tokenizer: {0}'.format(vectrzr.steps[1][0]))
-logging.info("n_samples: %d, n_features: %d" % X.shape)
-logging.info("total discarded terms: {0}".format(len(vectorizer.stop_words_) - len(stopwords_ext)))
-logging.info("done in {0}".format((time() - t0)))
+logging.info('  Vectorizer tokenizer: {0}'.format(vectorizer.tokenizer.__class__))
+logging.info('  Pre-tokenizer: {0}'.format(vectrzr.steps[1][0]))
+logging.info("  n_samples: %d, n_features: %d" % X.shape)
+logging.info("  Total discarded terms, cut by min_df and max_df: {0}".format(len(vectorizer.stop_words_) - len(stopwords_ext)))
+logging.info("  Done in {0}".format((time() - t0)))
+
 
 if opts.n_components:
     logging.info("Performing dimensionality reduction using LSA")
@@ -180,10 +181,10 @@ if opts.n_components:
 
     X = lsa.fit_transform(X)
 
-    logging.info("done in %fs" % (time() - t0))
+    logging.info("  Done in %fs" % (time() - t0))
 
     explained_variance = svd.explained_variance_ratio_.sum()
-    logging.info("Explained variance of the SVD step: {0}% with {1} components".format(
+    logging.info("  Explained variance of the SVD step: {0}% with {1} components".format(
         int(explained_variance * 100), opts.n_components))
 
 
@@ -200,7 +201,7 @@ else:
 logging.info("Clustering sparse data with %s" % km)
 t0 = time()
 km.fit(X)
-logging.info("done in %0.3fs" % (time() - t0))
+logging.info("  Done in %0.3fs" % (time() - t0))
 
 
 #logging.info("Homogeneity: %0.3f" % metrics.homogeneity_score(labels, km.labels_))
@@ -208,10 +209,10 @@ logging.info("done in %0.3fs" % (time() - t0))
 #logging.info("V-measure: %0.3f" % metrics.v_measure_score(labels, km.labels_))
 #logging.info("Adjusted Rand-Index: %.3f"
 #      % metrics.adjusted_rand_score(labels, km.labels_))
-logging.info("Silhouette Coefficient: %0.3f"
+logging.info("  Silhouette Coefficient: %0.3f"
       % metrics.silhouette_score(X, km.labels_, sample_size=1000))
 X_to_CH = X if opts.n_components else X.toarray()
-logging.info("Calinski-Harabasz Index: %0.3f"
+logging.info("  Calinski-Harabasz Index: %0.3f"
       % metrics.calinski_harabasz_score(X_to_CH, km.labels_))
 
 
@@ -226,7 +227,7 @@ else:
 terms = vectorizer.get_feature_names()
 for i in range(opts.n_clusters):
     top_for_i = ' '.join([ terms[j] for j in order_centroids[i, :15] ])
-    logging.info("Cluster {0}: {1}".format(i, top_for_i))
+    logging.info("  Cluster {0}: {1}".format(i, top_for_i))
 
 logging.info('Sample of publications per cluster:')
 t0 = time()
@@ -234,12 +235,12 @@ for i in range(opts.n_clusters):
     pubs = [d for (d, l) in zip(data, km.labels_) if l == i]
     sample_size = 15 if len(pubs) > 15 else len(pubs) - 1
     pubs_sample = random.sample(pubs, sample_size)
-    logging.info('Cluster {0}:'.format(i))
+    logging.info('  Cluster {0}:'.format(i))
     for p in pubs_sample:
         logging.info('          ' + p['title'][:80]
                      + (80 - len(p['title'])) * ' ' + '|'
                      + p['discipline'][:30])
-logging.info("done in %fs" % (time() - t0))
+logging.info("  Done in %fs" % (time() - t0))
 
 #with open('../data/processed/{0}-results.txt'.format(opts.size),
 # 'w') as handle:
