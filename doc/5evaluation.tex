@@ -19,6 +19,7 @@ basically try to infer how dense the clusters are compared with how
 sparse the inter-cluster space is and how well the clusters are 
 separated from each other.
 
+
 \section{Silhouettes}
 One such measure to estimate the ``goodness'' of a clustering is 
 silhouettes. Silhouettes use average proximities which are know 
@@ -85,4 +86,21 @@ scikit-learn) Adjusted Rand Index, Mutual Information scrores
 (NMI, AMI), homogenity, completness, V-measure, Fowlkes-Mallows 
 scores, Silhouette Coefficient, Calinski-Harabaz Index, (from 
 sources) 
+
+
+\section{Results for one year data with K-means clustering}
+We clustered year 2000 data, 10145 publications, with k-means 
+clustering with different value of $k$, the number of clusters. 
+The Figure \ref{fig:ch-silh01} shows the results.
+\begin{figure}[ht]
+  \begin{center}    
+\includegraphics[width=13cm]{images/c-h-silh-index-plot-12000-200_259-800.png}
+    \caption{Calinski-Harabasz index and Silhoutte values of 
+10145 items clustered with k-means clustering, LSA with 800 
+components. The higher values denote more compact and better 
+clustering in both graphs.}
+    \label{fig:ch-silh01}
+  \end{center}
+\end{figure}
+
 
