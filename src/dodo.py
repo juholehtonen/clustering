@@ -13,13 +13,14 @@ labels = ['mds']
 vect = 'tfidfvectorizer'
 # Define metadata fields used in clustering analysis
 analysis_fields = 'title,abstract,keyword'
-samples = [200, 400, 2000, 6000]
+samples = [200, 400, 2000, 6000, 12000]
 # 220 = roughly number of disciplines in 6000 first datasets
 n_clusters = [4, 32, 64, 128, 220]
+cluster_range = range(200, 260)
 n_components = [800, 300, 200, 40]
-n_features = [20000]
+n_features = [10000]
 
-size = samples[0]
+size = samples[4]
 k = n_clusters[1]
 n_comp = n_components[0]
 n_comp_str = n_comp if n_comp < 600 else '-'
@@ -104,15 +105,16 @@ def task_vectorize():
 def task_analyze_mini_k_means():
     """Step 3: cluster data"""
     label = 'minikm'
-    options = '--size {0} --n-clusters {1} --no-minibatch --lsa {2} --n-features {3} --fields {4}'\
+    for k in cluster_range:
+        options = '--size {0} --n-clusters {1} --no-minibatch --lsa {2} --n-features {3} --fields {4}'\
               .format(size, k, n_comp, n_feat, analysis_fields)
-    return {
-        #'name': label,
-        'file_dep': ['analyse_mini-k-means.py',
-                     '../data/interim/%s-preprocessed.pickle' % size],
-        'targets': [imagefile.format(size, k, n_comp_str, 'kmeans')],
-        'actions': ['python analyse_mini-k-means.py {0}'.format(options)],
-    }
+        yield {
+            'name': ' k: {0}'.format(k),
+            'file_dep': ['analyse_mini-k-means.py',
+                         '../data/interim/%s-preprocessed.pickle' % size],
+            'targets': [imagefile.format(size, k, n_comp_str, 'kmeans')],
+            'actions': ['python analyse_mini-k-means.py {0}'.format(options)],
+        }
 
 
 # def task_analyze_hierarchical():
