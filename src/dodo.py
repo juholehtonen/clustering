@@ -4,6 +4,8 @@
 #
 # Usage: doit
 ##################################################################
+import nltk
+from pathlib import Path
 
 # labels = ['mds', 'baseline']
 labels = ['mds']
@@ -41,22 +43,23 @@ imagefile = '../img/{0}-{1}-{2}-{3}-plot.png'
 #        'actions': ['python preprocess_groundtruth.py %s' % size],
 #        'verbosity': 2
 #    }
-import nltk
 
 
 def task_init():
     """
     Initialize NLTK corpora etc.
-
-    FIXME: This should run only once but seems to ignore 'targets'.
     """
+    usrhome = str(Path.home())
+
     def init_nltk(corpus):
         nltk.download(corpus)
 
     corps = ['stopwords', 'punkt', 'averaged_perceptron_tagger', 'wordnet']
     return {
-        'targets': ['~/nltk_data/corpora/wordnet.zip'],
-        'actions': [(init_nltk, [corps])]
+        'targets': [usrhome + '/nltk_data/corpora/wordnet.zip'],
+        'actions': [(init_nltk, [corps])],
+        # force doit to always mark the task as up-to-date (unless target removed)
+        'uptodate': [True]
     }
 
 
