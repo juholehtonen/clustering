@@ -66,11 +66,13 @@ def task_init():
 def task_preprocess_small():
     """Step 1: preprocess data"""
     #size = 200
+    inputfile = '../data/raw/SuomiRyväsData2000'
     return {
         #'name': 'size: {0}'.format(size),
-        'file_dep': ['preprocess.py'],
-        'targets': ['../data/interim/%s-preprocessed.txt' % size],
-        'actions': ['python preprocess.py {0}'.format(size)],
+        'file_dep': ['preprocess.py',
+                     inputfile],
+        'targets': ['../data/interim/{0}-preprocessed.pickle'.format(size)],
+        'actions': ['python preprocess.py {0} {1}'.format(size, inputfile)],
     }
 
 

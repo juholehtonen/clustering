@@ -4,12 +4,16 @@
 #
 # Usage: python preprocessing.py <label>
 ##################################################################
+import logging
 import pickle
 import pprint
 import re
 import sys
 
-filename = '../data/raw/SuomiRyväsData2000'
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s %(message)s',
+                    datefmt="%Y-%m-%d %H:%M",
+                    filename='../log/preprocess.log')
 
 opening_line = r'[ ]{,11}\d{,12} (?P<identifier>\d{15})'  # Note here is re.match(opening_line).group('identifier')
 journal_line = r'Lehti:\s*(.*)\s*'
@@ -33,11 +37,17 @@ ref_clean = r',*\/*\s+(\/*\s*)*'
 sample_size = int(sys.argv[1])
 used_fields = ['id', 'journal', 'issn', 'discipline', 'year', 'title', 'abstract', 'keyword_publisher', 'keyword',
                'reference']
-if len(sys.argv) > 2:
-    used_fields = sys.argv[2].split(',')
+# if len(sys.argv) > 2:
+#     used_fields = sys.argv[2].split(',')
 
+# filename = '../data/raw/SuomiRyväsData2000'
 
 def get_data(batch_size):
+    if len(sys.argv) > 2:
+        filename = sys.argv[2]
+    else:
+        return False
+
     datasets = []
     current = {}
     k = 0
@@ -126,7 +136,7 @@ def get_data(batch_size):
     return datasets
 
 
-print("Pre-processing data with fields: {0}".format(used_fields))
+logging.info("Pre-processing data with fields: {0}".format(used_fields))
 data = get_data(batch_size=sample_size)
 with open('../data/interim/{0}-preprocessed.pickle'.format(str(sample_size)), 'wb') as handle:
     pickle.dump(data, handle)
