@@ -1,0 +1,45 @@
+0,information systems,,,,
+1,artifical intelligence,,,,
+2,clinical neurology,,,,
+NA,Data missing or possibly corrupted. Excluded.,,,,
+bad data,Check if excluded,,,,
+,,,,,
+,,,,,
+Id,My class,Class name,Clarification 1,Clarification 2,2nd opinion needed
+25,1,artifical intelligence,Or 0 as originally?,good reference point,2nd opinion
+29,0,information systems,Or 1?,good reference point,2nd opinion
+87,1,artifical intelligence,Or 1?,good reference point,2nd opinion
+88,1,artifical intelligence,Related to 2?,good reference point,2nd opinion
+92,0,information systems,far from the classification,mathematics,2nd opinion
+95,0,information systems,far from the classification,,2nd opinion
+105,0,information systems,far from the classification,"game theory, occupational psychology",2nd opinion
+106,0,information systems,far from the classification,telecommunication,2nd opinion
+126,0,information systems,far from the classification,formal languages,2nd opinion
+132,1,artifical intelligence,Or 0 as originally?,interesting reference point,2nd opinion
+136,1,artifical intelligence,far from the classification,pattern regocnition,2nd opinion
+141,0,information systems,far from the classification,formal languages,2nd opinion
+166,0,information systems,far from the classification,sosiology,2nd opinion
+167,0,information systems,far from the classification,,2nd opinion
+191,0,information systems,,mathematics,2nd opinion
+196,0,information systems,Or 1?,chemistry,2nd opinion
+229,1,artifical intelligence,,chemistry,2nd opinion
+264,1,artifical intelligence,far from the classification,,2nd opinion
+305,1,artifical intelligence,far from the classification,interesting reference point,2nd opinion
+311,1,artifical intelligence,far from the classification,,2nd opinion
+313,2,clinical neurology,"far from the classification, psychiatry",excluded?,2nd opinion
+330,1,artifical intelligence,"far from the classification, game development",excluded?,2nd opinion
+332,1,artifical intelligence,far from the classification,excluded?,2nd opinion
+333,0,information systems,far from the classification,telecommunication,2nd opinion
+334,0,information systems,far from the classification,telecommunication,2nd opinion
+335,0,information systems,far from the classification,telecommunication,2nd opinion
+346,0,information systems,Classified both 0 and 1,interesting reference point,2nd opinion
+347,0,information systems,Classified both 0 and 1,interesting reference point,2nd opinion
+367,0,information systems,Classified both 0 and 1,interesting reference point,2nd opinion
+410,1,artifical intelligence,Classified as 0,interesting reference point,2nd opinion
+418,0,information systems,classified as 1,,2nd opinion
+419,0,information systems,classified as 1,,2nd opinion
+432,0,information systems,Or 1?,digital signal processing,2nd opinion
+470,1,artifical intelligence,"Or 0, unclear?",,2nd opinion
+503,0,information systems,Or 1 ,,2nd opinion
+504,0,information systems,Or 1 ,,2nd opinion
+510,1,artifical intelligence,Classified as 0,,2nd opinion
