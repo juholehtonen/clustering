@@ -53,17 +53,77 @@ might be better options \cite{noauthor_clustering_nodate}.
 
 
 \section{``Gold standard set''}
-We could evaluate our clustering by creating an evaluation set with
-hand labeled or verified fields of science. Then we could use
-regular measurement methods that rely on having ground truth 
-available. Of course the ground truth would be our own subjective 
-definition. \fixme{I am actually about to manually check some 500
-documents belonging to two quite similar one more different 
-discipline. Based on that ground truth I will calculate precision
-and recall for a clustering.}
+We evaluated our clustering by creating an evaluation set with
+hand labeled or verified fields of science. This subset of data 
+consisted of 519 publications from three different fields. The fields
+were: \emph{Computer science: Information systems}, 147 publications,
+\emph{Computer science: Artificial intelligence} 153 publications, 
+and \emph{Clinical neurology} 250 publications as classified by 
+publisher. We checked the publisher labeling, \fixme{cleared the 
+bad samples} lacking enough meta data, being too far out of the 
+scope of any of the three disciplines or having corrupted data and
+relabeled few \fixme{(amount)} samples to the more fitting 
+discipline and to one discipline for each sample only. The ground 
+truth labeling for 37 the most ambiguous samples was checked by 
+a non-expert human reviewer. So, our manual classification will
+be subjective but gives some hint about the classifier performance.
+\fixme{Then we calculated precision and recall for the data set.} 
+
+The Figure \ref{fig:ch-silh01} shows the results. We see that with 
+only one clustering run seven clusters gives the most compact 
+clustering when measured with CH.
+For these seven clusters the top terms are listed in the Table \ref{table:topterms}.
+
+\begin{figure}[ht]
+  \begin{center}    
+\includegraphics[width=13cm]{images/c-h-silh-index-plot-519-2_14-800.png}
+    \caption{Calinski-Harabasz index and Silhoutte values for the
+    manually annotated set of 519 publications clustered with k-means 
+    clustering, LSA with 800 components. The higher values denote 
+    more compact and better clustering in both graphs.}
+    \label{fig:ch-silh01}
+  \end{center}
+\end{figure}
+
+\begin{table}
+\begin{tabular}{|p{2cm}|p{10.5cm}|} 
+% Alignment of sells: l=left, c=center, r=right. 
+% If you want wrapping lines, use p{width} exact cell widths.
+% If you want vertical lines between columns, write | above between the letters
+% Horizontal lines are generated with the \hline command:
+\hline % The line on top of the table
+\textbf{ } & \textbf{Top terms} \\ 
+\hline 
+\textbf{Cluster 0} & system internet management user project software architecture support decision business channel rule concept quality exercise  \\ 
+\hline
+\hline 
+\textbf{Cluster 1} & lenges professional care intellectual disability people service special syndrome life child social support diagnosis pathology  \\ 
+\hline
+\hline 
+\textbf{Cluster 2} & epilepsy stroke child seizure headache neuronal p rat sleep nerve risk treatment cell alcohol activity  \\ 
+\hline
+\hline 
+\textbf{Cluster 3} & component filter signal neural linear bayesian ica feature value input simulation independent fuzzy vector output \\ 
+\hline
+\hline 
+\textbf{Cluster 4} & dementia vascular ad cognitive stroke alzheimer diagnosis lesion vad risk pd brain impairment parkinson aneurysm \\ 
+\hline
+\hline 
+\textbf{Cluster 5} & service development mobile switch agent system solution traffic environment protocol ip technology wireless game implementation \\ 
+\hline
+\hline 
+\textbf{Cluster 6} & map image som self-organizing query logic document tree k expressive compression database retrieval rule cluster \\ 
+\hline
+\end{tabular} % for really simple tables, you can just use tabular
+% You can place the caption either below (like here) or above the table
+\caption{Top terms per cluster for manually annotated samples}
+% Place the label just after the caption to make the link work
+\label{table:topterms}
+\end{table} % table makes a floating object with a title
 
 
-\section{Precision and recall}
+
+\subsection{Precision and recall}
 Recall is the number of items correctly classified divided by the 
 total number of items in that class.
 \begin{equation}
@@ -91,7 +151,7 @@ sources)
 \section{Results for one year data with K-means clustering}
 We clustered year 2000 data, 10145 publications, with k-means 
 clustering with different value of $k$, the number of clusters. 
-The Figure \ref{fig:ch-silh01} shows the results.
+The Figure \ref{fig:ch-silh02} shows the results.
 \begin{figure}[ht]
   \begin{center}    
 \includegraphics[width=13cm]{images/c-h-silh-index-plot-12000-200_259-800.png}
@@ -99,7 +159,7 @@ The Figure \ref{fig:ch-silh01} shows the results.
 10145 items clustered with k-means clustering, LSA with 800 
 components. The higher values denote more compact and better 
 clustering in both graphs.}
-    \label{fig:ch-silh01}
+    \label{fig:ch-silh02}
   \end{center}
 \end{figure}
 
