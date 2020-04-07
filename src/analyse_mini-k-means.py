@@ -95,10 +95,18 @@ op.add_option("--no-idf",
               help="Disable Inverse Document Frequency feature weighting.")
 op.add_option("--max-df", dest="max_df", type=float, default=0.1,
               help="TfidfVectorizer's max_df parameter")
+op.add_option("--source",
+              dest="source", type="string",
+              help="Source file to process")
+op.add_option("--interim",
+              dest="interim", type="string",
+              help="Interim folder")
+op.add_option("--out",
+              dest="out", type="string",
+              help="Output dircetory for results")
 op.add_option("--verbose",
               action="store_true", dest="verbose", default=False,
               help="Print progress reports inside k-means algorithm.")
-
 
 # print(__doc__)
 # op.print_help()
@@ -116,7 +124,7 @@ if len(args) > 0:
     sys.exit(1)
 
 # Define log file name and start log
-results_filename = '../data/processed/'
+results_filename = opts.out
 for o in [opts.size, opts.n_clusters]:
     results_filename = results_filename + str(o) + '-'
 if opts.n_components:
@@ -133,8 +141,8 @@ logging.info('#' * 18 + ' Starting clustering  ' + '#' *18)
 logging.info("Loading vectorized data")
 t_total = time()
 min_df = 2
-X = scipy.sparse.load_npz('../data/interim/{0}-{1}-{2}-{3}-vectorized.npz'.format(opts.size, opts.max_df, min_df, opts.n_features))
-with open('../data/interim/{0}-vectorizer_feature_names.pickle'.format(opts.size), 'rb') as handle:
+X = scipy.sparse.load_npz(opts.interim + '{0}-{1}-{2}-{3}-vectorized.npz'.format(opts.size, min_df, opts.max_df, opts.n_features))
+with open(opts.interim + '{0}-vectorizer_feature_names.pickle'.format(opts.size), 'rb') as handle:
     terms = pickle.load(handle)
 
 # #############################################################################
@@ -202,8 +210,7 @@ for k in range(opts.n_clusters):
 logging.info('Sample of publications per cluster:')
 t0 = time()
 sample_max = 5
-with open('../data/interim/{0}-preprocessed.pickle'.format(
-        opts.size), 'rb') as handle:
+with open(opts.source, 'rb') as handle:
     data = pickle.load(handle)
 for k in range(opts.n_clusters):
     cluster_k_pubs = [d for (d, l) in zip(data, km.labels_) if l == k]

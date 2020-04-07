@@ -95,6 +95,15 @@ op.add_option("--max-df",
 op.add_option("--verbose",
               dest="verbose", action="store_true", default=False,
               help="Print progress reports inside k-means algorithm.")
+op.add_option("--source",
+              dest="source", type="string",
+              help="Source file to process")
+op.add_option("--interim",
+              dest="interim", type="string",
+              help="Interim folder")
+op.add_option("--out",
+              dest="out", type="string",
+              help="Output dircetory for results")
 
 
 # print(__doc__)
@@ -113,7 +122,7 @@ if len(args) > 0:
     sys.exit(1)
 
 # Define log file name and start log
-results_filename = '../data/processed/'
+results_filename = opts.out
 for o in [opts.size, opts.n_clusters]:
     results_filename = results_filename + str(o) + '-'
 if opts.n_components:
@@ -128,8 +137,7 @@ logging.info('#' * 17 + ' Starting vectorization ' + '#' *17)
 # #############################################################################
 # Load data from the previous step
 logging.info("Loading pre-processed data")
-with open('../data/interim/{0}-preprocessed.pickle'.format(
-        opts.size), 'rb') as handle:
+with open(opts.source, 'rb') as handle:
     data = pickle.load(handle)
 
 stopwords_ext = list(set(ENGLISH_STOP_WORDS).union(stopwords.words('english')))
@@ -159,9 +167,10 @@ vectrzr = make_pipeline(GeneralExtractor(fields=opts.fields.split(',')),
 X = vectrzr.fit_transform(data)
 
 # Save vectorized data and the vectorizer for the next step
-scipy.sparse.save_npz('../data/interim/{0}-{1}-{2}-{3}-vectorized.npz'.format(opts.size, opts.max_df, min_df, opts.n_features), X)
+vctd_filename = '{0}-{1}-{2}-{3}-vectorized.npz'.format(opts.size, min_df, opts.max_df, opts.n_features)
+scipy.sparse.save_npz(opts.interim + vctd_filename, X)
 terms = vectorizer.get_feature_names()
-with open('../data/interim/{0}-vectorizer_feature_names.pickle'.format(str(opts.size)), 'wb') as handle:
+with open(opts.interim + '{0}-vectorizer_feature_names.pickle'.format(str(opts.size)), 'wb') as handle:
     pickle.dump(terms, handle)
 
 logging.info('  Feature extraction steps: {0}'.format([s[0] for s in vectrzr.steps]))
