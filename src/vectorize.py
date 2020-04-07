@@ -127,7 +127,7 @@ for o in [opts.size, opts.n_clusters]:
     results_filename = results_filename + str(o) + '-'
 if opts.n_components:
     results_filename = results_filename + str(opts.n_components) + '-'
-results_filename += 'kmeans-results.txt'
+results_filename += 'vectorize.log'
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(message)s',
                     datefmt="%Y-%m-%d %H:%M",
