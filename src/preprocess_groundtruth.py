@@ -133,10 +133,10 @@ def dataset(batch_size):
 
 # print("Prepocessing data with fields: {0}".format(used_fields))
 data = dataset(batch_size=b_size)
-with open('../data/interim/ground_truth-preproc_CS-AI-IS_CN'
+with open('../data/interim/groundtruth-preproc_CS-AI-IS_CN'
           '.pickle', 'w') as handle:
     cPickle.dump(data, handle)
-with open('../data/interim/ground_truth-preproc_CS-AI-IS_CN.txt', 'w') as handle:
+with open('../data/interim/groundtruth-preproc_CS-AI-IS_CN.txt', 'w') as handle:
     for (i, d) in enumerate(data, start=1):
         for field in ['title', 'abstract', 'keyword', 'keyword_publisher', 'journal', 'discipline']:
             if d.get(field):
