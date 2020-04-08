@@ -69,19 +69,45 @@ a non-expert human reviewer. So, our manual classification will
 be subjective but gives some hint about the classifier performance.
 \fixme{Then we calculated precision and recall for the data set.} 
 
-The Figure \ref{fig:ch-silh01} shows the results. We see that with 
-only one clustering run seven clusters gives the most compact 
-clustering when measured with CH.
-For these seven clusters the top terms are listed in the Table \ref{table:topterms}.
+The Figure \ref{fig:ch-silh01} shows the results. We see that
+Calinski-Harabasz index reaches it's maximum value at the number
+of clusters two and that silhouette values increases with the
+number of clusters.
+Neither of these indices corresponds to the three disciplines
+that we selected manually. It's also worth to remember that there
+is only 519 data points to cluster. Comparison against preferred
+manual labeling \fixme{is calculated with the 
+Adjusted Rand Index (ARI) for these clusterings in Figure 
+\ref{refhere}.}
+Top terms for maximum index values are shown in the Table 
+\ref{refhere}.
+
+In figure \ref{fig:ch-silh02}
+we see corresponding graphs for k-means clustering. Top terms for
+Calinski-Harabasz index maximum at seven clusters are listed in 
+the Table \ref{table:topterms}.
+
 
 \begin{figure}[ht]
   \begin{center}    
-\includegraphics[width=13cm]{images/c-h-silh-index-plot-519-2_14-800.png}
-    \caption{Calinski-Harabasz index and Silhoutte values for the
-    manually annotated set of 519 publications clustered with k-means 
+\includegraphics[width=9.5cm]{images/c-h-silh-index-plot-519-2_260-800-hierarchical.png}
+    \caption{Hierarchical clustering. Calinski-Harabasz index and Silhoutte values for the
+    manually annotated set of 519 publications clustered with hierarchical
     clustering, LSA with 800 components. The higher values denote 
     more compact and better clustering in both graphs.}
     \label{fig:ch-silh01}
+  \end{center}
+\end{figure}
+
+
+\begin{figure}[ht]
+  \begin{center}    
+\includegraphics[width=9.5cm]{images/c-h-silh-index-plot-519-2_14-800.png}
+    \caption{k-means clustering. Calinski-Harabasz index and Silhoutte values for the
+    manually annotated set of 519 publications clustered with k-means 
+    clustering, LSA with 800 components. The higher values denote 
+    more compact and better clustering in both graphs.}
+    \label{fig:ch-silh02}
   \end{center}
 \end{figure}
 
@@ -120,7 +146,7 @@ For these seven clusters the top terms are listed in the Table \ref{table:topter
 % Place the label just after the caption to make the link work
 \label{table:topterms}
 \end{table} % table makes a floating object with a title
-
+cluster
 
 
 \subsection{Precision and recall}
@@ -140,21 +166,21 @@ items\}|}
 \end{equation}
 
 
-\section{Other metrics}
+\subsection{Other metrics}
 Different metrics to evaluate clustering include (from 
-scikit-learn) Adjusted Rand Index, Mutual Information scrores 
+scikit-learn) Adjusted Rand Index, Mutual Information scores 
 (NMI, AMI), homogenity, completness, V-measure, Fowlkes-Mallows 
 scores, Silhouette Coefficient, Calinski-Harabaz Index, (from 
 sources) 
 
 
-\section{Results for one year data with K-means clustering}
+\section{Finnish publications from year 2000}
 We clustered year 2000 data, 10145 publications, with k-means 
 clustering with different value of $k$, the number of clusters. 
 The Figure \ref{fig:ch-silh02} shows the results.
 \begin{figure}[ht]
   \begin{center}    
-\includegraphics[width=13cm]{images/c-h-silh-index-plot-12000-200_259-800.png}
+\includegraphics[width=10cm]{images/c-h-silh-index-plot-12000-200_259-800.png}
     \caption{Calinski-Harabasz index and Silhoutte values of 
 10145 items clustered with k-means clustering, LSA with 800 
 components. The higher values denote more compact and better 
@@ -162,5 +188,39 @@ clustering in both graphs.}
     \label{fig:ch-silh02}
   \end{center}
 \end{figure}
+
+Similarly the same data was clustered with agglomerative 
+hierarchical Ward's clustering by sampling the number of clusters 
+from the values [2-260]. The silhouette and Calinski-Harabasz values
+are shown in Figure \ref{}
+\begin{figure}[ht]
+  \begin{center}    
+\includegraphics[width=10cm]{images/c-h-silh-index-plot-y2000-2_260-800-hierarchical.png}
+    \caption{Hierarchical clustering. Calinski-Harabasz index and Silhoutte values for the
+    Finnish publications from year 2000 clustered with hierarchical
+    clustering, LSA with 800 components. The higher values denote 
+    more compact and better clustering in both graphs.}
+    \label{fig:ch-silh-2000-01}
+  \end{center}
+\end{figure}
+We can see from the values that they prefer different features in
+the data. Calinski-Harabasz index sees the fewest number of 
+clusters - two - as the most compact and optimal clustering. Also
+the form of the curve hints to perhaps power law that is also 
+known as Zipf's law in text analysis. \fixme{Check this.}
+It should be noticed that the silhouette values are quite low 
+in absolute terms considering it's index space [-1,1]. This might 
+be in line with the fact that it's best suited for [normally?] 
+distributed and compact clusters. But we can also see that the 
+silhouette values grow with the number of clusters although no
+maxima seems to be reached with these cluster values.
+
+
+
+
+
+
+
+
 
 
