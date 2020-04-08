@@ -83,9 +83,6 @@ op.add_option("--n-features",
               dest="n_features", type=int, default=10000,
               help="Maximum number of features (dimensions)"
                    " to extract from text.")
-op.add_option("--no-minibatch",
-              dest="minibatch", action="store_false", default=True,
-              help="Use ordinary k-means algorithm (in batch mode).")
 op.add_option("--no-idf",
               dest="use_idf", action="store_false", default=True,
               help="Disable Inverse Document Frequency feature weighting.")

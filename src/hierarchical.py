@@ -71,7 +71,7 @@ def task_init():
 
 def task_vectorize():
     """Step 2: vectorize data"""
-    options = '--size {0} --n-clusters {1} --no-minibatch --lsa {2} --n-features {3} --fields {4} --source {5} --interim {6} --out {7}'\
+    options = '--size {0} --n-clusters {1} --lsa {2} --n-features {3} --fields {4} --source {5} --interim {6} --out {7}'\
               .format(size, k, n_comp, n_feat, analysis_fields, src_file, interim_dir, results_dir)
     return {
         'file_dep': ['vectorize.py', src_file],
