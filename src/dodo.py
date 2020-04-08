@@ -79,8 +79,8 @@ def task_preprocess_small():
 
 def task_vectorize():
     """Step 2: vectorize data"""
-    options = '--size {0} --n-clusters {1} --no-minibatch --lsa {2} --n-features {3} --fields {4}'\
-              .format(size, k, n_comp, n_feat, analysis_fields)
+    options = '--size {0} --lsa {1} --n-features {2} --fields {3}'\
+              .format(size, n_comp, n_feat, analysis_fields)
     return {
         'file_dep': ['vectorize.py',
                      '../data/interim/%s-preprocessed.pickle' % size],

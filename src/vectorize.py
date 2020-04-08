@@ -73,9 +73,6 @@ op.add_option("--size",
 op.add_option("--fields",
               dest="fields", type="string",
               help="Metadata fields to run analysis with.")
-op.add_option("--n-clusters",
-              dest="n_clusters", type="int", default=16,
-              help="Number of clusters to be used.")
 op.add_option("--lsa",
               dest="n_components", type="int",
               help="Preprocess documents with latent semantic analysis.")
@@ -119,11 +116,9 @@ if len(args) > 0:
     sys.exit(1)
 
 # Define log file name and start log
-results_filename = opts.out
-for o in [opts.size, opts.n_clusters]:
-    results_filename = results_filename + str(o) + '-'
+results_filename = opts.out + str(opts.size) + '-'
 if opts.n_components:
-    results_filename = results_filename + str(opts.n_components) + '-'
+    results_filename += str(opts.n_components) + '-'
 results_filename += 'vectorize.log'
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(message)s',
