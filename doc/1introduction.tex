@@ -1,21 +1,69 @@
 \chapter{Introduction}
 \label{chapter:intro}
-% The target
+% enemman tavoitteen kuvausta ei viela maarittelyn vaikeutta
+% The goal
 % ==========
 This thesis handles the problem of clustering Finnish scientific 
-publications by their metadata. The target is to cluster 
-them as well as possible by their scientific discipline. \fixme{
-Tahan enemman tavoitteen kuvausta ei viela maarittelyn vaikeutta.}
-Of course 
-the ``wellness'' of a clustering measured by how it fits to 
+publications by their metadata. The goal is to cluster 
+them as well as possible by their scientific discipline. We want 
+find a clustering for the publications such that it matches 
+as well as possible an imaginary average manual classification 
+done by human experts.
+
+% Why this goal is needed?
+% ========================
+Classifying articles by discipline enables different types of 
+bibliometric analysis. Such classifications can be used to 
+summarize research output of a university or a country.
+The sum of all scientific publication of eg. an individual country can be 
+interesting and useful information that can tell something about 
+research and its level in that country.
+% Eri tutkimusalojen ja niiden julkaisumäärien tarkastelu esimerkiksi 
+% kansallisten koulutuspäätösten tueksi tarvitsee bibliometriikka.
+%In Finland the ministry of education and culture uses such 
+%information to follow what is researched and in what quanities in
+%the Finnish academia.
+
+We use Finnish scientific publications from Clarivative Analytics' 
+Web of Science (WoS) database as our source data. 
+Web of Science database gets approximately 10000 publications 
+annually that can be assigned as a result of Finnish research (see 
+\ref{tt2018} for definition).
+% https://www.aka.fi/globalassets/42julkaisut/aka_tieteen_tila_2018_web.pdf
+% Liite 1 Bibliometrinen aineisto ja menetelmät
+It should be noted that not all Finnish research can be found from
+WoS database. Especially humanities and social sciences are 
+underrepresented so it isn't comprehensive image of Finnish 
+research.
+% It is also ill posed problem because there is no one right answer
+% for the problem. Different tasks require different classification.
+Due to the amount of the scientific articles, manual 
+classification is not applicable. It is also impossible for any 
+one person to master all fields of science to manage such a
+task. Our goal is a method that the analyst herself can apply.
+% Environment/background/context
+% ==============================
+
+% In Finland there are 13 universities, 12 state research institutes,
+% and 24 universities of applied sciences. Additionally there are 
+% other instances like military academy and private companies that 
+% contribute to research. 
+For clustering we will use metadata that the authors will provide
+with the publication in any case (title, abstract, keywords). 
+% Ryvästykseen käytämme Wardin hierarkkista klusterointia.
+Clustering will not produce any labels for the clusters. They must
+be labeled appropriately by other means. We will label the 
+produced clusters using the top five most significant terms of a 
+cluster.
+
+The ``wellness'' of a clustering measured by how it fits to 
 scientific fields is a tricky issue for at least couple of 
 reasons.
-
-
 % Obstacles
 % =========
 First, there is no general consensus about what is the correct 
-partition of all science to different branches. It might be depend 
+partition of all science to its different branches. Or even what
+are the different fields of science. It might be depend 
 on specific need or individual opinion where the line between two 
 related discipline lies.
 
@@ -25,54 +73,34 @@ chemistry.
 
 Third, the definition of scientific disciplines depends also how 
 closely we look into a topic. Sometimes chemistry is sufficent 
-description for eg. a publication and sometimes we need to define 
+classification for eg. a publication and sometimes we need to label 
 it more accurately as organic chemistry.
-% LMa: Tahan maininta poikkitieteellisten alojen 
-% ongelmallisuudesta, onko bioinformatiikka, biologiaa, 
-% tietotekniikkaa vai oma tieteenalansa.
 
-But despite this ambiguousness of the target we define and 
-justify some goals and how to measure our success.
+Fourth, there is a considerable amount of research that is 
+intrinsically cross-disciplinary. For example bioinformatics relies
+heavily on biology and computer science. So it depends on the 
+purpose whether a publication should be considered belonging to
+biology, computer science, bioinformatics or to all of them.
+
+We will measure the resulting clustering by comparing it to the
+existing Web of Science classification. The clustering is good if
+it in outline matches WoS classification.
+% ...mutta kenties tarkentaa sitä ryvästämällä jotkut julkaisut 
+% pienempiin ryppäisiin samankaltaisten julkaisujen kanssa.
+% But despite this ambiguousness of the target we define and 
+% justify some goals and how to measure our success.
 
 
-% Environment/background
-% ======================
-In Finland there are 15 universities and 23(+2) universities of 
-applied sciences. Additionally there are 12 research institutes.
-Each year Finnish scientific efforts produce about 
-10000 publications in all scientific disciplines. 
-\fixme{10000 tulee siis WOS ja Elsevierilta} The Ministry of 
-Education and Culture oversees what is researched and in what 
-quanities in the Finnish research.
-Classifying articles by discipline enables different types of 
-bibliometric analysis.
-% It is also ill posed problem because there is no one right answer
-% for the problem. Different tasks require different classification.
-Because of the amount of the scientific articles manual 
-classification is not applicable. \fixme{Myös: kukaan tuskin 
-pystyy hallitsemaan kaikkia tieteenaloja. Tavoitteena tyokalu, 
-jolla analyysin tekija voi luokitella }
 % All these are manual methods. Automatic methods are needed...
-Automatic methods should be able to label the article by some 
-criterion to the (subjectively) obvious discipline. The input for 
-automatic method can usually at most be the whole article and 
-perhaps some metadata describing it. The metadata can be 
-created by the author or the publisher or some archive.
+% Automatic methods should be able to label the article by some 
+% criterion to the (subjectively) obvious discipline. The input for 
+% automatic method can usually at most be the whole article and 
+% perhaps some metadata describing it. The metadata can be 
+% created by the author or the publisher or some archive.
 
 % \fixme{What methods used?}
 % Different methods have been suggested. NN1 suggested SOME METHOD. 
 % NN2 suggested SOME OTHER METHOD. NN3 suggested YET A METHOD.
-
-In this thesis we will try to cluster Finnish publications by 
-discipline by using the metadata.
-
-
-
-
-
-\section{Problem statement}
-
-Refactor from above...
 
 \section{Structure of the Thesis}
 \label{section:structure} 
