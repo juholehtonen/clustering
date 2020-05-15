@@ -92,15 +92,24 @@ disciplines.
 % Miten bibliometriikkaa voidaan jasentaa / mista se koostuu?
 % Existing classification systems / methods
 % =========================================
+\fixme{Onko Scopus tässä relevantti jos ei Scopus-dataa?}
 Currently, the most popular systems to classify the publications 
-into research areas are the Thomson 
-Reuter's Web of Science and Elsevier's Scopus classification
+into research areas are the Clarivate's (formerly Thomson Reuters)
+Web of Science and Elsevier's Scopus classification
 systems. These classification systems classify the journals into
 one or more research areas. \cite{waltman_new_2012} Publications
-are then classified to research areas based on which journal they
-were published. \fixme{It is not known how these classifications 
-are made exactly? Selvitä miten WOS ja Scopus luokittelut 
-muodostetaan.}
+are then classified to research areas based on in which journal they
+were published. WoS uses approximately 250 \emph{subject categories}
+in its classification. Each journal can belong 
+to one or up to six categories. The categories have been created
+at least or before early 1960's by manually classifying journals.
+New journals were added one at the time after visual inspection of
+citation information. New categories were added when when old ones
+grew \cite{pudovkin_algorithmic_2002}. As for Scopus, according to 
+Wang and Waltman \cite{wang_large-scale_2016}, ``there seems to be no 
+information at all on the construction of its classification 
+system''.
+
 Also an independent journal level classification system has been 
 developed. \cite{archambault_towards_2011}
 Journal level classification systems have known limitations.
@@ -160,20 +169,36 @@ our interest here.
 
 
 \subsection{Bibliometrics in Finland}
-Ministry of Education and Culture of Finland provides yearly 
+Ministry of Education and Culture of Finland provides yearly
 updated bibliometric analyses of Finnish research activities 
-based on both Clarivative Analytics' Web Of Science citation 
-index \cite[Vipunen service]{noauthor_ministry_2019} 
+based on both Web Of Science citation index 
 and Elsevier's Scopus database \cite[Vipunen 
-service]{noauthor_ministry_2019-1}. The corresponding source 
+service]{noauthor_ministry_2019}. The corresponding source 
 system classification for a field of science is used and
-aggregated to match the Statistics Finland classification. CSC - 
-IT Center for Science provides the actual technical implementation 
-of the service. \fixme{Pitää ehkä tarkentaa vielä, kysy YL:ltä}
+aggregated to match the Statistics Finland classification 
+\cite{auranen_tieteen_2018}. CSC - 
+IT Center for Science is responsible of the actual technical 
+implementation of the service.
 
-Efforts to cluster Finnish research include a study by Korenius 
-et al. analysing different hierarchical clustering methods but
-applied to search query results \cite{korenius_hierarchical_2006}.
+One of the earlier and comprehensive bibliometric research of 
+Finnish science is a report by Persson et. al 
+\cite{persson_bibliometric_2000} which mapped the situation and 
+development of Finnish science 1981-1998.
+This however is a report which concentrates on bibliometric 
+analysis based on the map of science provided by WoS subject 
+categories. But if we want to explore how the Finnish scientific 
+disciplines them selves have evolved over time these pre-defined 
+subject categories are quite rigid framework. For that reason we 
+want to experiment creating an alternative mapping of science by 
+clustering. 
+So, ... (käännä englanniksi)
+Erotuksena bibliometrisistä analyyseistä jotka tarkastelevat 
+tutkimuksen tunnuslukuja olemassa olevien WoS kategorioiden 
+mukaisesti, voidaan tunnistaa tieteenalojen muodostaminen ja 
+erottelu käytettäväksi bibliometrisissä analyyseissä.
+
+Efforts to cluster Finnish research include a study by t
+.
 Suominen and Toivanen have researched clustering the Finnish
 publications from years 1995-2011 using LDA... 
 \cite{suominen_map_2016} \fixme{Selvennä että tämä ``kokeilevaa 
@@ -197,6 +222,10 @@ Unsupervised methods like clustering try to distinguish patterns
 in the data and discriminate unrelated objects into separate 
 clusters and aggregate related objects into same cluster.
 
+Hierarchical clustering methods with different linkages applied 
+to search query results are experimented by Korenius et al. 
+\cite{korenius_hierarchical_2006}.
+
 \fixme{Ero verkkoanalyysiin: lyhyesti}
 
 
@@ -205,6 +234,7 @@ clusters and aggregate related objects into same cluster.
 olemassa", "ne soveltuvat tähän ja tähän käyttötarkoitukseen". 
 Helppo löytää ja käyttää viitteitä; esim. käytetty siinä ja siinä, 
 meta- ja review-tutkimukset}
+% 29.4.2020 Lyhyesti vain
 
 In hierarchical clustering number of clusters can be chosen after 
 the data has been clustered and the dendogram \fixme{explain more}
