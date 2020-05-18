@@ -181,39 +181,76 @@ IT Center for Science is responsible of the actual technical
 implementation of the service.
 
 One of the earlier and comprehensive bibliometric research of 
-Finnish science is a report by Persson et. al 
+Finnish science is a report by Persson et al. 
 \cite{persson_bibliometric_2000} which mapped the situation and 
 development of Finnish science 1981-1998.
-This however is a report which concentrates on bibliometric 
+This, however, is a report which concentrates on bibliometric 
 analysis based on the map of science provided by WoS subject 
 categories. But if we want to explore how the Finnish scientific 
-disciplines them selves have evolved over time these pre-defined 
+disciplines themselves have evolved over time these pre-defined 
 subject categories are quite rigid framework. For that reason we 
 want to experiment creating an alternative mapping of science by 
 clustering. 
-So, ... (käännä englanniksi)
-Erotuksena bibliometrisistä analyyseistä jotka tarkastelevat 
-tutkimuksen tunnuslukuja olemassa olevien WoS kategorioiden 
-mukaisesti, voidaan tunnistaa tieteenalojen muodostaminen ja 
-erottelu käytettäväksi bibliometrisissä analyyseissä.
 
-Efforts to cluster Finnish research include a study by t
-.
-Suominen and Toivanen have researched clustering the Finnish
-publications from years 1995-2011 using LDA... 
-\cite{suominen_map_2016} \fixme{Selvennä että tämä ``kokeilevaa 
-b. analyysia''} \fixme{Mitkä olivat tulokset? Miten eroaa mun 
-työstä? Vie myös ``Discussion'' -osioon.}
+So, as opposed to bibliometric analyses seeking to understand the
+state of a scientific discipline as defined by some existing 
+definition, we want to experiment/inspect how to define 
+scientific disciplines to be used in bibliometric analyses.
+
+%Efforts to cluster Finnish research include a study by...
+
+Suominen and Toivanen used unsupervised learning-based topic 
+modeling to create a map of science for Finnish publications from 
+1995-2011. They evaluated it by comparing the results with WoS 
+based classification and concluded that superiority of the method
+depends on the purpose of analysis. Traditional manually created 
+classifications are relevant for information retrieval while 
+machine learning methods can reveal new emerging areas of science 
+\cite{suominen_map_2016}. Compared to our work here, their 
+analysis method topic modeling differs from hierarchical 
+clustering albeit both are unsupervised learning methods.
+\fixme{Vie myös ``Discussion'' -osioon.}
 
 Our research question here is: "How to automatically cluster 
-Finnish
-scientific publications and how does that clustering compare to
-existing fiels of science classification by WOS (and Scopus?)?" We
- will use hierarchical clustering on features derived from titles,
-  abstracts and keywords in publication metadata.
+Finnish scientific publications and how does that clustering 
+compare to existing fiels of science classification by WoS?" We 
+will use hierarchical clustering on features derived from titles,
+abstracts and keywords in publication metadata.
 
 
 \section{Clustering}
+The methods discussed in this work belong to the field of machine 
+learnig. The field has it's roots in statistics and engineering 
+and is itself part of artificial intelligence.
+The methods in machine learnig can be divided to supervised, 
+unsupervised and reinforced learning \cite{alpaydin2004introduction}.
+
+Commonly for all methods we define $X$ as
+the sample data and $Y$ as label indicating which class our data 
+sample $X$ belongs. We also have to choose the model $f()$ for
+learning from the data. Then we can state our learning problem as
+a function $Y = f(w \cdot X)$, where $w$ is a weight vector, 
+which would give a prediction of the class $Y$ of the sample data
+$X$. 
+Assuming we have enough of samples $X$ we then teach our model 
+with training data. That is, we solve the weights $w$ using the
+loss function such that it optimizes the difference between the 
+true and predicted class labesl $Y$.
+
+Supervised learnig methods include classification and continuous 
+estimation (regression)
+where the class of the training samples, or the target values in 
+case of regression, $Y$ is known. Example of a classification 
+problem is optical character recognition where the system is 
+taught with example of characters along with their correct labels.
+
+For unsupervised learning the correct answer $Y$ is not known. 
+Instead a model is applied such that it finds regularities in the
+input data $X$. Example of unsupervised learning problem is 
+finding anomalities that don't fit in the group, such as analysing
+log files of a computer system to find a possible intruder.
+
+Unsupervised learning methods include clustering, 
 Classifying objects is a common task belonging to statistics and 
 machine learning. Methods can be divided to supervised and 
 unsupervised. Supervised methods require the labels for the training
