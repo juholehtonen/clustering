@@ -244,22 +244,41 @@ case of regression, $Y$ is known. Example of a classification
 problem is optical character recognition where the system is 
 taught with example of characters along with their correct labels.
 
-For unsupervised learning the correct answer $Y$ is not known. 
+For unsupervised learning the correct answer or the label $Y$ is not known. 
 Instead a model is applied such that it finds regularities in the
 input data $X$. Example of unsupervised learning problem is 
 finding anomalities that don't fit in the group, such as analysing
 log files of a computer system to find a possible intruder.
 
-Unsupervised learning methods include clustering, 
-Classifying objects is a common task belonging to statistics and 
-machine learning. Methods can be divided to supervised and 
-unsupervised. Supervised methods require the labels for the training
-set. Unsupervised methods don't need any known labels for the data.
-Unsupervised methods like clustering try to distinguish patterns 
-in the data and discriminate unrelated objects into separate 
-clusters and aggregate related objects into same cluster.
+Unsupervised learning methods include clustering, dimensionality
+reduction and topic modeling for instance. Clustering try to 
+distinguish patterns in the data and discriminate unrelated 
+objects into separate clusters and aggregate related objects into
+same cluster.
 
-Hierarchical clustering methods with different linkages applied 
+In reinforced learning we want the system to learn a sequence of
+actions leading to desired outcome. For example we may want the 
+system to learn to win a game. In that case individual actions
+are not important but the end result as there are many ways to win
+a game. So the system repaeatedly tries different combinations of
+actions while it receives the result of it's combined actions.
+
+\subsubsection{Model selection}
+Generally all machine learning problems are ill-posed in the sense 
+that a unique solution for the problem can't be found unless some
+assumptions, or \emph(inductive bias), are introduced. This begins 
+with selecting the learning algorithm.
+
+Here we will unsupervised learning to shape a mapping of 
+scientific disciplines because we want to learn the possible 
+intristic structure of sciencetific knowledge. We will use 
+clustering because it's quite simple and familiar to us. 
+There are many different clustering algorithms from which to 
+choose. Some often used common algorithms are k-means, hierarchical
+clustering, density based scan clustering and Gaussian clustering.
+We will use hierarchical clustering. Among the hierarchical 
+clustering there are yet different parameters to choose. 
+clustering as our method because clustering methods with different linkages applied 
 to search query results are experimented by Korenius et al. 
 \cite{korenius_hierarchical_2006}.
 
