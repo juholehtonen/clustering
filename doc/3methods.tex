@@ -126,26 +126,6 @@ esimerkiksi ko. matriisin palanen?}
 % 29.4.2020 Vain prosenttiosuus tiheydestä
 
 
-\subsection{Topic modeling}
-\fixme{Kuuluko tämä aihe mukaan?}
-Yau et al. \cite{ref_here} have been researched application of 
-topic modeling to bibliometrics.
-
-
-\subsection{Different distributions of different metadata fields}
-\fixme{Pitikö tämä aliluku jättää pois?} There are multiple ways 
-to use input metadata of the publications; put all text in one 
-bin and use text analysis methods on that. Alternatively we could 
-assume different distribution for each metadata field 
-\fixme{describe metadata before this} and treat them separately.
-\subsubsection{Keyword distribution}
-\subsubsection{Citation distribution \emph{(Tämä voi jäädä 
-pois...)}}
-- Normalization of citation weight between different disciplines.
-  Different fields of science have different citation practices 
-eg. regarding the number of references per publication. 
-\cite{waltman_new_2012}
-
 
 \section{Dimensionality reduction}
 \label{sec:dimensionalityreduction}
@@ -245,9 +225,13 @@ total within-cluster variance.
 
 
 
-\subsection{Complexity}
-Time and space requirements of used agglomerative clustering method
-are $O(N^2)$ for both.\fixme{citation}
+\subsection{Algorithmic complexity}
+Both, time and space requirements of the used agglomerative clustering 
+method are $O(N^2)$, where $N$ is the number of publications 
+\cite{willett_recent_1988}. These are quite demanding requirements
+when the number of publications increase. In this case it is 
+acceptable because there is no need for real time updates of 
+results, rather we experiment with exploratory data analysis.
 
 
 

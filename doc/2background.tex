@@ -263,29 +263,32 @@ are not important but the end result as there are many ways to win
 a game. So the system repaeatedly tries different combinations of
 actions while it receives the result of it's combined actions.
 
-\subsubsection{Model selection}
+\subsection{Model selection}
 Generally all machine learning problems are ill-posed in the sense 
 that a unique solution for the problem can't be found unless some
-assumptions, or \emph(inductive bias), are introduced. This begins 
-with selecting the learning algorithm.
+assumptions, or \emph{inductive bias}, are introduced. This begins 
+with selecting the learning algorithm and might also include some
+hyperparameters of selected algorithm.
 
-Here we will unsupervised learning to shape a mapping of 
+Here we will use unsupervised learning to shape the mapping of 
 scientific disciplines because we want to learn the possible 
-intristic structure of sciencetific knowledge. We will use 
-clustering because it's quite simple and familiar to us. 
+intristic structure of sciencetific knowledge.  
 There are many different clustering algorithms from which to 
 choose. Some often used common algorithms are k-means, hierarchical
 clustering, density based scan clustering and Gaussian clustering.
-We will use hierarchical clustering. Among the hierarchical 
-clustering there are yet different parameters to choose. 
-clustering as our method because clustering methods with different linkages applied 
-to search query results are experimented by Korenius et al. 
-\cite{korenius_hierarchical_2006}.
-
-\fixme{Ero verkkoanalyysiin: lyhyesti}
-
+We will use hierarchical clustering because it's quite simple and 
+familiar to us.
+In hierarchical clustering there are yet different parameters to 
+choose. 
+% We will handle those in later chapters.
+Hierarchical clustering with single, average and complete linkages
+and Ward's method applied to search query result clustering were 
+studied by Korenius et al. \cite{korenius_hierarchical_2006}.
 
 \subsection{Choosing the number of clusters}
+The number of clusters that should result from the clustering is
+not known beforehand but is required as a parameter of the
+clustering algorithm. 
 \fixme{Yleisellä tasolla: "tämän tyyppisiä menetelmiä on 
 olemassa", "ne soveltuvat tähän ja tähän käyttötarkoitukseen". 
 Helppo löytää ja käyttää viitteitä; esim. käytetty siinä ja siinä, 
