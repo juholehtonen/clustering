@@ -305,43 +305,46 @@ give uninformative view of the data. We will use the third method.
 % Toinen vaihtoehto mahdollisesti samankaltainen kolmannen kanssa?
 
 
-\subsection{Evaluating of clustering results}
-We will use Calinski \& Harabazt criterion (or the variance ratio 
-criterion (VRC)) as an evaluation criterion for 
-deciding the number clusters \cite{calinski_dendrite_1974}. It 
-is defined as
+\subsubsection{Internal validation of clustering results}
+Liu et al. have reviewed 11 commmonly used internal clustering 
+validation indices \cite{liu_understanding_2010}. These are used 
+to decide the correct number of clusters. We will use two 
+of those; Calinski-Harabasz criterion \cite{calinski_dendrite_1974} 
+and Silhouette value \cite{rousseeuw_silhouettes:_1987}. We choose 
+these because they were familiar for us and have different
+weak spots as noted by Liu et al and thus could complement each 
+other. Calinski-Harabasz criterion is defined as
 \begin{equation}
- VRC_k = \frac{SS_B}{N-k} \frac{SS_W}{k-1},
+ CH = \frac{SS_B}{N-k} \frac{SS_W}{k-1},
 \end{equation}
-where $SS_B$ is the overall variance between clusters, $SS_W$ is 
-the over variance within clusters, $k$ is the number of clusters 
+where $SS_B$ is the between-group sum of squares, $SS_W$ is the
+within-group sum of squares, $k$ is the number of clusters 
 and $N$ is the number of observations.
 
-The overall variance between clusters $SS_B$ is defined as
+The between-group sum of squares $SS_B$ gives the overall variance
+between clusters
 \begin{equation}
  SS_B = \sum_{i=1}^k n_i ||m_i-m||^2,
 \end{equation}
 where $k$ is the number of clusters, $n_i$ is the number of 
-observations in cluster $i$, $m_i$ is centroid of cluster $i$, 
-$m$ is the overall mean of the sample data and $||m_i-m||$ is the 
+observations in cluster $i$, $m_i$ is the centroid of cluster $i$, 
+$m$ is the overall mean of sample data and $||m_i-m||$ is the 
 Euclidean distance between the two vectors.
 
-The overall variance within clusters $SS_W$ is defined as
+The within-group sum of squares $SS_W$ gives the over variance 
+within clusters
 \begin{equation}
  SS_W = \sum_{i=1}^k \sum_{x\in c_i} ||x-m_i||^2,
 \end{equation}
-where $k$ is the number of clusters, $x$ is the oservation, 
-$c_i$ is the $i$th cluster, $m_i$ is centroid of cluster $i$, and 
+where $k$ is the number of clusters, $x$ is the observation, 
+$c_i$ is the $i$th cluster, $m_i$ is the centroid of cluster $i$, and 
 $||x-m_i||$ is the Euclidean distance between the two vectors.
-The larger the Calinski \& Harabazt criterion, the better the 
+The larger the Calinski-Harabasz criterion, the better the 
 cluster structure.
-\fixme{Tämä suoraan: 
-https://www.mathworks.com/help/stats/clustering.evaluation.calinsk
-iharabaszevaluation-class.html pitäisikö kertoa ``omin sanoin''?}
 
 
-
-\subsubsection{Manually annotated validation set}
+\subsubsection{External validation of clustering results}
+% Otsikko oli: Manually annotated validation set
 % Gold standard set. Actually a gold standard set would be a set
 % of all data sets with abstract excluding sets that don't have it.
 We will create a manually annotated validation set for calculating
