@@ -14,7 +14,7 @@ analysis_fields = 'title,abstract,keyword'
 samples = [200, 400, 2000, 6000, 12000]
 
 n_clusters = [4, 32, 64, 128, 220]
-cluster_range = range(2, 3)
+cluster_range = range(2, 261)
 n_components = [800, 300, 200, 40]
 n_features = [10000]
 df_min = 2
@@ -64,8 +64,8 @@ def task_init():
 
 def task_vectorize():
     """Step 2: vectorize data"""
-    options = '--size {0} --n-clusters {1} --lsa {2} --n-features {3} --fields {4} --source {5} --interim {6} --out {7}'\
-              .format(size, k, n_comp, n_feat, analysis_fields, preproc_file, interim_dir, results_dir)
+    options = '--size {0} --lsa {1} --n-features {2} --fields {3} --source {4} --interim {5} --out {6}'\
+              .format(size, n_comp, n_feat, analysis_fields, preproc_file, interim_dir, results_dir)
     return {
         'file_dep': ['vectorize.py', preproc_file],
         'targets': [interim_dir + '{0}-{1}-{2}-{3}-vectorized.npz'.format(size, df_min, df_max, n_feat)],
