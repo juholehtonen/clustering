@@ -3,6 +3,7 @@
 # Scrap silhouette values from logs and plot
 #
 # Run this script in the processed/results folder.'
+# Remeber to change 'method'.
 # $ python ../../src/plot_results.py
 #
 # Produces three files:
@@ -25,13 +26,16 @@ size = 12000
 k_min = 2
 k_max = 260
 n_compnents = 800
-# method = 'hierarchical'
-method = 'kmeans'
+method = 'hierarchical'
+# method = 'kmeans'
 params = '{0}-{1}_{2}-{3}-{4}'.format(size, k_min, k_max, n_compnents, method)
 # results_dir = '../data/baseline/results/'
 results_dir = './'
-silh_file = results_dir + 'silhouette-coefficients-{0}.txt'.format(params)
-cali_file = results_dir + 'calinski-harabasz-{0}.txt'.format(params)
+
+# Directory for plots and validation indices
+image_dir = '../images/'
+silh_file = image_dir + 'silhouette-coefficients-{0}.txt'.format(params)
+cali_file = image_dir + 'calinski-harabasz-{0}.txt'.format(params)
 plt_sym = '.'
 
 file_list = os.listdir(results_dir)
@@ -83,4 +87,4 @@ axarr[1].plot(silh_arr[:,0], silh_arr[:,1], 'r' + plt_sym)
 # axarr[1].set_ylim(0, 0.1)
 axarr[1].set_xlabel('N of clusters')
 
-f.savefig(results_dir + 'c-h-silh-index-plot-{0}.png'.format(params))
+f.savefig(image_dir + 'c-h-silh-index-plot-{0}.png'.format(params))
