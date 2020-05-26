@@ -2,7 +2,7 @@
 ##################################################################
 # 'Doit' file to run hierarchical clustering on manually annotated dataset
 #
-# Usage: doit [-n 8] -f hierarchical.py
+# Usage: doit [-n 8] -f do_manual_h.py
 ##################################################################
 import nltk
 from pathlib import Path

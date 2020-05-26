@@ -2,7 +2,7 @@
 ##################################################################
 # 'Doit' file to run analysis on manually annotated dataset
 #
-# Usage: doit [-n 8] -f manual.py
+# Usage: doit [-n 8] -f do_manual_km.py
 ##################################################################
 import nltk
 from pathlib import Path
