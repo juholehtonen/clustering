@@ -317,11 +317,11 @@ other. Calinski-Harabasz criterion is defined as
 \begin{equation}
  CH = \frac{SS_B}{N-k} \frac{SS_W}{k-1},
 \end{equation}
-where $SS_B$ is the between-group sum of squares, $SS_W$ is the
+where $SS_B$ is \emph{the between-group sum of squares}, $SS_W$ is the
 within-group sum of squares, $k$ is the number of clusters 
 and $N$ is the number of observations.
 
-The between-group sum of squares $SS_B$ gives the overall variance
+\emph{The between-group sum of squares} $SS_B$ gives the overall variance
 between clusters
 \begin{equation}
  SS_B = \sum_{i=1}^k n_i ||m_i-m||^2,
@@ -347,6 +347,8 @@ cluster structure.
 % Otsikko oli: Manually annotated validation set
 % Gold standard set. Actually a gold standard set would be a set
 % of all data sets with abstract excluding sets that don't have it.
+For not to have to rely solely on internal clustering validation we
+also try external clustering validation with small sample of data.
 We will create a manually annotated validation set for calculating
 precision, recall and metrics derived from those.
 % määrittele peruskäsitteet kuten precision ja recall
