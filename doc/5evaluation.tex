@@ -24,7 +24,7 @@ separated from each other.
 One such measure to estimate the ``goodness'' of a clustering is 
 silhouettes. Silhouettes use average proximities which are know 
 to work best with clear, compact and spherical clusters 
-\cite{rousseeuw_silhouettes:_1987}. Silhouette value for an item 
+\cite{rousseeuw_silhouettes:_1987}. Silhouette value for an: item 
 is defined as:
 
 Silhoutte values for 6000 publications clustered with 
@@ -146,7 +146,6 @@ the Table \ref{table:topterms}.
 % Place the label just after the caption to make the link work
 \label{table:topterms}
 \end{table} % table makes a floating object with a title
-cluster
 
 
 \subsection{Precision and recall}
@@ -156,6 +155,7 @@ total number of items in that class.
  Recall = \frac{|\{relevant\ items\} \cap \{retrieved\ items\}|} 
 {\{relevant\ items\}}
 \end{equation}
+
 Precision is the number of items correctly classified divided by 
 the total number items classified into that class (ie. true and 
 false positives).
@@ -164,6 +164,72 @@ false positives).
 items\}|} 
 {\{retrieved\ items\}}
 \end{equation}
+
+With manually annotated dataset of 455 articles we compared 
+the results with three clusters which was assumed the correct 
+classification of the data set. We got recall $R = ???$ and 
+precision $P = ???$ which is
+a quite poor result. By looking at the top terms and random samples
+from each cluster we notice that two of the three clusters have 
+\emph{'Clinical neurology'} related items, see Tables
+\ref{table:topterms_455_hier} and \ref{table:articles_455_hier}.
+
+\begin{table}
+\begin{tabular}{|p{2cm}|p{10.5cm}|} 
+% Alignment of sells: l=left, c=center, r=right. 
+% If you want wrapping lines, use p{width} exact cell widths.
+% If you want vertical lines between columns, write | above between the letters
+% Horizontal lines are generated with the \hline command:
+\hline % The line on top of the table
+\textbf{ } & \textbf{Top terms} \\ 
+\hline 
+\textbf{Cluster 1} & service image map system filter user som neural document mobile feature rule self-organizing logic query  \\ 
+\hline
+\hline 
+\textbf{Cluster 2} & dementia vascular vad trial subcortical cognitive alzheimer criterion impairment cause lesion stroke subtypes prevalence ad  \\ 
+\hline
+\hline 
+\textbf{Cluster 3} & stroke epilepsy pain treatment risk ad child seizure headache cognitive pd cortex parkinson cell apoe \\ 
+\hline
+\hline 
+\end{tabular} % for really simple tables, you can just use tabular
+% You can place the caption either below (like here) or above the table
+\caption{Top terms for manually annotated dataset of 455 articles}
+% Place the label just after the caption to make the link work
+\label{table:topterms_455_hier}
+\end{table} % table makes a floating object with a title
+
+\begin{table}
+\begin{tabular}{|c|p{6.5cm}|p{4.7cm}|} 
+\hline % The line on top of the table
+\textbf{ } & \textbf{Title} & \textbf{WoS category} \\ 
+\hline 
+\multirow{ 5}{*}{\textbf{1}} & Attacks against the WAP WTLS protocol & CS\_INFORMATION\_SYS \\
+& Bringing knowing-when and knowing-what together: Periodically tuned categorizati & CS\_ARTIFICIAL\_INT  \\
+& A digital television service architecture & CS\_INFORMATION\_SYS  \\ 
+& A wavelet transform method for coding film-grain noise corrupted images & CS\_ARTIFICIAL\_INT  \\ 
+& Accuracy of pedicle screw insertion with and without computer assistance: a rand & CLINICAL\_NEUROLOGY  \\
+\hline
+\hline 
+\multirow{ 5}{*}{\textbf{2}} & Is subcortical vascular dementia a clinical entity for clinical drug trials? & CLINICAL\_NEUROLOGY \\
+& Research criteria for subcortical vascular dementia in clinical trials & CLINICAL\_NEUROLOGY \\
+& Subcortical vascular dementia as a specific target for clinical trials & CLINICAL\_NEUROLOGY \\ 
+& Prognosis with dementia in Europe: A collaborative study of population-based coh & CLINICAL\_NEUROLOGY \\ 
+& Comparison of different clinical criteria (DSM-III, ADDTC, ICD-10, NINDS-AIREN, & CLINICAL\_NEUROLOGY \\
+\hline
+\hline 
+\multirow{ 5}{*}{\textbf{3}} & Interferon-alpha 2a effects on complement activation and regulation in MS patien & CLINICAL\_NEUROLOGY \\
+& Architectural evolution - Nokia mobile phone case & CS\_INFORMATION\_SYS \\
+& CASCADE: A European collaborative study on vascular determinants of brain lesion & PUBL\_ENVTL\_OCCUPA  \\ 
+& Natural history of unruptured intracranial aneurysms: probability of and risk fa & CLINICAL\_NEUROLOGY \\ 
+& An FDOPA PET study in patients with periodic limb movement disorder and restless & CLINICAL\_NEUROLOGY \\
+\hline
+\hline 
+\end{tabular} % for really simple tables, you can just use tabular
+\caption{Five random articles per cluster for manually annotated dataset of 455 articles}
+\label{table:articles_455_hier}
+\end{table} % table makes a floating object with a title
+
 
 
 \subsection{Other metrics}
