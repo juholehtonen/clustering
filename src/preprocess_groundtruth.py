@@ -4,12 +4,14 @@
 #
 # Usage: python preprocessing.py <label>
 ##################################################################
-import cPickle
-import pprint
+import argparse
+import pickle
 import re
-import sys
 
 filename = '../data/raw/SuomiRyväsData2000'
+exclude_file = '../models/groundtruth_exclude.txt'
+preproc_file = '../data/baseline/interim/groundtruth-preproc_CS-AI-IS_CN.pickle'
+preproc_txtfile = '../data/baseline/interim/groundtruth-preproc_CS-AI-IS_CN.txt'
 
 opening_line = r'[ ]{,11}\d{,12} (?P<identifier>\d{15})'  # Note here is re.match(opening_line).group('identifier')
 journal_line = r'Lehti:\s*(.*)\s*'
@@ -32,11 +34,16 @@ discipline_2 = 'COMPUTER_SCIENCE_INFORMATION_SYSTEMS'
 discipline_9 = 'CLINICAL_NEUROLOGY'
 
 # Read the parameters for a run.
-b_size = int(sys.argv[1])
 used_fields = ['id', 'journal', 'issn', 'discipline', 'year', 'title', 'abstract', 'keyword_publisher', 'keyword',
                'reference']
-if len(sys.argv) > 2:
-    used_fields = sys.argv[2].split(',')
+parser = argparse.ArgumentParser(description='Pre-process raw data')
+parser.add_argument('used_fields', metavar='F', type=str, nargs='*',
+                   help='fields kept while pre-processing')
+parser.add_argument('--b_size', dest='b_size', type=int, required=True,
+                   help='size of the batch to pre-process')
+parser.add_argument('--filter', dest='filtering', action='store_true',
+                   help='filter bad data out if given')
+args = parser.parse_args()
 
 
 def dataset(batch_size):
@@ -83,7 +90,7 @@ def dataset(batch_size):
 
             m = re.match(abstract_line, line)
             if m and 'abstract' in used_fields:
-                current['abstract'] = f.next()
+                current['abstract'] = f.readline()
                 continue
 
             m = re.match(keyword_publisher_line, line)
@@ -131,13 +138,30 @@ def dataset(batch_size):
                 break
     return datasets
 
-# print("Prepocessing data with fields: {0}".format(used_fields))
-data = dataset(batch_size=b_size)
-with open('../data/interim/groundtruth-preproc_CS-AI-IS_CN'
-          '.pickle', 'w') as handle:
-    cPickle.dump(data, handle)
-with open('../data/interim/groundtruth-preproc_CS-AI-IS_CN.txt', 'w') as handle:
+# print("Prepocessing data with fields: {0}".format(used_fields))  # debug
+data = dataset(batch_size=args.b_size)
+
+# Filter excluded data
+filtered_data = []
+if args.filtering:
+    with open(exclude_file, 'r') as ef:
+        excluded = [int(line.rstrip('\n')) for line in ef]
     for (i, d) in enumerate(data, start=1):
+        # print('i: {0}, data: {1}'.format(i, d))  # debug
+        if i in excluded:
+            # print('Excluded: i: {0}, title: {1}'.format(i, d['title']))  # debug
+            continue
+        else:
+            filtered_data.append(d)
+else:
+    filtered_data = data
+
+# Write pre-processed data in file and in text file
+# print(filtered_data[5:7])  # debug
+with open(preproc_file, 'wb') as handle:
+    pickle.dump(filtered_data, handle)
+with open(preproc_txtfile, 'w') as handle:
+    for (i, d) in enumerate(filtered_data, start=1):
         for field in ['title', 'abstract', 'keyword', 'keyword_publisher', 'journal', 'discipline']:
             if d.get(field):
                 handle.write('{0}  {1}:'.format(i, field) + d[field] + '\n')

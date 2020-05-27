@@ -22,7 +22,8 @@ import pylab as pl
 import re
 
 
-size = 12000
+# size = 12000
+size = 455
 k_min = 2
 k_max = 260
 n_compnents = 800
@@ -36,7 +37,8 @@ results_dir = './'
 image_dir = '../images/'
 silh_file = image_dir + 'silhouette-coefficients-{0}.txt'.format(params)
 cali_file = image_dir + 'calinski-harabasz-{0}.txt'.format(params)
-plt_sym = '.'
+# plt_sym = '.'
+plt_sym = '-'
 
 file_list = os.listdir(results_dir)
 pattern_method = r'12000-.*{0}.*txt'.format(method)

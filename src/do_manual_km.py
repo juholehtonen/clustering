@@ -11,7 +11,8 @@ labels = ['mds']
 vect = 'tfidfvectorizer'
 # Define metadata fields used in clustering analysis
 analysis_fields = 'title,abstract,keyword'
-samples = [200, 400, 2000, 6000, 12000]
+samples = [200, 500, 2000, 6000, 12000]
+filtering = True
 
 n_clusters = [4, 32, 64, 128, 220]
 cluster_range = range(2, 261)
@@ -20,7 +21,7 @@ n_features = [10000]
 df_min = 2
 df_max = 0.1
 
-size = samples[4]
+size = samples[1]
 k = n_clusters[1]
 n_comp = n_components[0]
 n_comp_str = n_comp if n_comp < 600 else '-'
@@ -31,17 +32,6 @@ interim_dir = '../data/baseline/interim/'
 preproc_file_name = 'groundtruth-preproc_CS-AI-IS_CN.pickle'
 preproc_file = interim_dir + preproc_file_name
 results_dir = '../data/baseline/results/'
-
-# def task_preprocess_groundtruth():
-#     """ Step 1: preprocess data """
-#     size = 20000
-#     return {
-#         # 'name': 'size: {0}'.format(size),
-#         'file_dep': ['preprocess_groundtruth.py'],
-#         'targets': ['../data/baseline/groundtruth-preproc_CS-AI-IS_CN.pickle'],
-#         'actions': ['python preprocess_groundtruth.py %s' % size],
-#         'verbosity': 2
-#     }
 
 
 def task_init():
@@ -59,6 +49,20 @@ def task_init():
         'actions': [(init_nltk, [corpuses])],
         # force doit to always mark the task as up-to-date (unless target removed)
         'uptodate': [True]
+    }
+
+
+def task_preprocess_groundtruth():
+    """ Step 1: preprocess data """
+    opts = '--b_size {0}'.format(size)
+    if filtering:
+        opts += ' --filter'
+    return {
+        # 'name': 'size: {0}'.format(size),
+        'file_dep': ['preprocess_groundtruth.py'],
+        'targets': [preproc_file],
+        'actions': ['python preprocess_groundtruth.py {0}'.format(opts)],
+        'verbosity': 2
     }
 
 
