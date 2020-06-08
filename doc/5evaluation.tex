@@ -1,11 +1,12 @@
 \chapter{Results}
 \label{chapter:results}
 
-We need some sort of tool to measure the ``goodness'' of the 
-clustering. As we work with text data the dimensionality increases 
+We need a method to measure the ``goodness'' of the clustering.
+As we work with text data, the dimensionality increases
 quite high and projecting data down to 2 or 3 dimensions for 
 visualization is not a simple task. (We come back to visualization 
 later though.)
+% LM 06/20: perustelut hyvin asian ongelmallisuudelle
 So we have to resort to measurements derived from the 
 resulting clustering itself. If we knew some underlying ground 
 truth behind our clustering problem, we could validate our result 
@@ -22,9 +23,9 @@ separated from each other.
 
 \section{Silhouettes}
 One such measure to estimate the ``goodness'' of a clustering is 
-silhouettes. Silhouettes use average proximities which are know 
-to work best with clear, compact and spherical clusters 
-\cite{rousseeuw_silhouettes:_1987}. Silhouette value for an: item 
+silhouettes. Silhouettes use average proximities that are know
+to work best with clear, compact and spherical clusters
+\cite{rousseeuw_silhouettes:_1987}. Silhouette value for an item
 is defined as:
 
 Silhoutte values for 6000 publications clustered with 
@@ -44,12 +45,12 @@ agglomerative clustering with Ward's method, number of clusters
 \end{figure}
 
 Other measure is Calinski-Harabaz index. Clustering should be 
-optimal when Calinski-Harabaz index reaches its maximum value. 
-\cite{}
+optimal when Calinski-Harabaz index reaches its maximum
+value~\cite{}.
 
 When evaluating the results, Silhouette Coefficient might not be
 the best option. Find out why. V-measure or Adjusted Rand Index
-might be better options \cite{noauthor_clustering_nodate}.
+might be better options~\cite{noauthor_clustering_nodate}.
 
 
 \section{``Gold standard set''}
@@ -92,7 +93,7 @@ the Table \ref{table:topterms}.
   \begin{center}    
 \includegraphics[width=9.5cm]{images/c-h-silh-index-plot-519-2_260-800-hierarchical.png}
     \caption{Hierarchical clustering. Calinski-Harabasz index and Silhoutte values for the
-    manually annotated set of 519 publications clustered with hierarchical
+    manually annotated set of 455 publications clustered with hierarchical
     clustering, LSA with 800 components. The higher values denote 
     more compact and better clustering in both graphs.}
     \label{fig:ch-silh01}
@@ -104,7 +105,7 @@ the Table \ref{table:topterms}.
   \begin{center}    
 \includegraphics[width=9.5cm]{images/c-h-silh-index-plot-519-2_260-800-kmeans.png}
     \caption{k-means clustering. Calinski-Harabasz index and Silhoutte values for the
-    manually annotated set of 519 publications clustered with k-means 
+    manually annotated set of 455 publications clustered with k-means 
     clustering, LSA with 800 components. The higher values denote 
     more compact and better clustering in both graphs.}
     \label{fig:ch-silh02}
