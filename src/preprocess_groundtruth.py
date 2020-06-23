@@ -164,5 +164,5 @@ with open(preproc_txtfile, 'w') as handle:
     for (i, d) in enumerate(filtered_data, start=1):
         for field in ['title', 'abstract', 'keyword', 'keyword_publisher', 'journal', 'discipline']:
             if d.get(field):
-                handle.write('{0}  {1}:'.format(i, field) + d[field] + '\n')
+                handle.write('{0}  {1}: '.format(i, field) + d[field] + '\n')
         handle.write('\n\n')

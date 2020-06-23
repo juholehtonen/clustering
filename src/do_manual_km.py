@@ -12,7 +12,7 @@ vect = 'tfidfvectorizer'
 # Define metadata fields used in clustering analysis
 analysis_fields = 'title,abstract,keyword'
 samples = [200, 500, 2000, 6000, 12000]
-filtering = True
+filtering = True  # Filter out bad datapoints
 
 n_clusters = [4, 32, 64, 128, 220]
 cluster_range = range(2, 261)

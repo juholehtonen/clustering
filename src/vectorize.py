@@ -58,6 +58,7 @@ from time import time
 from sklearn.feature_extraction.stop_words import ENGLISH_STOP_WORDS
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import FunctionTransformer
 
 from lemmatizer import NLTKPreprocessor
 from utils import (GeneralExtractor,
@@ -94,7 +95,7 @@ op.add_option("--source",
               help="Source file to process")
 op.add_option("--interim",
               dest="interim", type="string",
-              help="Interim folder")
+              help="Interim results folder")
 op.add_option("--out",
               dest="out", type="string",
               help="Output dircetory for results")
@@ -151,11 +152,13 @@ vectorizer = TfidfVectorizer(max_df=opts.max_df,
                              lowercase=False,
                              analyzer='word')
 
-vectrzr = make_pipeline(GeneralExtractor(fields=opts.fields.split(',')),
 # FIXME: Onko tässä tokenointi (vektorisoijan sisällä) ja lemmatisointi (NLTKPreprocessor) väärinpäin?
 # FIXME: Tokenointi itseasiassa lemmatisoijan yhteydessä
+vectrzr = make_pipeline(GeneralExtractor(fields=opts.fields.split(',')),
                         NLTKPreprocessor(stopwords=stopwords_ext),
-                        vectorizer)
+                        vectorizer,
+                        # FunctionTransformer(lambda x: x.todense(), accept_sparse=True)
+                        )
 X = vectrzr.fit_transform(data)
 
 # Save vectorized data and the vectorizer for the next step
