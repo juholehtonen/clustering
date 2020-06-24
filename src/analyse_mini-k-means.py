@@ -124,16 +124,15 @@ if len(args) > 0:
     sys.exit(1)
 
 # Define log file name and start log
-results_filename = opts.out
-for o in [opts.size, opts.n_clusters]:
-    results_filename = results_filename + str(o) + '-'
+results_prefix = '{0}-{1}-'.format(opts.size, opts.n_clusters)
 if opts.n_components:
-    results_filename = results_filename + str(opts.n_components) + '-'
-results_filename += 'kmeans-results.txt'
+    results_prefix += str(opts.n_components) + '-'
+results_file = opts.out + results_prefix + 'kmeans-results.txt'
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(message)s',
                     datefmt="%Y-%m-%d %H:%M",
-                    filename=results_filename)
+                    filename=results_file,
+                    filemode='w')
 logging.info('#' * 18 + ' Starting clustering  ' + '#' *18)
 
 # #############################################################################

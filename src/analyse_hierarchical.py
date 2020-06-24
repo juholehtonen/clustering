@@ -64,7 +64,7 @@ op.add_option("--interim",
               help="Interim folder")
 op.add_option("--out",
               dest="out", type="string",
-              help="Output dircetory for results")
+              help="Output directory for results")
 op.add_option("--verbose",
               action="store_true", dest="verbose", default=False,
               help="Print progress reports inside k-means algorithm.")
@@ -86,19 +86,18 @@ def is_interactive():
 #     sys.exit(1)
 print('Options: {ops}'.format(ops=opts))
 
-# Define log file name and start log
-results_filename = opts.out
+# Define log file name and start log. NOTE: 'w' overwrites every time!!
 #'--size {0} --n-clusters {1} --lsa {2} --n-features {3} --fields {4}'\
 #              .format(size, k, n_comp, n_feat, analysis_fields)
-for o in [opts.size, opts.n_clusters]:
-    results_filename = results_filename + str(o) + '-'
+results_prefix = '{0}-{1}-'.format(opts.size, opts.n_clusters)
 if opts.n_components:
-    results_filename = results_filename + str(opts.n_components) + '-'
-results_filename += 'hierarchical-results.txt'
+    results_prefix += str(opts.n_components) + '-'
+results_file = opts.out + results_prefix + 'hierarchical-results.txt'
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(message)s',
                     datefmt="%Y-%m-%d %H:%M",
-                    filename=results_filename)
+                    filename=results_file,
+                    filemode='w')
 logging.info('#' * 18 + ' Starting clustering  ' + '#' *18)
 
 # #############################################################################
@@ -145,12 +144,14 @@ logging.info("  Done in %0.3fs" % (time() - t0))
 
 t0 = time()
 logging.info("  Silhouette Coefficient: %0.3f"
-      % metrics.silhouette_score(X, ward.labels_, sample_size=1000))
+             % metrics.silhouette_score(X, ward.labels_, sample_size=1000))
 X_to_CH = X if opts.n_components else X.toarray()
 logging.info("  Calinski-Harabasz Index: %0.3f"
       % metrics.calinski_harabasz_score(X, ward.labels_))
 logging.info("  Metrics calculated in %fs" % (time() - t0))
 
+
+# Top terms per cluster
 t0 = time()
 logging.info("Top terms per cluster:")
 tficf = pd.DataFrame(X)
@@ -167,6 +168,8 @@ for i in range(opts.n_clusters):
     logging.info("  Cluster {0}: {1}".format(i, term_str))
 logging.info("  Done in %fs" % (time() - t0))
 
+
+# Sample of publications per cluster
 logging.info('Sample of publications per cluster:')
 t0 = time()
 sample_max = 5
@@ -185,7 +188,11 @@ for k in range(opts.n_clusters):
         logging.info(pub_info)
 logging.info("  Done in %fs" % (time() - t0))
 
-t0 = time()
-plot_silhouette(X, ward.labels_, opts.n_clusters, 'Hierarchical')
-logging.info("Silhouette plot in %fs" % (time() - t0))
+# Plot silhouette
+plot_silh = False
+if plot_silh:
+    t0 = time()
+    plot_silhouette(X, ward.labels_, opts.n_clusters, 'Hierarchical')
+    logging.info("Silhouette plot in %fs" % (time() - t0))
+
 logging.info("Total running time: %fs" % (time() - t_total))
