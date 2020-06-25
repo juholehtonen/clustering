@@ -142,12 +142,21 @@ t0 = time()
 ward.fit(X)
 logging.info("  Done in %0.3fs" % (time() - t0))
 
+# Calculate metrics
 t0 = time()
+model_dir = '../models/'
+truth_file = model_dir + 'groundtruth_labels_final.csv'
+labels = pd.read_csv(truth_file, index_col=0).values[:,0].tolist()
+
+silhouette_list = []
+
 logging.info("  Silhouette Coefficient: %0.3f"
              % metrics.silhouette_score(X, ward.labels_, sample_size=1000))
 X_to_CH = X if opts.n_components else X.toarray()
 logging.info("  Calinski-Harabasz Index: %0.3f"
-      % metrics.calinski_harabasz_score(X, ward.labels_))
+             % metrics.calinski_harabasz_score(X, ward.labels_))
+logging.info("  Adjusted Rand-Index: %0.3f"
+             % metrics.adjusted_rand_score(labels, ward.labels_))
 logging.info("  Metrics calculated in %fs" % (time() - t0))
 
 
