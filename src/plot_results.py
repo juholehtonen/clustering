@@ -25,7 +25,7 @@ import re
 # size = 12000
 size = 455
 k_min = 2
-k_max = 260
+k_max = 12
 n_components = 800
 method = 'hierarchical'
 # method = 'kmeans'
@@ -98,16 +98,18 @@ with open(sdbw_file, 'w') as handle:
 # pl.clf()
 
 # Plot indices
-f, axarr = pl.plt.subplots(2, 2, sharex=True)
-axarr[0][0].plot(c_h_arr[:, 0], c_h_arr[:, 1], 'r' + plt_sym)
-axarr[0][0].set_title('Calinski-Harabasz index')
-axarr[0][1].plot(silh_arr[:, 0], silh_arr[:, 1], 'r' + plt_sym)
-axarr[0][1].set_title('Silhouette value')
-axarr[1][0].plot(sdbw_arr[:, 0], sdbw_arr[:, 1], 'r' + plt_sym)
-axarr[1][0].set_title('S_Dbw validity index')
-axarr[1][1].plot(ari_arr[:, 0], ari_arr[:, 1], 'r' + plt_sym)
-axarr[1][1].set_title('Adjusted Rand-index')
-axarr[1][0].set_xlabel('Number of clusters')
-axarr[1][1].set_xlabel('Number of clusters')
+xticks = np.arange(k_min, k_max+1)
+f, ((ax1, ax2), (ax3, ax4)) = pl.plt.subplots(2, 2, sharex=True)
+ax1.plot(c_h_arr[:k_max, 0], c_h_arr[:k_max, 1], 'r' + plt_sym)
+ax1.set_title('Calinski-Harabasz index')
+ax1.set_xticks(xticks)
+ax2.plot(silh_arr[:k_max, 0], silh_arr[:k_max, 1], 'r' + plt_sym)
+ax2.set_title('Silhouette value')
+ax3.plot(sdbw_arr[:k_max, 0], sdbw_arr[:k_max, 1], 'r' + plt_sym)
+ax3.set_title('S_Dbw validity index')
+ax4.plot(ari_arr[:k_max, 0], ari_arr[:k_max, 1], 'r' + plt_sym)
+ax4.set_title('Adjusted Rand-index')
+ax3.set_xlabel('Number of clusters')
+ax4.set_xlabel('Number of clusters')
 
 f.savefig(image_dir + 'c-h-silh-index-plot-{0}.png'.format(params))
