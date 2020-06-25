@@ -13,6 +13,7 @@ from optparse import OptionParser
 import pandas as pd
 import pickle
 import random
+from s_dbw import S_Dbw
 import scipy.sparse
 import sys
 from time import time
@@ -157,6 +158,10 @@ logging.info("  Calinski-Harabasz Index: %0.3f"
              % metrics.calinski_harabasz_score(X, ward.labels_))
 logging.info("  Adjusted Rand-Index: %0.3f"
              % metrics.adjusted_rand_score(labels, ward.labels_))
+# note S_Dbw increases metrics calculation time by 150 %
+logging.info("  S_Dbw validity index: %0.3f"
+             % S_Dbw(X, ward.labels_, alg_noise='bind', centr='mean',
+                     metric='euclidean'))
 logging.info("  Metrics calculated in %fs" % (time() - t0))
 
 

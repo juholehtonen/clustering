@@ -26,10 +26,10 @@ import re
 size = 455
 k_min = 2
 k_max = 260
-n_compnents = 800
+n_components = 800
 method = 'hierarchical'
 # method = 'kmeans'
-params = '{0}-{1}_{2}-{3}-{4}'.format(size, k_min, k_max, n_compnents, method)
+params = '{0}-{1}_{2}-{3}-{4}'.format(size, k_min, k_max, n_components, method)
 # results_dir = '../data/baseline/results/'
 results_dir = './'
 
@@ -37,6 +37,8 @@ results_dir = './'
 image_dir = '../images/'
 silh_file = image_dir + 'silhouette-coefficients-{0}.txt'.format(params)
 cali_file = image_dir + 'calinski-harabasz-{0}.txt'.format(params)
+ari_file = image_dir + 'adjusted_rand-index-{0}.txt'.format(params)
+sdbw_file = image_dir + 's_dbw_validity-index-{0}.txt'.format(params)
 # plt_sym = '.'
 plt_sym = '-'
 
@@ -48,8 +50,12 @@ files_sorted = sorted(files_filtered, key=LooseVersion)
 pattern_k = r'[0-9]*-([0-9]*)-[0-9]*.*'
 pattern_silh = r'.* Silhouette Coefficient: (.*)'
 pattern_ch = r'.* Calinski-Harabasz Index: (.*)'
+pattern_ari = r'.* Adjusted Rand-Index: (.*)'
+pattern_sdbw = r'.* S_Dbw validity index: (.*)'
 silh_vals = []
 c_h_vals = []
+ari_vals = []
+sdbw_vals = []
 for fs in files_sorted:
     match_k = re.match(pattern_k, fs)
     if match_k:
@@ -61,15 +67,27 @@ for fs in files_sorted:
                 match_ch = re.match(pattern_ch, line)
                 if match_ch:
                     c_h_vals.append([int(match_k[1]), float(match_ch[1])])
+                match_ari = re.match(pattern_ari, line)
+                if match_ari:
+                    ari_vals.append([int(match_k[1]), float(match_ari[1])])
+                match_sdbw = re.match(pattern_sdbw, line)
+                if match_sdbw:
+                    sdbw_vals.append([int(match_k[1]), float(match_sdbw[1])])
     else:
         raise ValueError
 silh_arr = np.array(silh_vals)
 c_h_arr = np.array(c_h_vals)
+ari_arr = np.array(ari_vals)
+sdbw_arr = np.array(sdbw_vals)
 
 with open(silh_file, 'w') as handle:
     np.savetxt(handle, silh_vals)
 with open(cali_file, 'w') as handle:
     np.savetxt(handle, c_h_arr)
+with open(ari_file, 'w') as handle:
+    np.savetxt(handle, ari_arr)
+with open(sdbw_file, 'w') as handle:
+    np.savetxt(handle, sdbw_arr)
 
 # Plot 'Silhouette value'
 # pl.plot(silh_arr[:,0], silh_arr[:,1],'r.')
@@ -79,14 +97,17 @@ with open(cali_file, 'w') as handle:
 # pl.show()
 # pl.clf()
 
-# Plot both indices
-f, axarr = pl.plt.subplots(2, sharex=True)
-axarr[0].plot(c_h_arr[:,0], c_h_arr[:,1], 'r' + plt_sym)
-axarr[0].set_title('Calinski-Harabasz index')
-# axarr[0].set_ylim(min(c_h_vals)-2, max(c_h_vals)+2)
-axarr[1].set_title('Silhouette value')
-axarr[1].plot(silh_arr[:,0], silh_arr[:,1], 'r' + plt_sym)
-# axarr[1].set_ylim(0, 0.1)
-axarr[1].set_xlabel('N of clusters')
+# Plot indices
+f, axarr = pl.plt.subplots(2, 2, sharex=True)
+axarr[0][0].plot(c_h_arr[:, 0], c_h_arr[:, 1], 'r' + plt_sym)
+axarr[0][0].set_title('Calinski-Harabasz index')
+axarr[0][1].plot(silh_arr[:, 0], silh_arr[:, 1], 'r' + plt_sym)
+axarr[0][1].set_title('Silhouette value')
+axarr[1][0].plot(sdbw_arr[:, 0], sdbw_arr[:, 1], 'r' + plt_sym)
+axarr[1][0].set_title('S_Dbw validity index')
+axarr[1][1].plot(ari_arr[:, 0], ari_arr[:, 1], 'r' + plt_sym)
+axarr[1][1].set_title('Adjusted Rand-index')
+axarr[1][0].set_xlabel('Number of clusters')
+axarr[1][1].set_xlabel('Number of clusters')
 
 f.savefig(image_dir + 'c-h-silh-index-plot-{0}.png'.format(params))
