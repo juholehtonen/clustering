@@ -145,6 +145,188 @@ the dimensionality of data.
 \fixme{Vertaa/havainnollista miten eroaa PCA:sta}
 
 
+\section{Model selection}
+Generally all machine learning problems are ill-posed in the sense 
+that a unique solution for the problem can't be found unless some
+assumptions, or \emph{inductive bias}, are introduced. This begins 
+with selecting the learning algorithm and might also include some
+hyperparameters of selected algorithm.
+
+Here we will use unsupervised learning to shape the mapping of 
+scientific disciplines because we want to learn the possible 
+intristic structure of sciencetific knowledge.  
+There are many different clustering algorithms from which to 
+choose. Some often used common algorithms are k-means, hierarchical
+clustering, density based scan clustering and Gaussian clustering.
+We will use hierarchical clustering because it's quite simple and 
+familiar to us.
+In hierarchical clustering there are yet different parameters to 
+choose. 
+% We will handle those in later chapters.
+Hierarchical clustering with single, average and complete linkages
+and Ward's method applied to search query result clustering were 
+studied by Korenius et al. \cite{korenius_hierarchical_2006}.
+
+\subsection{Choosing the number of clusters}
+The number of clusters $k$ that should result from the clustering is
+not known beforehand but is required a parameter of the
+clustering algorithm. Hierarchical clustering will always return 
+$k$ clusters regardless if they are meaningful or not. To make a
+decision about the number of clusters we can 1) inspect the data in 
+two dimensions using some dimensionality reduction method such as 
+PCA and then plot it, 2) set limits for the inter-cluster 
+distances at each step of merging clusters ie. if finding the 
+largest gap between the dendrogram levels or 3) measuring the 
+overall compactness of clusters and their separation from each 
+other over the number clusters $k$ with suitable evaluation 
+criterion such as average Silhouette value 
+\cite{alpaydin2004introduction} \cite{calinski_dendrite_1974}(?) 
+\cite{rousseeuw_silhouettes:_1987}. The first method is assumed to 
+give uninformative view of the data. We will use the third method.
+% Toinen vaihtoehto mahdollisesti samankaltainen kolmannen kanssa?
+
+
+
+
+
+% Kirjoita nämä jonnekin näille main tai poista
+% We need a method to measure the ``goodness'' of the clustering.
+% As we work with text data, the dimensionality increases
+% quite high and projecting data down to 2 or 3 dimensions for 
+% visualization is not a simple task. (We come back to visualization 
+% later though.)
+% % LM 06/20: perustelut hyvin asian ongelmallisuudelle
+% So we have to resort to measurements derived from the 
+% resulting clustering itself. If we knew some underlying ground 
+% truth behind our clustering problem, we could validate our result 
+% against it. But as mentioned earlier, even defining what actually 
+% are the current fields of science depends on who you ask and for 
+% what purpose the definition is needed. So the ground truth is only
+% one measure for our results here.
+% In the lack of ground truth we can use some ``internal'' goodness 
+% measure for the resulting clustering. These kind of measures 
+% basically try to infer how dense the clusters are compared with how 
+% sparse the inter-cluster space is and how well the clusters are 
+% separated from each other.
+% 
+%\section{Silhouettes}
+% One such measure to estimate the ``goodness'' of a clustering is 
+% silhouettes. Silhouettes use average proximities that are know
+% to work best with clear, compact and spherical clusters
+% \cite{rousseeuw_silhouettes:_1987}. Silhouette value for an item
+% is defined as:
+
+
+
+
+
+
+\subsubsection{Internal validation of clustering results}
+Liu et al. have reviewed 11 commmonly used internal clustering 
+validation indices \cite{liu_understanding_2010}. These are used 
+to decide the correct number of clusters. We will use two 
+of those; Calinski-Harabasz criterion \cite{calinski_dendrite_1974} 
+and Silhouette value \cite{rousseeuw_silhouettes:_1987}. We choose 
+these because they were familiar for us and have different
+weak spots as noted by Liu et al and thus could complement each 
+other. Calinski-Harabasz criterion is defined as
+\begin{equation}
+ CH = \frac{SS_B}{N-k} \frac{SS_W}{k-1},
+\end{equation}
+where $SS_B$ is \emph{the between-group sum of squares}, $SS_W$ is the
+within-group sum of squares, $k$ is the number of clusters 
+and $N$ is the number of observations.
+
+\emph{The between-group sum of squares} $SS_B$ gives the overall variance
+between clusters
+\begin{equation}
+ SS_B = \sum_{i=1}^k n_i ||m_i-m||^2,
+\end{equation}
+where $k$ is the number of clusters, $n_i$ is the number of 
+observations in cluster $i$, $m_i$ is the centroid of cluster $i$, 
+$m$ is the overall mean of sample data and $||m_i-m||$ is the 
+Euclidean distance between the two vectors.
+
+The within-group sum of squares $SS_W$ gives the over variance 
+within clusters
+\begin{equation}
+ SS_W = \sum_{i=1}^k \sum_{x\in c_i} ||x-m_i||^2,
+\end{equation}
+where $k$ is the number of clusters, $x$ is the observation, 
+$c_i$ is the $i$th cluster, $m_i$ is the centroid of cluster $i$, and 
+$||x-m_i||$ is the Euclidean distance between the two vectors.
+The larger the Calinski-Harabasz criterion, the better the 
+cluster structure.
+
+
+\subsubsection{External validation of clustering results}
+% Otsikko oli: Manually annotated validation set
+% Gold standard set. Actually a gold standard set would be a set
+% of all data sets with abstract excluding sets that don't have it.
+For not to have to rely solely on internal clustering validation we
+also try external clustering validation with small sample of data.
+We will create a manually annotated validation set for calculating
+precision, recall and metrics derived from those.
+% määrittele peruskäsitteet kuten precision ja recall
+The validation
+set consists of $500$ publications from three different fields of
+science, two more similar sub fields of computer science, 
+information systems and artificial intelligence, and one more
+distant from those, clinical neurology.
+
+Publications are inspected by title, abstract, keywords, journal
+and publisher assigned disciplines of the journal. We checked 
+just by layman's reasoning if the labeled discipline seemed 
+plausible. Because of the journal based 
+classification, most publications had more than one 
+assigned discipline. Only discipline labels named 
+previously were retained because we were wanted test 
+how well our clustering method separated these three 
+groups regardless their labels. So essentially the 
+labels could have been eg. 1, 2, 3. Publications
+with critically missing data, unclear discipline assignment and
+heavily applied publications were excluded from validation set.
+Goal was to achieve evaluation measurements based on a quite 
+clearly separated set of publications. More vaguely classifiable
+publications were included for comparison. We asked an another 
+opinion for publications that could have been in more 
+than one of our categories. For manually curated validation set 
+with discipline assignment and justifications for
+possible exclusion see appendix (Insert reference!).
+
+The basic problem is that fields of science can not be 
+defined so that they clearly differ from each other. Where one 
+discipline end the other has already started like metallurgy and 
+material science. Likewise, there are lots of publications that 
+handle topics belonging to more than one discipline, eg. this 
+thesis discusses clustering and bibliometrics. So when annotating 
+publications, deciding if a publication belonged to
+a discipline or not felt often quite difficult. Often the 
+separation between disciplines felt quite arbitrary. For example
+an article describing using wavelet transformation for coding noisy
+images was decided to belong to CS information systems whereas an
+article describing wavelet based corner detection using SVD was
+decided to belong to CS artificial intelligence.
+For CS artificial intelligence we mostly selected publications 
+which
+mentioned some dimensionalty reduction or machine learning related
+term or concept.
+CS information systems ended up being quite like some ``others'' 
+or
+``the rest'' dump class. It would have publications such as
+``A reference model for conceptualising the convergence of 
+telecommunications and datacommunications service platforms'',
+``Developing a distributed meeting service to support mobile 
+meeting participants'',
+``On voice quality of IP voice over GPRS'',
+\fixme{Perustele vain yhteen alaan luokittelu. ``Tukeudun 
+WOS-luokitteluun''.}
+\fixme{Selvennä yläluokka-alaluokka-jako: CS general vs. CS 
+information system tai CS artificial intelligence.}
+
+
+
+
 \section{Agglomerative clustering}
 \label{sec:agglomerativeclustering}
 In this work we use agglomerative hierarchical clustering with 

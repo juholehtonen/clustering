@@ -1,32 +1,22 @@
 \chapter{Results}
 \label{chapter:results}
 
-We need a method to measure the ``goodness'' of the clustering.
-As we work with text data, the dimensionality increases
-quite high and projecting data down to 2 or 3 dimensions for 
-visualization is not a simple task. (We come back to visualization 
-later though.)
-% LM 06/20: perustelut hyvin asian ongelmallisuudelle
-So we have to resort to measurements derived from the 
-resulting clustering itself. If we knew some underlying ground 
-truth behind our clustering problem, we could validate our result 
-against it. But as mentioned earlier, even defining what actually 
-are the current fields of science depends on who you ask and for 
-what purpose the definition is needed. So the ground truth is only
-one measure for our results here.
-In the lack of ground truth we can use some ``internal'' goodness 
-measure for the resulting clustering. These kind of measures 
-basically try to infer how dense the clusters are compared with how 
-sparse the inter-cluster space is and how well the clusters are 
-separated from each other.
+%5.0 Yleistä tuloksista
+We first calculated internal and external validation metrics for 
+the manually annotated data to see how good well our metrics 
+reveal the our defined ground truth clustering. Then we clustered 
+the actual data for one year with a range of $n$ values, the 
+number of clusters, and calculated internal validation metrics for
+each clustering. Based on metrics we choose the number of clusters
+as our solution to the problem and we inspect the resulting
+clustering.
+
+%5.1 Manually annotated data
+%5.3 
+%5.4
+%5.5
 
 
-\section{Silhouettes}
-One such measure to estimate the ``goodness'' of a clustering is 
-silhouettes. Silhouettes use average proximities that are know
-to work best with clear, compact and spherical clusters
-\cite{rousseeuw_silhouettes:_1987}. Silhouette value for an item
-is defined as:
 
 Silhoutte values for 6000 publications clustered with 
 agglomerative clustering with Ward's method, number of clusters 
@@ -60,14 +50,14 @@ consisted of 519 publications from three different fields. The fields
 were: \emph{Computer science: Information systems}, 147 publications,
 \emph{Computer science: Artificial intelligence} 153 publications, 
 and \emph{Clinical neurology} 250 publications as classified by 
-publisher. We checked the publisher labeling, \fixme{cleared the 
-bad samples} lacking enough meta data, being too far out of the 
+publisher. We checked the publisher labeling, cleared the 
+bad samples lacking enough meta data, being too far out of the 
 scope of any of the three disciplines or having corrupted data and
 relabeled few \fixme{(amount)} samples to the more fitting 
 discipline and to one discipline for each sample only. The ground 
 truth labeling for 37 the most ambiguous samples was checked by 
 a non-expert human reviewer. So, our manual classification will
-be subjective but gives some hint about the classifier performance.
+be subjective but gives some hint about the clustering performance.
 \fixme{Then we calculated precision and recall for the data set.} 
 
 The Figure \ref{fig:ch-silh01} shows the results. We see that
