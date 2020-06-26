@@ -3,47 +3,16 @@
 
 %5.0 Yleistä tuloksista
 We first calculated internal and external validation metrics for 
-the manually annotated data to see how good well our metrics 
-reveal the our defined ground truth clustering. Then we clustered 
-the actual data for one year with a range of $n$ values, the 
-number of clusters, and calculated internal validation metrics for
+the manually annotated data to see how well our metrics 
+reveal our defined ground truth clustering. Then we clustered 
+the actual data for one year with selected number of cluster 
+values $n$, and calculated internal validation metrics for
 each clustering. Based on metrics we choose the number of clusters
 as our solution to the problem and we inspect the resulting
 clustering.
 
 %5.1 Manually annotated data
-%5.3 
-%5.4
-%5.5
-
-
-
-Silhoutte values for 6000 publications clustered with 
-agglomerative clustering with Ward's method, number of clusters 
-64, are seen in Figure~\ref{fig:silh01}.
-\begin{figure}[ht]
-  \begin{center}    
-\includegraphics[width=13cm]{images/6000-64-400-Hierarchical-silhouette-plot.png}
-    \caption{Silhoutte values of 6000 items clustered with 
-    agglomerative clustering with Wrad's method, 64 clusters, 
-    LSA with 400 components. Each pixel row corresponds to a 
-    Silhouette value of an item, adjacent rows separated by gap 
-    corresponds to a cluster.
-    Dashed line is the average.}
-    \label{fig:silh01}
-  \end{center}
-\end{figure}
-
-Other measure is Calinski-Harabaz index. Clustering should be 
-optimal when Calinski-Harabaz index reaches its maximum
-value~\cite{}.
-
-When evaluating the results, Silhouette Coefficient might not be
-the best option. Find out why. V-measure or Adjusted Rand Index
-might be better options~\cite{noauthor_clustering_nodate}.
-
-
-\section{``Gold standard set''}
+\section{Manually annotated data}
 We evaluated our clustering by creating an evaluation set with
 hand labeled or verified fields of science. This subset of data 
 consisted of 519 publications from three different fields. The fields
@@ -56,7 +25,8 @@ scope of any of the three disciplines or having corrupted data and
 relabeled few \fixme{(amount)} samples to the more fitting 
 discipline and to one discipline for each sample only. The ground 
 truth labeling for 37 the most ambiguous samples was checked by 
-a non-expert human reviewer. So, our manual classification will
+a non-expert human reviewer. After clearing the data set consisted 
+of 455 samples.  So, our manual classification will
 be subjective but gives some hint about the clustering performance.
 \fixme{Then we calculated precision and recall for the data set.} 
 
@@ -66,17 +36,12 @@ of clusters two and that silhouette values increases with the
 number of clusters.
 Neither of these indices corresponds to the three disciplines
 that we selected manually. It's also worth to remember that there
-is only 519 data points to cluster. Comparison against preferred
-manual labeling \fixme{is calculated with the 
+is only 455 data points to cluster. Comparison against preferred
+manual labeling is calculated with the 
 Adjusted Rand Index (ARI) for these clusterings in Figure 
-\ref{refhere}.}
+\ref{fig:ari01}.
 Top terms for maximum index values are shown in the Table 
 \ref{refhere}.
-
-In figure \ref{fig:ch-silh02}
-we see corresponding graphs for k-means clustering. Top terms for
-Calinski-Harabasz index maximum at seven clusters are listed in 
-the Table \ref{table:topterms}.
 
 
 \begin{figure}[ht]
@@ -89,6 +54,23 @@ the Table \ref{table:topterms}.
     \label{fig:ch-silh01}
   \end{center}
 \end{figure}
+
+\begin{figure}[ht]
+  \begin{center}    
+\includegraphics[width=9.5cm]{images/ari-plot-455-2_260-800-hierarchical.png}
+    \caption{Hierarchical clustering. Adjusted Rand index for the
+    manually annotated set of 455 publications clustered with hierarchical
+    clustering, LSA with 800 components. The higher values denote 
+    more compact and better clustering.}
+    \label{fig:ari01}
+  \end{center}
+\end{figure}
+
+
+In figure \ref{fig:ch-silh02}
+we see corresponding graphs for k-means clustering. Top terms for
+Calinski-Harabasz index maximum at seven clusters are listed in 
+the Table \ref{table:topterms}.
 
 
 \begin{figure}[ht]
@@ -231,6 +213,7 @@ scores, Silhouette Coefficient, Calinski-Harabaz Index, (from
 sources) 
 
 
+%5.2 Finnish publications
 \section{Finnish publications from year 2000}
 We clustered year 2000 data, 10145 publications, with k-means 
 clustering with different value of $k$, the number of clusters. 
@@ -274,7 +257,30 @@ maxima seems to be reached with these cluster values.
 
 
 
-
+% TODO: Kirjoita nämä oikeaan kohtaan tai poista
+% Silhoutte values for 6000 publications clustered with 
+% agglomerative clustering with Ward's method, number of clusters 
+% 64, are seen in Figure~\ref{fig:silh01}.
+% \begin{figure}[ht]
+%   \begin{center}    
+% \includegraphics[width=13cm]{images/6000-64-400-Hierarchical-silhouette-plot.png}
+%     \caption{Silhoutte values of 6000 items clustered with 
+%     agglomerative clustering with Wrad's method, 64 clusters, 
+%     LSA with 400 components. Each pixel row corresponds to a 
+%     Silhouette value of an item, adjacent rows separated by gap 
+%     corresponds to a cluster.
+%     Dashed line is the average.}
+%     \label{fig:silh01}
+%   \end{center}
+% \end{figure}
+% 
+% Other measure is Calinski-Harabaz index. Clustering should be 
+% optimal when Calinski-Harabaz index reaches its maximum
+% value~\cite{}.
+% 
+% When evaluating the results, Silhouette Coefficient might not be
+% the best option. Find out why. V-measure or Adjusted Rand Index
+% might be better options~\cite{noauthor_clustering_nodate}.
 
 
 
