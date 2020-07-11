@@ -280,9 +280,9 @@ just by layman's reasoning if the labeled discipline seemed
 plausible. Because of the journal based 
 classification, most publications had more than one 
 assigned discipline. Only discipline labels named 
-previously were retained because we were wanted test 
+previously were retained because we wanted to test 
 how well our clustering method separated these three 
-groups regardless their labels. So essentially the 
+groups regardless of their labels. So essentially the 
 labels could have been eg. 1, 2, 3. Publications
 with critically missing data, unclear discipline assignment and
 heavily applied publications were excluded from validation set.
@@ -308,11 +308,9 @@ images was decided to belong to CS information systems whereas an
 article describing wavelet based corner detection using SVD was
 decided to belong to CS artificial intelligence.
 For CS artificial intelligence we mostly selected publications 
-which
-mentioned some dimensionalty reduction or machine learning related
-term or concept.
-CS information systems ended up being quite like some ``others'' 
-or
+which mentioned some dimensionalty reduction or machine learning 
+related term or concept. CS information systems ended up being 
+quite like some ``others'' or
 ``the rest'' dump class. It would have publications such as
 ``A reference model for conceptualising the convergence of 
 telecommunications and datacommunications service platforms'',
@@ -324,7 +322,22 @@ WOS-luokitteluun''.}
 \fixme{Selvennä yläluokka-alaluokka-jako: CS general vs. CS 
 information system tai CS artificial intelligence.}
 
+\subsubsection{Precision and recall}
+Recall is the number of items correctly classified divided by the 
+total number of items in that class.
+\begin{equation}
+ Recall = \frac{|\{relevant\ items\} \cap \{retrieved\ items\}|} 
+{\{relevant\ items\}}
+\end{equation}
 
+Precision is the number of items correctly classified divided by 
+the total number items classified into that class (ie. true and 
+false positives).
+\begin{equation}
+ Precision = \frac{|\{relevant\ items\} \cap \{retrieved\ 
+items\}|} 
+{\{retrieved\ items\}}
+\end{equation}
 
 
 \section{Agglomerative clustering}
