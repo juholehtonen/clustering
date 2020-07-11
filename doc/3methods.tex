@@ -264,15 +264,19 @@ cluster structure.
 % Gold standard set. Actually a gold standard set would be a set
 % of all data sets with abstract excluding sets that don't have it.
 For not to have to rely solely on internal clustering validation we
-also try external clustering validation with small sample of data.
+also try external clustering validation with small subset of data.
 We will create a manually annotated validation set for calculating
-precision, recall and metrics derived from those.
-% määrittele peruskäsitteet kuten precision ja recall
-The validation
-set consists of $500$ publications from three different fields of
-science, two more similar sub fields of computer science, 
-information systems and artificial intelligence, and one more
-distant from those, clinical neurology.
+precision, recall and other metrics derived from those.
+% Käsin luokitellun aineiston kuvaus
+The validation set consists of Finnish publications from year 2000
+from three different fields of science as catecorized by WOS.
+Two of the fields are closely related sub fields of computer science, 
+information systems and artificial intelligence, while the third 
+one is more distant from those, clinical neurology. There is $116$,
+$122$, $250$ publications labeled as CS-IS, CS-AI and clinical 
+neurology respectively, $31$ labeled both CS-IS and CS-AI, totalling 
+$519$ publications in our data.
+
 
 Publications are inspected by title, abstract, keywords, journal
 and publisher assigned disciplines of the journal. We checked 
@@ -323,6 +327,7 @@ WOS-luokitteluun''.}
 information system tai CS artificial intelligence.}
 
 \subsubsection{Precision and recall}
+% määrittele peruskäsitteet kuten precision ja recall
 Recall is the number of items correctly classified divided by the 
 total number of items in that class.
 \begin{equation}
