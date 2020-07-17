@@ -269,27 +269,37 @@ We will create a manually annotated validation set for calculating
 precision, recall and other metrics derived from those.
 % Käsin luokitellun aineiston kuvaus
 The validation set consists of Finnish publications from year 2000
-from three different fields of science as catecorized by WOS.
-Two of the fields are closely related sub fields of computer science, 
-information systems and artificial intelligence, while the third 
-one is more distant from those, clinical neurology. There is $116$,
-$122$, $250$ publications labeled as CS-IS, CS-AI and clinical 
-neurology respectively, $31$ labeled both CS-IS and CS-AI, totalling 
-$519$ publications in our data.
-
-
-Publications are inspected by title, abstract, keywords, journal
-and publisher assigned disciplines of the journal. We checked 
-just by layman's reasoning if the labeled discipline seemed 
-plausible. Because of the journal based 
+from three different fields of science as categorized by WOS.
+Two of the fields are closely related sub fields of computer
+science: \emph{computer science: information systems} (CS-IS) and 
+\emph{computer science: 
+artificial intelligence} (CS-AI), while the third one, 
+\emph{clinical neurology}, is more distant from those. There are 
+$116$, $122$, $250$ publications labeled as belonging to fields 
+CS-IS, CS-AI and clinical neurology respectively, and $31$ 
+publications labeled as belonging to both CS-IS and CS-AI, 
+totalling $519$ publications in our data.
+% Huonojen näytteiden poisto
+Publications were inspected by title, abstract, keywords, journal
+and publisher assigned disciplines of the journal. Publications
+with critically missing data, unclear discipline assignment and
+heavily applied publications (eg. a publication describing the 
+development of a multiuser virtual community and a community game 
+platform) were excluded from validation set. 
+% Luokittelun varmistus käsin
+We then checked by layman's reasoning if the WOS labeled 
+discipline seemed plausible. Because of the journal based 
 classification, most publications had more than one 
 assigned discipline. Only discipline labels named 
 previously were retained because we wanted to test 
 how well our clustering method separated these three 
 groups regardless of their labels. So essentially the 
-labels could have been eg. 1, 2, 3. Publications
-with critically missing data, unclear discipline assignment and
-heavily applied publications were excluded from validation set.
+labels could have been eg. 1, 2, 3.
+% ``Väärin luokiteltujen uudelleen luokittelu''
+In total 29 publications were manually reclassified by either
+choosing only one of two used classes or by assigning the 
+publication to more fitting category by our judgement.
+% Tavoite
 Goal was to achieve evaluation measurements based on a quite 
 clearly separated set of publications. More vaguely classifiable
 publications were included for comparison. We asked an another 
