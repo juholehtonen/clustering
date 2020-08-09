@@ -16,7 +16,7 @@ analysis_fields = 'title,abstract,keyword'
 size = 12000
 filtering = True
 
-n_clusters = [12, 32, 64, 128, 220, 261]
+n_clusters = [12, 32, 64, 128, 220, 260]
 n_components = [800, 300, 200, 40]
 n_features = [10000]
 df_min = 2
