@@ -74,16 +74,17 @@ don't tell much about the topics these records concern as
 presented by Luhn \cite{luhn_key_1960}
 
 
-\subsection{Lemmatizing}
+\subsection{Lemmatisation}
 After removing stop words the next step is to unify the 
-different written forms a concept. We might have eg. ``visual'' 
+different written forms a term. We might have eg. ``visual'' 
 and ``visually'' or ``dog'' and ``dogs'' and we want them as 
 ``visual'' and ``dog'' only. This is desirable to reduce the 
 redundant repetion the data and also to reduce the dimensions of 
-the feature space. [...] \cite{ref_here}
+the feature space. [...] \cite{siemens_lemmatization_1996} 
+\cite{hann_towards_1975}
 There are two possible options to achieve this. 
 
-\emph{Lemmatizing} means replacing each inflectional form of a 
+\emph{Lemmatisation} means replacing each inflectional form of a 
 word with its nominative form, or lemma. The context of the word 
 is used to decide the correct lemma in the case of a word with 
 multiple meanings. \fixme{In other words, words surrounding the 
@@ -101,7 +102,7 @@ but poorer recall true positive rate compared to stemming.
 \cite{ref_here}
 
 
-\subsection{Vectorizing}
+\subsection{Vectorisation}
 The clustering algorithms don't understand text documents but 
 require numerical input. To enable the handling of the textual 
 data by the clustering algorithms we have to transform it into 
