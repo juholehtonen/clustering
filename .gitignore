@@ -6,6 +6,7 @@ doc/*.blg
 doc/*.out
 doc/*.pdf
 doc/*.toc
+doc/dippa.kilepr
 *.pyc
 *.txt~
 .doit.*
