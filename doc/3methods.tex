@@ -263,6 +263,14 @@ cluster structure.
 % Otsikko oli: Manually annotated validation set
 % Gold standard set. Actually a gold standard set would be a set
 % of all data sets with abstract excluding sets that don't have it.
+External validation of manually annotated data set as a measure of
+best internal validation method.
+
+% Tavoite
+Goal was to achieve evaluation measurements based on a quite 
+clearly separated set of publications. More vaguely classifiable
+publications were included for comparison.
+
 For not to have to rely solely on internal clustering validation we
 also try external clustering validation with small subset of data.
 We will create a manually annotated validation set for calculating
@@ -279,35 +287,36 @@ $116$, $122$, $250$ publications labeled as belonging to fields
 CS-IS, CS-AI and clinical neurology respectively, and $31$ 
 publications labeled as belonging to both CS-IS and CS-AI, 
 totalling $519$ publications in our data.
+
 % Huonojen näytteiden poisto
 Publications were inspected by title, abstract, keywords, journal
 and publisher assigned disciplines of the journal. Publications
 with critically missing data, unclear discipline assignment and
 heavily applied publications (eg. a publication describing the 
-development of a multiuser virtual community and a community game 
-platform) were excluded from validation set. 
+development of a virtual community and a community game platform)
+were excluded from validation set. 
 % Luokittelun varmistus käsin
-We then checked by layman's reasoning if the WOS labeled 
+We then checked with layman's reasoning if the WOS labeled 
 discipline seemed plausible. Because of the journal based 
-classification, most publications had more than one 
-assigned discipline. Only discipline labels named 
-previously were retained because we wanted to test 
-how well our clustering method separated these three 
-groups regardless of their labels. So essentially the 
-labels could have been eg. 1, 2, 3.
+classification, most publications had more than one assigned 
+discipline. Only the previously named three discipline labels were 
+retained because we wanted to test if and how well our clustering 
+method would cluster the samples compared to these three 
+groups. We asked an another opinion for publications that could 
+have been in more than one of our categories. For manually curated
+validation set with discipline assignment and justifications for
+possible exclusion see appendix \ref{chapter:first-appendix}.
+% So essentially the labels could have been eg. 1, 2, 3.
 % ``Väärin luokiteltujen uudelleen luokittelu''
-In total 29 publications were manually reclassified by either
+In total $29$ publications were manually reclassified by either
 choosing only one of two used classes or by assigning the 
-publication to more fitting category by our judgement.
-% Tavoite
-Goal was to achieve evaluation measurements based on a quite 
-clearly separated set of publications. More vaguely classifiable
-publications were included for comparison. We asked an another 
-opinion for publications that could have been in more 
-than one of our categories. For manually curated validation set 
-with discipline assignment and justifications for
-possible exclusion see appendix (Insert reference!).
+publication to more fitting category by our judgement. After
+excluding bad data and reclassifications we had a data set of 
+$134$, $127$ and $194$ publications in CS-IS, CS-AI and clinical
+neurology, respectively, totalling $455$ publications.
 
+% Pitäisikö tämä olla jossain muualla?
+% ``Väärin'' luokiteltujen uudelleen luokittelusta
 The basic problem is that fields of science can not be 
 defined so that they clearly differ from each other. Where one 
 discipline end the other has already started like metallurgy and 
@@ -324,15 +333,15 @@ decided to belong to CS artificial intelligence.
 For CS artificial intelligence we mostly selected publications 
 which mentioned some dimensionalty reduction or machine learning 
 related term or concept. CS information systems ended up being 
-quite like some ``others'' or
-``the rest'' dump class. It would have publications such as
+quite like some ``others'' or ``the rest'' dump class.
+It would have publications such as
 ``A reference model for conceptualising the convergence of 
 telecommunications and datacommunications service platforms'',
 ``Developing a distributed meeting service to support mobile 
 meeting participants'',
 ``On voice quality of IP voice over GPRS'',
-\fixme{Perustele vain yhteen alaan luokittelu. ``Tukeudun 
-WOS-luokitteluun''.}
+Decision to assign publications to one discipline only was based 
+on using hard clustering, instead of probabilistic clustering. 
 \fixme{Selvennä yläluokka-alaluokka-jako: CS general vs. CS 
 information system tai CS artificial intelligence.}
 

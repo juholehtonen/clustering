@@ -202,6 +202,9 @@
 \usetikzlibrary{shapes}
 \usetikzlibrary{patterns}
 
+% JPL: The pgfplotstable package allows creating tables from csv files
+\usepackage{pgfplotstable}
+\usepackage{booktabs,colortbl}
 
 % The aalto-thesis package provides typesetting instructions for the
 % standard master's thesis parts (abstracts, front page, and so on)
@@ -554,8 +557,8 @@ Thank you...
 % Appendices go here
 % ------------------------------------------------------------------
 % If you do not have appendices, comment out the following lines
-%\appendix
-%\input{appendices.tex}
+\appendix
+\input{appendices.tex}
 
 % End of document!
 % ------------------------------------------------------------------
