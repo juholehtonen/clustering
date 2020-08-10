@@ -1,16 +1,23 @@
 \chapter{Data and Methods}
 \label{chapter:methods}
 In this chapter we present the data and methods used in the 
-clustering. We follow the logical order the methods are applied on 
-the data.
+clustering. We follow the logical order in which the methods are 
+applied on the data. We first describe the raw data, 
+pre-processing it, the feature extraction transforming irregular
+length symbolic data (text) into numerical vector representation,
+reducing the dimensionality of the data, selecting the model used 
+to learn from the data and finally the selected clustering method.
 
 \section{Publication metadata}
 \label{section:metadata}
-The data consits of X records of Clarivate's Web of Science 
-publication metadata from year Y.
-
-Our data here consists of short metadata records describing the 
-publications. An example of a shortened record:
+The data consits of $10456$ records of Clarivate's Web of Science 
+publication metadata from year 2000. Each record describes some 
+basic information about an article published in a scientific 
+journal. The data contains only publications with at least one
+author with an affiliation to a Finnish research organisation as
+recorded in the publication. These publications were published in 
+total in $2539$ different scientific journals.
+An example of a shortened record:
 \begin{verbatim}
  Lehti: ACTA OPHTHALMOLOGICA SCANDINAVICA
  ISSN: 1395-3907
@@ -35,14 +42,18 @@ publications. An example of a shortened record:
  /  1978
  \end{verbatim}
  
-Each metadata record contains the title (``\texttt{Lehti}''), 
-ISSN, the field of science (``\texttt{Ala}'') and publication 
-year (``\texttt{Ilmestymisvuosi}'') of the journal, the title 
-(``\texttt{Otsikko}'') and the abstract of the article 
-(``\texttt{Abstrakti}''), keywords produced by algorithm 
-of the publisher (``\texttt{Avainsana (KeywordPlus)}'') and the 
+Each metadata record contains a single instance of the title 
+(``\texttt{Lehti}''), ISSN (International Standard Serial Number), 
+the field of science (``\texttt{Ala}'') and publication year 
+(``\texttt{Ilmestymisvuosi}'') of the journal, the title 
+(``\texttt{Otsikko}'') and the abstract (``\texttt{Abstrakti}'') 
+of the article. Additionally each metadata record can contain
+multiple instances of keywords inferred by the publisher programmatically
+(``\texttt{Avainsana (KeywordPlus)}''), keywords produced by the 
 authors themselves (``\texttt{Avainsana (tekijät)}'') and the 
-cited references (``\texttt{Lähde}'').
+cited references (``\texttt{Lähde}''). The data contains incomplete,
+erroneous and multiplicated records.
+
 % \fixme{Tarkista YL:ltä että lähteet ovat nimenomaan 
 % artikkelin omat. (Viitteet voivat olla metodologisia, 
 % historiallisia ja siten johtaa harhaan). Toisaalta en nyt käytä 
@@ -54,15 +65,15 @@ cited references (``\texttt{Lähde}'').
 Basically the descriptions are natural English 
 language appended with the citation references. When analyzing 
 this kind of textual data the often used methods involve some 
-kind of counting. We count, for example, which
-are the most used words, which words appear together and so on.
+kind of counting. We count, for example, to find the most used 
+words in a document, which words appear together and so on.
 % We can count n-grams.
-This is called text analysis. One of the main principles was made 
-popular by George Kingsley Zipf. He stated that the frequency of 
-a word in any corpus is approximately inversely proportional to 
-its rank. \fixme{This needs clarification/pruning}
+This is called text analysis. 
+
 
 Next we will describe the methods used in this work.
+\subsection{Feature extraction}
+
 
 
 \subsection{Preprocessing}
@@ -105,11 +116,17 @@ but poorer recall true positive rate compared to stemming.
 \subsection{Vectorisation}
 The clustering algorithms don't understand text documents but 
 require numerical input. To enable the handling of the textual 
-data by the clustering algorithms we have to transform it into 
-numerical form. This is called vectorizing.
+data by the clustering algorithms we have to transform it into a
+numerical form. This is called vectorising.
 
-After we have lemmatized the terms we count the occurences 
-of each term in each document. The resulting term occurence 
+After lemmatising the terms we count the occurences 
+of each term in each document. So each document is represented by
+a vector of its term frequencies. This vector is called \emph{the 
+feature vector} of the document. When vectorising whole data set
+
+This 
+
+The resulting term occurence 
 frequencies are normalized to decrease the importance of the 
 tokens that occur in the majority of documents. Usually these are 
 common terms not specific to the topic of the document. 
@@ -130,9 +147,8 @@ esimerkiksi ko. matriisin palanen?}
 
 \section{Dimensionality reduction}
 \label{sec:dimensionalityreduction}
-The textual data is encoded with bag of words model, where 
-meaning that for each word in the corpus, in this case almost 
-whole English language, the record has a binary feature that is 1 
+The textual data is encoded with \emph{the bag of words} model, 
+meaning that for each word in the corpus, the record has a binary feature that is 1 
 if that word occurs in the record and 0 if not, the resulting 
 record-feature matrix has the dimensionality of $m*n$ where $m$ in 
 the number of records and $n$ is the number of features and very 
