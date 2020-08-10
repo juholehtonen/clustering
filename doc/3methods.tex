@@ -10,7 +10,7 @@ to learn from the data and finally the selected clustering method.
 
 \section{Publication metadata}
 \label{section:metadata}
-The data consits of $10456$ records of Clarivate's Web of Science 
+The data consists of $10456$ records of Clarivate's Web of Science 
 publication metadata from year 2000. Each record describes some 
 basic information about an article published in a scientific 
 journal. The data contains only publications with at least one
@@ -90,7 +90,7 @@ After removing stop words the next step is to unify the
 different written forms a term. We might have eg. ``visual'' 
 and ``visually'' or ``dog'' and ``dogs'' and we want them as 
 ``visual'' and ``dog'' only. This is desirable to reduce the 
-redundant repetion the data and also to reduce the dimensions of 
+redundant repetion of the data and also to reduce the dimensions of 
 the feature space. [...] \cite{siemens_lemmatization_1996} 
 \cite{hann_towards_1975}
 There are two possible options to achieve this. 
@@ -150,10 +150,10 @@ esimerkiksi ko. matriisin palanen?}
 The textual data is encoded with \emph{the bag of words} model, 
 meaning that for each word in the corpus, the record has a binary feature that is 1 
 if that word occurs in the record and 0 if not, the resulting 
-record-feature matrix has the dimensionality of $m*n$ where $m$ in 
+record-feature matrix has the dimensionality of $m \times n$ where $m$ in 
 the number of records and $n$ is the number of features and very 
 sparse. In our case the record-feature matrix has the 
-dimensionality approximately $10000*20000$. 
+dimensionality of approximately $10000 \times 20000$. 
 
 
 \subsection{Singular value decomposition}
@@ -186,7 +186,7 @@ studied by Korenius et al. \cite{korenius_hierarchical_2006}.
 
 \subsection{Choosing the number of clusters}
 The number of clusters $k$ that should result from the clustering is
-not known beforehand but is required a parameter of the
+not known beforehand but is a required parameter of the
 clustering algorithm. Hierarchical clustering will always return 
 $k$ clusters regardless if they are meaningful or not. To make a
 decision about the number of clusters we can 1) inspect the data in 
@@ -372,7 +372,7 @@ total number of items in that class.
 \end{equation}
 
 Precision is the number of items correctly classified divided by 
-the total number items classified into that class (ie. true and 
+the total number of items classified into that class (ie. true and 
 false positives).
 \begin{equation}
  Precision = \frac{|\{relevant\ items\} \cap \{retrieved\ 
@@ -393,8 +393,8 @@ as the clustering process goes on.
 \subsection{Distance metric}
 Our data is high-dimensional so choosing distance measure is 
 important. The higher the number of dimensions the more 
-dissimilar each observation seems to from every other observation. 
-This is known as \emph{curse of dimensionality} \fixme{citation}.
+dissimilar each observation seems from every other observation. 
+This is known as \emph{the curse of dimensionality} \cite{trunk_problem_1979}.
 Boyack et al. have compared clustering real world size corpus of 
 2.5 million publications from MEDLINE with nine different 
 similarity metrics. \cite{boyack_clustering_2011}

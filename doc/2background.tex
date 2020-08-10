@@ -48,12 +48,12 @@ Bibliometrics seeks to answer questions like ``How many
 publications has an author authored?'', ``How many citations an 
 author has'', ``What are the 
 cited publications of a scientific document?''. It also studies
-a bit more boarder questions like ``How many publications
-on discipline X been published a year?'', ``Which research area
+a bit more boarder questions like ``How many publications there 
+has been published on a discipline X a year?'', ``Which research area
 does this publication belong to?'', ``What other publications 
 belong to this research area?'', ``When has this research area
 emerged?'', ``What are the most important related research areas
-of this discipline?'' an so on.
+of this discipline?'' and so on.
 
 % Background/history
 % ==================
@@ -66,9 +66,9 @@ perspective.
 % Tahan voisi laittaa sidontaa todennakoisyyslaskennalla tjsp.
 One of the earliest studies that is generally considered
 bibliometrics was Cole's and Eales' analysis to the anatomy 
-literature in 1917 \cite{cole_history_1917}. In this study they 
+literature in 1917 \cite{cole_history_1917}. In their study they 
 researched the anatomy literature from 1543 through 1860 with the 
-intention to graph the growth of of the number of documents over 
+intention to graph the growth of the number of documents over 
 the three centuries, to present ``the performance'' of each 
 European country, to observe the most popular topics among 
 scholars from time to time, and to compare the advancement and 
@@ -94,17 +94,17 @@ disciplines.
 % =========================================
 % \fixme{Onko Scopus tässä relevantti jos ei Scopus-dataa?}
 Currently, the most popular systems to classify the publications 
-into research areas are the Clarivate's (formerly Thomson Reuters)
-Web of Science and Elsevier's Scopus classification
-systems. These classification systems classify the journals into
+into research areas are Clarivate's (formerly Thomson Reuters)
+Web of Science (WoS) and Elsevier's Scopus classification
+systems. These classification systems classify journals into
 one or more research areas \cite{waltman_new_2012}. Publications
 are then classified to research areas based on in which journal they
 were published. WoS uses approximately 250 \emph{subject categories}
 in its classification. Each journal can belong 
 to one or up to six categories. The categories have been created
-at least or before early 1960's by manually classifying journals.
+latest on early 1960's by manually classifying journals.
 New journals were added one at the time after visual inspection of
-citation information. New categories were added when when old ones
+citation information. New categories were added when old ones
 grew \cite{pudovkin_algorithmic_2002}. As for Scopus, according to 
 Wang and Waltman \cite{wang_large-scale_2016}, ``there seems to be no 
 information at all on the construction of its classification 
@@ -188,7 +188,7 @@ This, however, is a report which concentrates on bibliometric
 analysis based on the map of science provided by WoS subject 
 categories. But if we want to explore how the Finnish scientific 
 disciplines themselves have evolved over time these pre-defined 
-subject categories are quite rigid framework. For that reason we 
+subject categories are quite a rigid framework. For that reason we 
 want to experiment creating an alternative mapping of science by 
 clustering. 
 
@@ -199,18 +199,18 @@ scientific disciplines to be used in bibliometric analyses.
 
 %Efforts to cluster Finnish research include a study by...
 
-Suominen and Toivanen used unsupervised learning-based topic 
+Suominen and Toivanen \cite{suominen_map_2016} used unsupervised learning-based topic 
 modeling to create a map of science for Finnish publications from 
 1995-2011. They evaluated it by comparing the results with WoS 
 based classification and concluded that superiority of the method
-depends on the purpose of analysis. Traditional manually created 
+depends on the purpose of the analysis. Traditional manually created 
 classifications are relevant for information retrieval while 
-machine learning methods can reveal new emerging areas of science 
-\cite{suominen_map_2016}. Compared to our work here, their 
+machine learning methods can reveal new emerging areas of science.
+Compared to our work here, their 
 analysis method topic modeling differs from hierarchical 
 clustering albeit both are unsupervised learning methods.
-We will return to compare our results to those of Suominen and 
-Toivanen in Discussion chapter.
+\fixme{We will return to compare our results to those of Suominen and 
+Toivanen in Discussion chapter.}
 
 Our research question here is: "How to automatically cluster 
 Finnish scientific publications and how does that clustering 
@@ -236,9 +236,9 @@ $X$.
 Assuming we have enough of samples $X$ we then teach our model 
 with training data. That is, we solve the weights $w$ using the
 loss function such that it optimizes the difference between the 
-true and predicted class labesl $Y$.
+true and the predicted class labels $Y$.
 
-Supervised learnig methods include classification and continuous 
+Supervised learning methods include classification and continuous 
 estimation (regression)
 where the class of the training samples, or the target values in 
 case of regression, $Y$ is known. Example of a classification 
@@ -252,7 +252,7 @@ finding anomalities that don't fit in the group, such as analysing
 log files of a computer system to find a possible intruder.
 
 Unsupervised learning methods include clustering, dimensionality
-reduction and topic modeling for instance. Clustering try to 
+reduction and topic modeling for instance. By clustering we try to 
 distinguish patterns in the data and discriminate unrelated 
 objects into separate clusters and aggregate related objects into
 same cluster.
