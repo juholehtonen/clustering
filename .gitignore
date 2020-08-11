@@ -1,4 +1,4 @@
-doc/*.backup
+*.backup
 doc/*.log
 doc/*.aux
 doc/*.bbl
