@@ -13,24 +13,24 @@ and clustered the whole data for one year.
 % categories. [ei aikaa tähän]
 
 %5.1 Manually annotated data  --> the chosen metrics
-%5.2 Metrics evaluation, also compare to precision and recall??
 %5.3 Chosen number of clusters based on metrics (oikeasti tiedetään: 3)
 %5.4 Klusterointi kolmeen
 %5.5 Klustereiden havainnollistaminen
 \section{Manually annotated data}
-% TODO: tämä selostettu jo 3-luvussa?
 We evaluated our clustering by creating an evaluation set with
 hand labeled fields of science. This subset of data consisted of 
 $455$ publications from three different fields. The fields were:
 \emph{Computer science: Information systems}, $134$ publications,
 \emph{Computer science: Artificial intelligence} $127$ publications, 
-and \emph{Clinical neurology} $194$ publications as classified by 
-publisher. 
+and \emph{Clinical neurology} $194$ publications.
+% as classified by publisher and manually validated. 
 % So, our manual classification will be subjective but gives some 
 % hint about the clustering performance.
 % \fixme{Then we calculated precision and recall for the data set.} 
 
-The Figure \ref{fig:ch-silh01} shows the results. We see that
+This data set was then agglomeratively clustered with Ward's 
+method for number of cluster values $[2,260]$. The Figure 
+\ref{fig:ch-silh01} shows the results. We see that
 Calinski-Harabasz index reaches it's maximum value at the number
 of clusters two and that silhouette values increases with the
 number of clusters.
@@ -40,79 +40,86 @@ is only 455 data points to cluster. Comparison against preferred
 manual labeling is calculated with the 
 Adjusted Rand Index (ARI) for these clusterings in Figure 
 \ref{fig:ari01}. Because ARI uses manually annotated labels, the 
-groundtruth values for the clusters, it peaks at $3$ as the number 
-of clusters with $4$ as almost equally good value.
+ground truth cluster values for the publications, it peaks at 
+number of clusters at $3$. Adjusted Rand index value for $4$ 
+clusters is almost equally good.
 
 \begin{figure}[ht]
   \begin{center}    
-\includegraphics[width=9.5cm]{images/c-h-silh-index-plot-519-2_260-800-hierarchical.png}
+\includegraphics[width=8.5cm]{images/c-h-silh-index-plot-519-2_260-800-hierarchical.png}
     \caption{Hierarchical clustering. Calinski-Harabasz index and Silhoutte values for the
     manually annotated set of 455 publications clustered with hierarchical
     clustering, LSA with 800 components. The higher values denote 
     more compact and better clustering in both graphs.}
     \label{fig:ch-silh01}
-  \end{center}
+    \end{center}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[htp]
   \begin{center}    
-\includegraphics[width=9.5cm]{images/ari-plot-455-2_260-800-hierarchical.png}
+\includegraphics[width=9.0cm]{images/ari-plot-455-2_260-800-hierarchical.png}
     \caption{Hierarchical clustering. Adjusted Rand index for the
     manually annotated set of 455 publications clustered with hierarchical
     clustering, LSA with 800 components. The higher values denote 
-    more compact and better clustering. The index gains its peak value at $3$.}
+    more compact and better clustering. The index gains its peak value with 
+    number of clusters at $3$.}
     \label{fig:ari01}
   \end{center}
 \end{figure}
 
 Top terms for maximum index values are shown in the Table 
-\ref{table:topterms_455_hier}. We can see that there are one cluster
+\ref{table:topterms_455_hier}. We can see that there is one cluster
 with computer science related terms and two clusters with clinical
 neurology related terms. So we can note that our clustering method
-didn't find the clusters that we expected. This may be visible also
-in adjusted rand index with cluster amounts three and four almost
-square. For three clusters part of the samples are incorrectly 
-clustered and for four clusters the situation is obviously the same.
+didn't find the clusters we expected. This may also be visible 
+in adjusted rand index with the number of clusters three and four almost
+square (Figure \ref{fig:ari01}). For three clusters part of the samples are incorrectly 
+clustered and for four clusters, the situation is obviously the same.
 
 \input{tables/5_table_topterms_bl.tex}
 
 For a comparison we also tried clustering manually annotated data
-with k-means clustering. It's practically identical index values 
-for different number of clusters can be seen in figure \ref{fig:ch-silh02}.
+with K-means clustering. The idea was to see if this method would
+give clearer clusters that either silhouette values or 
+Calinski-Harabasz index would recognize. Its practically identical
+index values for different number of clusters can be seen in 
+figure \ref{fig:ch-silh02}. K-means wasn't able to significantly 
+improve the clustering.
 
-% Top terms for Calinski-Harabasz index maximum at seven clusters are listed in 
-% the Table \ref{table:topterms}.
-
-\begin{figure}[ht]
+\begin{figure}[htp]
   \begin{center}    
-\includegraphics[width=9.5cm]{images/c-h-silh-index-plot-519-2_260-800-kmeans.png}
+\includegraphics[width=9.0cm]{images/c-h-silh-index-plot-519-2_260-800-kmeans.png}
     \caption{k-means clustering. Calinski-Harabasz index and Silhoutte values for the
-    manually annotated set of 455 publications clustered with k-means 
+    manually annotated set of 455 publications clustered with K-means 
     clustering, LSA with 800 components. The higher values denote 
     more compact and better clustering in both graphs.}
     \label{fig:ch-silh02}
   \end{center}
 \end{figure}
 
-% \input{tables/5_table_topterms.tex}
+We can see that neither of our internal validation method for 
+clustering performance doesn't really tell us much. 
+% From Table \ref{} we can see the Calinski-Harabasz index values.
+We don't get very strong support for using any of these to measures
+to decide the number of clusters for the actual one year data 
+clustering.
+% Top terms for Calinski-Harabasz index maximum at seven clusters are listed in 
+% the Table \ref{table:topterms}.
 
-% \input{tables/5_table_topterms_30_h.tex}
 
-
-\subsection{Precision and recall}
-With manually annotated dataset of 455 articles we compared 
-the results with three clusters which was assumed the correct 
-classification of the data set. We got recall $R = ???$ and 
-precision $P = ???$ which is
-a quite poor result. By looking at the top terms and random samples
-from each cluster we notice that two of the three clusters have 
-\emph{'Clinical neurology'} related items, see Tables
-\ref{table:topterms_455_hier} and \ref{table:articles_455_hier}.
+%5.2 Metrics evaluation, also compare to precision and recall??
+% \subsection{Precision and recall}
+% With manually annotated dataset of 455 articles we compared 
+% the results with three clusters which was assumed the correct 
+% classification of the data set. We got recall $R = ???$ and 
+% precision $P = ???$ which is
+% a quite poor result. By looking at the top terms and random samples
+% from each cluster we notice that two of the three clusters have 
+% \emph{'Clinical neurology'} related items, see Tables
+% \ref{table:topterms_455_hier} and \ref{table:articles_455_hier}.
 
 % \input{tables/5_table_topterms_bl.tex}
-
 % \input{tables/5_table_articles_bl.tex}
-
 
 % \subsection{Other metrics}
 % Different metrics to evaluate clustering include (from 
@@ -124,8 +131,49 @@ from each cluster we notice that two of the three clusters have
 
 %5.2 Finnish publications
 \section{Finnish publications from year 2000}
-We clustered year 2000 data, 10145 publications, with k-means 
-clustering with different value of $k$, the number of clusters. 
+We clustered the year 2000 data, 10456 publications, with 
+agglomerative clustering using Ward's method with sampling some values
+for number of clusters between $[2,260]$ 
+% $\{2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 26, 33, 40, 47, 54, 61, 
+% 68, 75, 82, 89, 96, 103, 110, 117, 124, 131, 138, 145, 152, 159,
+% 166, 173, 180, 187, 194, 201, 208, 215, 222, 229, 236, 243, 250,
+% 251, 254, 257, 260\}$
+The silhouette and Calinski-Harabasz values are shown in Figure 
+\ref{fig:ch-silh-2000-h}.
+\begin{figure}[ht]
+  \begin{center}    
+\includegraphics[width=10cm]{images/c-h-silh-index-plot-y2000-2_260-800-hierarchical.png}
+    \caption{Hierarchical clustering. Calinski-Harabasz index and Silhoutte values for the
+    Finnish publications from year 2000 clustered with hierarchical
+    clustering, LSA with 800 components. The higher values denote 
+    more compact and better clustering in both graphs.}
+    \label{fig:ch-silh-2000-h}
+  \end{center}
+\end{figure}
+We notice that the graphs are similar to the those of manually
+annotated data. Again Calinski-Harabasz index suggests that 
+optimal clustering is reached with just two clusters while 
+silhouette values tells us that clusterings improve with increasing
+number of clusters. Because these cluster validation measures are
+in conflict we choose a compromise for the number of clusters: $188$
+
+The top terms of ten random clusters sampled from $188$ are listed
+in Table \ref{table:topterms-188-h-short}.
+\begin{table}[ht]
+  \begin{center}
+    \input{tables/5_table_topterms_188_h_short.tex}
+    \caption{Top terms for ten random clusters from total 188}
+    \label{table:topterms-188-h-short}    
+ \end{center}
+\end{table}
+We note that at least these ten clusters seem resonable concluded
+from the top terms. The Table \ref{table:articles-188-h-short} 
+shows five random publication 
+titles from the same clusters as in Table \ref{table:topterms-188-h-short}.
+
+\input{tables/5_table_articles_188_h_short.tex}
+
+
 The Figure \ref{fig:ch-silh-full-h} shows the results.
 \begin{figure}[ht]
   \begin{center}    
@@ -138,20 +186,6 @@ clustering in both graphs.}
   \end{center}
 \end{figure}
 
-Similarly the same data was clustered with agglomerative 
-hierarchical Ward's clustering by sampling the number of clusters 
-from the values [2-260]. The silhouette and Calinski-Harabasz values
-are shown in Figure \ref{}
-\begin{figure}[ht]
-  \begin{center}    
-\includegraphics[width=10cm]{images/c-h-silh-index-plot-y2000-2_260-800-hierarchical.png}
-    \caption{Hierarchical clustering. Calinski-Harabasz index and Silhoutte values for the
-    Finnish publications from year 2000 clustered with hierarchical
-    clustering, LSA with 800 components. The higher values denote 
-    more compact and better clustering in both graphs.}
-    \label{fig:ch-silh-2000-01}
-  \end{center}
-\end{figure}
 We can see from the values that they prefer different features in
 the data. Calinski-Harabasz index sees the fewest number of 
 clusters - two - as the most compact and optimal clustering. 
@@ -163,6 +197,32 @@ be in line with the fact that it's best suited for [normally?]
 distributed and compact clusters. But we can also see that the 
 silhouette values grow with the number of clusters although no
 maximum seems to be reached with these cluster values.
+
+
+% \input{tables/5_table_topterms.tex}
+
+% \input{tables/5_table_topterms_30_h.tex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -182,17 +242,3 @@ maximum seems to be reached with these cluster values.
 %     \label{fig:silh01}
 %   \end{center}
 % \end{figure}
-% 
-% Other measure is Calinski-Harabaz index. Clustering should be 
-% optimal when Calinski-Harabaz index reaches its maximum
-% value~\cite{}.
-% 
-% When evaluating the results, Silhouette Coefficient might not be
-% the best option. Find out why. V-measure or Adjusted Rand Index
-% might be better options~\cite{noauthor_clustering_nodate}.
-
-
-
-
-
-
