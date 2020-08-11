@@ -12,12 +12,13 @@ done by human experts.
 
 % Why this goal is needed?
 % ========================
-Classifying articles by discipline enables different types of 
-bibliometric analyses. Such classifications can be used in 
-summarizing research output of a university or a country.
-The sum of all scientific publication of eg. an individual country can be 
-interesting and useful information that can tell something about 
-research and its level in that country.
+Classifying publications (such as research articles) by discipline 
+enables different types of bibliometric analyses. Such 
+classifications can be used in summarizing research output of a 
+university or a country. The sum of all scientific publication of 
+an individual country for example can be interesting and useful 
+information that can tell something about research and its level 
+in that country.
 % Eri tutkimusalojen ja niiden julkaisumäärien tarkastelu esimerkiksi 
 % kansallisten koulutuspäätösten tueksi tarvitsee bibliometriikka.
 %In Finland the ministry of education and culture uses such 
@@ -27,8 +28,9 @@ research and its level in that country.
 We use Finnish scientific publications from  Web of Science (WoS)
 database as our source data. 
 Web of Science database gets approximately 10000 publications 
-annually that can be assigned as a result of Finnish research (see 
-\ref{tt2018} for definition).
+annually that can be assigned as a result of Finnish research, that
+is at least one author is affiliated to a Finnish research 
+organisation (see \cite{auranen_tieteen_2018} for definition).
 % https://www.aka.fi/globalassets/42julkaisut/aka_tieteen_tila_2018_web.pdf
 % Liite 1 Bibliometrinen aineisto ja menetelmät
 It should be noted that not all Finnish research can be found from
@@ -37,7 +39,7 @@ underrepresented so it isn't comprehensive image of Finnish
 research.
 % It is also ill posed problem because there is no one right answer
 % for the problem. Different tasks require different classification.
-Due to the amount of the scientific articles, manual 
+Due to the amount of the scientific publications, manual 
 classification is not applicable. It is also impossible for any 
 one person to master all fields of science to manage such a
 task. Our goal is a method that the analyst herself can apply.
@@ -48,13 +50,14 @@ task. Our goal is a method that the analyst herself can apply.
 % and 24 universities of applied sciences. Additionally there are 
 % other instances like military academy and private companies that 
 % contribute to research. 
-For clustering we will use metadata that the authors will provide
-with the publication in any case (title, abstract, keywords). 
+For clustering the publications we will use metadata that the authors 
+of the publication will provide in any case with their work such 
+as the title, the abstract and the keywords. 
 % Ryvästykseen käytämme Wardin hierarkkista klusterointia.
-Clustering will not produce any labels for the clusters. They must
-be labeled appropriately by other means. We will label the 
-produced clusters using the top five most significant terms of a 
-cluster.
+Clustering will not produce any meaningful labels for the 
+clusters. They must be labeled appropriately by other means. \fixme{We 
+will label the produced clusters using the top five most 
+significant terms of a cluster.}
 
 The ``wellness'' of a clustering measured by how it fits to 
 scientific fields is a tricky issue for at least couple of 
@@ -62,29 +65,26 @@ reasons.
 % Obstacles
 % =========
 First, there is no general consensus about what is the correct 
-partition of all science to its different branches. Or even what
+partition of all science to its different branches, or even what
 are the different fields of science. It might depend 
 on specific need or individual opinion where the line between two 
 related discipline lies.
-
-Second, science is evolving all the time. What was yesterday seen 
-simply as chemistry could today be viewed as organic and inorganic 
-chemistry.
-
+Second, science is evolving all the time. What was perhaps at some 
+point in history seen simply as chemistry is today commonly 
+divided at least to organic and inorganic chemistry.
 Third, the definition of scientific disciplines depends also how 
-closely we look into a topic. Sometimes chemistry is sufficent 
-classification for eg. a publication and sometimes we need to label 
-it more accurately as organic chemistry.
-
+closely we look into a topic. Sometimes chemistry is sufficent a
+classification for example for a publication and sometimes we need 
+to label it more accurately as organic chemistry.
 Fourth, there is a considerable amount of research that is 
-intrinsically cross-disciplinary. For example bioinformatics relies
-heavily on biology and computer science. So it depends on the 
+intrinsically cross-disciplinary. Bioinformatics for example relies
+heavily on biology and computer science at least. So it depends on the 
 purpose whether a publication should be considered belonging to
 biology, computer science, bioinformatics or to all of them.
 
-We will measure the resulting clustering by comparing it to the
+\fixme{We will measure the resulting clustering by comparing it to the
 existing Web of Science classification. The clustering is good if
-it in outline matches WoS classification.
+it in outline matches WoS classification.}
 % ...mutta kenties tarkentaa sitä ryvästämällä jotkut julkaisut 
 % pienempiin ryppäisiin samankaltaisten julkaisujen kanssa.
 % But despite this ambiguousness of the target we define and 
@@ -102,10 +102,29 @@ it in outline matches WoS classification.
 % Different methods have been suggested. NN1 suggested SOME METHOD. 
 % NN2 suggested SOME OTHER METHOD. NN3 suggested YET A METHOD.
 
-\section{Structure of the Thesis}
-\label{section:structure} 
+% \section{Structure of the Thesis}
+% \label{section:structure} 
 
 % Use transition in your text, meaning that you should help
 % the reader follow the thesis outline. Here, you tell what will be in
 % each chapter of your thesis.
-In chapter 2. we will shortly present the background...
+In Chapter 2. we will shortly present the general concepts of 
+bibliometrics and some efforts in the field in Finland. We will 
+also present the main focus of this thesis, clustering.
+Next in Chapter 3. we describe the data and present the methods we 
+will use to analyze it.
+In Chapter 4. we go through the steps of the analysis in practice 
+describing all the choices we made.
+After that in Chapter 5. we present the results and finally 
+summarize all in Chapter 6.
+
+
+
+
+
+
+
+
+
+
+
