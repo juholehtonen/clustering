@@ -448,26 +448,24 @@ important.
 % This is known as \emph{the curse of dimensionality} \cite{trunk_problem_1979}.
 Boyack et al. have compared clustering real world size corpus of 
 2.5 million publications from MEDLINE with nine different 
-similarity metrics. \cite{boyack_clustering_2011}
+similarity metrics \cite{boyack_clustering_2011}.
 % Next we will briefly present some distance measures.
-
 % Cosine angle is invariant (uncentered Pearson 
 % correlation)\fixme{look: 
 % \url{https://www.researchgate.net/post/What_is_the_best_distance_
 % measure_for_high_dimensional_data/4}}
-
-Euclidean distance is the familiar distance used in everyday life:
-\begin{equation}
- ||a-b||_2 = \sqrt{\sum_i{(a_i-b_i)^2}}
-\end{equation}
-
-% Mahalnobis distance...
-
-We use Manhattan distance because it works well with sparse data.
+For example Manhattan distance works well with sparse data.
 % \cite{ref_here}
 \begin{equation}
  ||a-b||_1 = \sum_i{(a_i-b_i)}
 \end{equation}
+Euclidean distance is the familiar distance used in everyday life:
+\begin{equation}
+ ||a-b||_2 = \sqrt{\sum_i{(a_i-b_i)^2}}
+\end{equation}
+Because Ward's method assumes it, we use it.
+
+% Mahalnobis distance...
 
 
 \subsection{Linkage methods}
@@ -504,12 +502,15 @@ distances between the items of cluster $A$ and $B$.
 % first 'ref_here': 
 % www.statisticshowto.datasciencecentral.com/wards-method
 We are using Ward's method because it usually creates compact 
-even-sized clusters. \cite{ref_here} Ward's method minimizes the 
-total within-cluster variance.
+even-sized clusters \cite{strauss_generalising_2017}. Ward's 
+method minimizes the total within-cluster variance for merging 
+the next possible clusters $A$ and $B$:
 \begin{equation}
- definition\ here
+ I_{AB} = \frac{n_A n_B}{n_A + n_B} (\bar{\textbf{a}} - \bar{\textbf{b}})'(\bar{\textbf{a}}-\bar{\textbf{b}})
 \end{equation}
-
+where $\bar{\textbf{a}}$ and $\bar{\textbf{b}}$ are the centroids
+of cluster $A$ and $B$ respectively and $n_A$ and $n_B$ are
+corresponding number of members in clusters $A$ and $B$.
 
 
 \subsection{Algorithmic complexity}
