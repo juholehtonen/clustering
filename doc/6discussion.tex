@@ -17,15 +17,20 @@ We tested some hand picked values of the feature extraction
 parameters, minimum and maximum document frequency threshold for 
 terms. More systematic exploration of these and other 
 pre-processing related parameters could give robust results.
+Tokenization during preprocessing left one character tokens (words)
+in data which wasn't desired.
 - \fixme{``Suositus...'' ``Nämä parametriarvot...''}
 % Ulottuvuuksien vähentämisestä
 Selected number of reduced dimensions seemd to retain enough
 information while also allowing to run clustrings fast enough.
 % Model selection
 The model selected, agglomerative Ward's clustering, is one of the
-basic clustering methods. It is known to work well with ...
-while failing when ....
-Some more elaborated method could improve the results. 
+basic clustering methods. It is known to work well with compact,
+even-sized clusters.
+% while failing ...
+Our manually annotated data set for choosing the number of clusters
+was propably too small ($455$) compared to number of components 
+($800$). Some more elaborated method could improve the results. 
 - \fixme{Vaihtoehtojen kokeiluiden havainnot. Linkitys 
 kirjallisuuteen.}
 % Itse klusteroinnista

@@ -142,11 +142,11 @@ frequencies are normalized to decrease the importance of the
 tokens that occur in the majority of documents. Usually these are 
 common terms not specific to the topic of the document. 
 These normalized occurence frequencies are called term 
-frequency inverse document frequencies, \textbf{TF-IDF}, and 
+frequency inverse document frequencies, TF-IDF, and 
 they form the features of a document. The size of the feature 
 space is determined by the number of counted unique terms in all 
 documents of the collection. 
-TF-IDF is defined as follws:
+TF-IDF is defined as follows:
 
 \begin{equation}
  TF-IDF(t,d) = tf(t,d) \times log \frac{1+n}{1+df(t)} + 1,
@@ -324,90 +324,27 @@ cluster structure.
 
 
 \subsubsection{External validation of clustering results}
+\label{sec:ext_val}
 % Otsikko oli: Manually annotated validation set
 % Gold standard set. Actually a gold standard set would be a set
 % of all data sets with abstract excluding sets that don't have it.
-External validation of manually annotated data set as a measure of
-best internal validation method.
-
 % Tavoite
-Goal was to achieve evaluation measurements based on a quite 
-clearly separated set of publications. More vaguely classifiable
-publications were included for comparison.
-
-For not to have to rely solely on internal clustering validation we
-also try external clustering validation with small subset of data.
+To support the choise of internal validation method for choosing
+the number of clusters, we will use the external validation 
+with a manually annotated data set. 
+% as a measure of best internal validation method.
+Goal will be to achieve evaluation measurements based on a quite 
+clearly separated set of publications. 
+% More vaguely classifiable publications were included for comparison.
+% For not to have to rely solely on internal clustering validation we
+% also try external clustering validation with small subset of data.
 We will create a manually annotated validation set for calculating
 precision, recall and other metrics derived from those.
-% Käsin luokitellun aineiston kuvaus
-The validation set consists of Finnish publications from year 2000
-from three different fields of science as categorized by WoS.
-Two of the fields are closely related sub fields of computer
-science: \emph{computer science: information systems} (CS-IS) and 
-\emph{computer science: 
-artificial intelligence} (CS-AI), while the third one, 
-\emph{clinical neurology}, is more distant from those. There are 
-$116$, $122$, $250$ publications labeled as belonging to fields 
-CS-IS, CS-AI and clinical neurology respectively, and $31$ 
-publications labeled as belonging to both CS-IS and CS-AI, 
-totalling $519$ publications in our data.
+The validation set will consist of publications from three different
+discipline. We will experiment which of the internal validation
+methods, Silhouette value or Calinski-Harabasz criterion, will
+indicate more clearly the known, correct number of clusters.
 
-% Huonojen näytteiden poisto
-Publications were inspected by title, abstract, keywords, journal
-and publisher assigned disciplines of the journal. Publications
-with critically missing data, unclear discipline assignment and
-heavily applied publications (eg. a publication describing the 
-development of a virtual community and a community game platform)
-were excluded from validation set. 
-% Luokittelun varmistus käsin
-We then checked with layman's reasoning if the WOS labeled 
-discipline seemed plausible. Because of the journal based 
-classification, most publications had more than one assigned 
-discipline. Only the previously named three discipline labels were 
-retained because we wanted to test if and how well our clustering 
-method would cluster the samples compared to these three 
-groups. We asked an another opinion for publications that could 
-have been in more than one of our categories. For manually curated
-validation set with discipline assignment and justifications for
-possible exclusion see appendix \ref{chapter:first-appendix}.
-% So essentially the labels could have been eg. 1, 2, 3.
-% ``Väärin luokiteltujen uudelleen luokittelu''
-In total $29$ publications were manually reclassified by either
-choosing only one of two used classes or by assigning the 
-publication to more fitting category by our judgement. After
-excluding bad data and reclassifications we had a data set of 
-$134$, $127$ and $194$ publications in CS-IS, CS-AI and clinical
-neurology, respectively, totalling $455$ publications.
-
-% Pitäisikö tämä olla jossain muualla?
-% ``Väärin'' luokiteltujen uudelleen luokittelusta
-The basic problem is that fields of science can not be 
-defined so that they clearly differ from each other. Where one 
-discipline end the other has already started like metallurgy and 
-material science. Likewise, there are lots of publications that 
-handle topics belonging to more than one discipline, eg. this 
-thesis discusses clustering and bibliometrics. So when annotating 
-publications, deciding if a publication belonged to
-a discipline or not felt often quite difficult. Often the 
-separation between disciplines felt quite arbitrary. For example
-an article describing using wavelet transformation for coding noisy
-images was decided to belong to CS information systems whereas an
-article describing wavelet based corner detection using SVD was
-decided to belong to CS artificial intelligence.
-For CS artificial intelligence we mostly selected publications 
-which mentioned some dimensionalty reduction or machine learning 
-related term or concept. CS information systems ended up being 
-quite like some ``others'' or ``the rest'' dump class.
-It would have publications such as
-``A reference model for conceptualising the convergence of 
-telecommunications and datacommunications service platforms'',
-``Developing a distributed meeting service to support mobile 
-meeting participants'',
-``On voice quality of IP voice over GPRS'',
-Decision to assign publications to one discipline only was based 
-on using hard clustering, instead of probabilistic clustering. 
-% \fixme{Selvennä yläluokka-alaluokka-jako: CS general vs. CS 
-% information system tai CS artificial intelligence.}
 
 \subsubsection{Precision and recall}
 % määrittele peruskäsitteet kuten precision ja recall

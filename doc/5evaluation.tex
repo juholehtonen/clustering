@@ -3,13 +3,14 @@
 
 %5.0 Yleistä tuloksista
 We first calculated internal and external validation metrics for 
-the manually annotated data to see how well our metrics 
-reveal our defined ground truth clustering. Then we clustered 
-the actual data for one year with selected number of cluster 
-values $n$, and calculated internal validation metrics for
-each clustering. Based on metrics we choose the number of clusters
-as our solution to the problem and we inspect the resulting
-clustering.
+the manually annotated subset of data to see how well our metrics 
+revealed our defined ground truth clustering. Based on metrics we 
+chose the number of clusters $n$ as our solution to the problem
+and clustered the whole data for one year.
+% Finally we inspect the resulting clustering
+% and calculated internal validation metrics for it. 
+% Finally we compare the clustering with the initial WOS subject 
+% categories. [ei aikaa tähän]
 
 %5.1 Manually annotated data  --> the chosen metrics
 %5.2 Metrics evaluation, also compare to precision and recall??
@@ -17,22 +18,17 @@ clustering.
 %5.4 Klusterointi kolmeen
 %5.5 Klustereiden havainnollistaminen
 \section{Manually annotated data}
+% TODO: tämä selostettu jo 3-luvussa?
 We evaluated our clustering by creating an evaluation set with
-hand labeled or verified fields of science. This subset of data 
-consisted of 519 publications from three different fields. The fields
-were: \emph{Computer science: Information systems}, 147 publications,
-\emph{Computer science: Artificial intelligence} 153 publications, 
-and \emph{Clinical neurology} 250 publications as classified by 
-publisher. We checked the publisher labeling, cleared the 
-bad samples lacking enough meta data, being too far out of the 
-scope of any of the three disciplines or having corrupted data and
-relabeled few \fixme{(amount)} samples to the more fitting 
-discipline and to one discipline for each sample only. The ground 
-truth labeling for 37 the most ambiguous samples was checked by 
-a non-expert human reviewer. After clearing the data set consisted 
-of 455 samples.  So, our manual classification will
-be subjective but gives some hint about the clustering performance.
-\fixme{Then we calculated precision and recall for the data set.} 
+hand labeled fields of science. This subset of data consisted of 
+$455$ publications from three different fields. The fields were:
+\emph{Computer science: Information systems}, $134$ publications,
+\emph{Computer science: Artificial intelligence} $127$ publications, 
+and \emph{Clinical neurology} $194$ publications as classified by 
+publisher. 
+% So, our manual classification will be subjective but gives some 
+% hint about the clustering performance.
+% \fixme{Then we calculated precision and recall for the data set.} 
 
 The Figure \ref{fig:ch-silh01} shows the results. We see that
 Calinski-Harabasz index reaches it's maximum value at the number
@@ -43,10 +39,9 @@ that we selected manually. It's also worth to remember that there
 is only 455 data points to cluster. Comparison against preferred
 manual labeling is calculated with the 
 Adjusted Rand Index (ARI) for these clusterings in Figure 
-\ref{fig:ari01}.
-Top terms for maximum index values are shown in the Table 
-\ref{refhere}.
-
+\ref{fig:ari01}. Because ARI uses manually annotated labels, the 
+groundtruth values for the clusters, it peaks at $3$ as the number 
+of clusters with $4$ as almost equally good value.
 
 \begin{figure}[ht]
   \begin{center}    
@@ -65,17 +60,28 @@ Top terms for maximum index values are shown in the Table
     \caption{Hierarchical clustering. Adjusted Rand index for the
     manually annotated set of 455 publications clustered with hierarchical
     clustering, LSA with 800 components. The higher values denote 
-    more compact and better clustering. The index gains its peak value at xxx.}
+    more compact and better clustering. The index gains its peak value at $3$.}
     \label{fig:ari01}
   \end{center}
 \end{figure}
 
+Top terms for maximum index values are shown in the Table 
+\ref{table:topterms_455_hier}. We can see that there are one cluster
+with computer science related terms and two clusters with clinical
+neurology related terms. So we can note that our clustering method
+didn't find the clusters that we expected. This may be visible also
+in adjusted rand index with cluster amounts three and four almost
+square. For three clusters part of the samples are incorrectly 
+clustered and for four clusters the situation is obviously the same.
 
-In figure \ref{fig:ch-silh02}
-we see corresponding graphs for k-means clustering. Top terms for
-Calinski-Harabasz index maximum at seven clusters are listed in 
-the Table \ref{table:topterms}.
+\input{tables/5_table_topterms_bl.tex}
 
+For a comparison we also tried clustering manually annotated data
+with k-means clustering. It's practically identical index values 
+for different number of clusters can be seen in figure \ref{fig:ch-silh02}.
+
+% Top terms for Calinski-Harabasz index maximum at seven clusters are listed in 
+% the Table \ref{table:topterms}.
 
 \begin{figure}[ht]
   \begin{center}    
@@ -88,7 +94,9 @@ the Table \ref{table:topterms}.
   \end{center}
 \end{figure}
 
-\input{tables/5_table_topterms.tex}
+% \input{tables/5_table_topterms.tex}
+
+% \input{tables/5_table_topterms_30_h.tex}
 
 
 \subsection{Precision and recall}
@@ -101,24 +109,24 @@ from each cluster we notice that two of the three clusters have
 \emph{'Clinical neurology'} related items, see Tables
 \ref{table:topterms_455_hier} and \ref{table:articles_455_hier}.
 
-\input{tables/5_table_topterms_bl.tex}
+% \input{tables/5_table_topterms_bl.tex}
 
-\input{tables/5_table_articles_bl.tex}
+% \input{tables/5_table_articles_bl.tex}
 
 
-\subsection{Other metrics}
-Different metrics to evaluate clustering include (from 
-scikit-learn) Adjusted Rand Index, Mutual Information scores 
-(NMI, AMI), homogenity, completness, V-measure, Fowlkes-Mallows 
-scores, Silhouette Coefficient, Calinski-Harabaz Index, (from 
-sources) 
+% \subsection{Other metrics}
+% Different metrics to evaluate clustering include (from 
+% scikit-learn) Adjusted Rand Index, Mutual Information scores 
+% (NMI, AMI), homogenity, completness, V-measure, Fowlkes-Mallows 
+% scores, Silhouette Coefficient, Calinski-Harabaz Index, (from 
+% sources) 
 
 
 %5.2 Finnish publications
 \section{Finnish publications from year 2000}
 We clustered year 2000 data, 10145 publications, with k-means 
 clustering with different value of $k$, the number of clusters. 
-The Figure \ref{fig:ch-silh02} shows the results.
+The Figure \ref{fig:ch-silh-full-h} shows the results.
 \begin{figure}[ht]
   \begin{center}    
 \includegraphics[width=10cm]{images/c-h-silh-index-plot-y2000-2_260-800-kmeans.png}
@@ -126,7 +134,7 @@ The Figure \ref{fig:ch-silh02} shows the results.
 10145 items clustered with k-means clustering, LSA with 800 
 components. The higher values denote more compact and better 
 clustering in both graphs.}
-    \label{fig:ch-silh02}
+    \label{fig:ch-silh-full-h}
   \end{center}
 \end{figure}
 
@@ -146,15 +154,15 @@ are shown in Figure \ref{}
 \end{figure}
 We can see from the values that they prefer different features in
 the data. Calinski-Harabasz index sees the fewest number of 
-clusters - two - as the most compact and optimal clustering. Also
-the form of the curve hints to perhaps power law that is also 
-known as Zipf's law in text analysis. \fixme{Check this.}
+clusters - two - as the most compact and optimal clustering. 
+% Also the form of the curve hints to perhaps power law that is also 
+% known as Zipf's law in text analysis. \fixme{Check this.}
 It should be noticed that the silhouette values are quite low 
 in absolute terms considering it's index space [-1,1]. This might 
 be in line with the fact that it's best suited for [normally?] 
 distributed and compact clusters. But we can also see that the 
 silhouette values grow with the number of clusters although no
-maxima seems to be reached with these cluster values.
+maximum seems to be reached with these cluster values.
 
 
 

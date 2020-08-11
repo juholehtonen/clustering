@@ -4,36 +4,23 @@
 Title, resulting classification and taken decision of manually 
 annotated publications.
 
-% For now, the Aalto logo variants are shown in Figure~\ref{fig:aaltologo}.
-
-% \begin{figure}
-% \begin{center}
-% \subfigure[In English]{\includegraphics[width=.8\textwidth]{images/aalto-logo-en}}
-% \subfigure[Suomeksi]{\includegraphics[width=.8\textwidth]{images/aalto-logo-fi}}
-% \subfigure[På svenska]{\includegraphics[width=.8\textwidth]{images/aalto-logo-se}}
-% \caption{Aalto logo variants}
-% \label{fig:aaltologo}
-% \end{center}
-% \end{figure}
-
-
 \pgfplotstabletypeset[
     col sep=semicolon,
-    string type,
+    verb string type,
     begin table=\begin{longtable},
     end table=\end{longtable},
-    columns={Title,My class name,Clarification 3},
-%     columns/Id/.style={column name=Id, column type={|l}},
+    columns={Title, My class name, Clarification 3},
     columns/Title/.style={column name=Title, column type={|p{60mm}}},
-%     columns/My class/.style={column name=My class, column type={|l}},
     columns/My class name/.style={column name=Discipline, column type={|p{36mm}}},
-%     columns/Clarification 1/.style={column name=Clarification, column type={|p{30mm}|}},
-%     columns/Clarification 2/.style={column name=c2, column type={|l}},
-%     columns/2nd opinion needed/.style={column name=2nd op, column type={|l}},
-%     columns/Decision/.style={column name=Dec, column type={|l|}},
-    columns/Clarification 3/.style={column name=Clarification, column type={|p{30mm}|}},
+    columns/Clarification 3/.style={column name=Clarification, column type={|p{28mm}|}},
     every even row/.style={before row={\rowcolor[gray]{0.9}}},
     every head row/.style={before row=\hline,after row=\hline},
     every head row/.append style={after row=\endhead},    
     every last row/.style={after row=\hline},
     ]{../data/baseline/groundtruth_labels_CS-AI-IS_CN_for_appendix.csv}
+
+ 
+\chapter{Top terms}
+\label{chapter:second-appendix}
+
+\input{tables/5_table_topterms_188_h.tex}
