@@ -95,7 +95,7 @@ disciplines.
 % \fixme{Onko Scopus tässä relevantti jos ei Scopus-dataa?}
 Currently, the most popular systems to classify the publications 
 into research areas are Clarivate's (formerly Thomson Reuters)
-Web of Science (WoS) and Elsevier's Scopus classification
+Web of Science and Elsevier's Scopus classification
 systems. These classification systems classify journals into
 one or more research areas \cite{waltman_new_2012}. Publications
 are then classified to research areas based on in which journal they
@@ -111,12 +111,17 @@ information at all on the construction of its classification
 system''. We will use the data from WoS database in this work.
 
 Also an independent journal level classification system has been 
-developed. \cite{archambault_towards_2011}
+developed \cite{archambault_towards_2011}.
 Journal level classification systems have known limitations.
 They are, for example, unable to meaningfully classify
 publications published in multidiscipline journals.
 Also some discipline specific classification systems exists such 
-as (check them...).
+as Association for Computing Machinery's Computing Classification 
+System for computer science discipline \cite{noauthor_2012_2020}, 
+the U.S. National Library
+of Medicine Classification \cite{noauthor_national_2020} for medical 
+resources and American Physical Society's Physics Subject Headings
+\cite{noauthor_american_2020} for physics publications for example.
 An alternative classification system is publication level 
 classification where each publication is classified based on some 
 information extracted directly from the publication self such as
@@ -131,24 +136,22 @@ provide better classification \cite{shu_comparing_2019}.
 % In the network method
 
 % ACM:n luokittelujärjestelmä esimerkkinä? CLSF?...
-Bibliometric research 
-uses mainly three types of methods; citation based, text analysis 
-based or combination of the two \cite{janssens_hybrid_2009}.
-Citation based methods study citations of publications and produce
-networks where publications are nodes connected by citations as 
-edges. In
- the rare case of publication having a direct quote including a
- citation, the citation is not counted unless it is also a
- citation of the publication itself.
-Connection between two publications can be 
+Bibliometric research uses mainly three types of methods; citation 
+based, text analysis based or combination of the two 
+\cite{janssens_hybrid_2009}. Citation based methods study 
+citations of publications and produce networks where publications 
+are nodes connected by citations as edges. In the rare case of 
+publication having a direct quote including a citation, the 
+citation is not counted unless it is also a citation of the 
+publication itself. Connection between two publications can be 
 formed by a direct citation, bibliometric coupling where 
 publications are connected when a third publication cites them 
 both or co-citations where publications are connected if they 
 cite the same third publication.
 
-Text analysis based methods examine the title, the abstract or 
-the whole text content of the publication itself and classify 
-the publications or journals by the topic model created 
+Text analysis based methods can examine for example the title, the 
+abstract or the whole text content of the publication itself and 
+classify the publications or journals by the topic model created 
 \cite{blei_latent_2003}.
 Hybrid models combine both approaches. Authors and their
 affilations are not used in this work because we cannot uniquely
@@ -173,7 +176,7 @@ Ministry of Education and Culture of Finland provides yearly
 updated bibliometric analyses of Finnish research activities 
 based on both Web Of Science citation index 
 and Elsevier's Scopus database \cite[Vipunen 
-service]{noauthor_ministry_2019}. The corresponding source 
+service]{noauthor_ministry_2020}. The corresponding source 
 system classification for a field of science is used and
 aggregated to match the Statistics Finland classification 
 \cite{auranen_tieteen_2018}. CSC - 
@@ -194,7 +197,7 @@ clustering.
 
 So, as opposed to bibliometric analyses seeking to understand the
 state of a scientific discipline as defined by some existing 
-definition, we want to experiment/inspect how to define 
+definition, we want to experiment and inspect how to define 
 scientific disciplines to be used in bibliometric analyses.
 
 %Efforts to cluster Finnish research include a study by...
@@ -222,9 +225,11 @@ abstracts and keywords in publication metadata.
 \section{Clustering}
 The methods discussed in this work belong to the field of machine 
 learnig. The field has it's roots in statistics and engineering 
-and is itself part of artificial intelligence.
-The methods in machine learnig can be divided to supervised, 
-unsupervised and reinforced learning \cite{alpaydin2004introduction}.
+and is itself part of artificial intelligence, a sub-field of 
+computer science.
+The methods in machine learnig can be divided to \emph{supervised}, 
+\emph{unsupervised} and \emph{reinforced learning}
+\cite{alpaydin2004introduction}.
 
 Commonly for all methods we define $X$ as
 the sample data and $Y$ as label indicating which class our data 
