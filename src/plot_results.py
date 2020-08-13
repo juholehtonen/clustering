@@ -18,12 +18,14 @@
 from distutils.version import LooseVersion
 import numpy as np
 import os
-import pylab as pl
+import matplotlib.pyplot as plt
 import re
 
 
 # size = 12000
 size = 455
+# k_min = 188
+# k_max = 265
 k_min = 2
 k_max = 12
 n_components = 800
@@ -39,11 +41,11 @@ silh_file = image_dir + 'silhouette-coefficients-{0}.txt'.format(params)
 cali_file = image_dir + 'calinski-harabasz-{0}.txt'.format(params)
 ari_file = image_dir + 'adjusted_rand-index-{0}.txt'.format(params)
 sdbw_file = image_dir + 's_dbw_validity-index-{0}.txt'.format(params)
-# plt_sym = '.'
-plt_sym = '-'
+plt_sym = '.'
+# plt_sym = '-'
 
 file_list = os.listdir(results_dir)
-pattern_method = r'12000-.*{0}.*txt'.format(method)
+pattern_method = r'12000-.*{0}-{1}-results.txt'.format(n_components, method)
 files_filtered = [f for f in file_list if re.match(pattern_method, f)]
 files_sorted = sorted(files_filtered, key=LooseVersion)
 
@@ -91,25 +93,59 @@ with open(sdbw_file, 'w') as handle:
 
 # Plot 'Silhouette value'
 # pl.plot(silh_arr[:,0], silh_arr[:,1],'r.')
-# pl.xlabel('N of clusters')
-# pl.ylabel('Silhouette value')
-# pl.ylim(0, max(silh_vals)*2)
-# pl.show()
-# pl.clf()
-
-# Plot indices
-xticks = np.arange(k_min, k_max+1)
-f, ((ax1, ax2), (ax3, ax4)) = pl.plt.subplots(2, 2, sharex=True)
-ax1.plot(c_h_arr[:k_max, 0], c_h_arr[:k_max, 1], 'r' + plt_sym)
-ax1.set_title('Calinski-Harabasz index')
-ax1.set_xticks(xticks)
-ax2.plot(silh_arr[:k_max, 0], silh_arr[:k_max, 1], 'r' + plt_sym)
-ax2.set_title('Silhouette value')
-ax3.plot(sdbw_arr[:k_max, 0], sdbw_arr[:k_max, 1], 'r' + plt_sym)
-ax3.set_title('S_Dbw validity index')
-ax4.plot(ari_arr[:k_max, 0], ari_arr[:k_max, 1], 'r' + plt_sym)
-ax4.set_title('Adjusted Rand-index')
-ax3.set_xlabel('Number of clusters')
-ax4.set_xlabel('Number of clusters')
-
-f.savefig(image_dir + 'c-h-silh-index-plot-{0}.png'.format(params))
+# Plot indices, baseline
+baseline = True
+arionly = False
+all_four = False  # Select to plot all four graphs: S, CH, ARI, S_Dbw
+if baseline:
+    if all_four:
+        xticks = np.arange(k_min, k_max+1)
+        f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharex=True)
+        ax1.plot(c_h_arr[:k_max, 0], c_h_arr[:k_max, 1], 'r' + plt_sym)
+        ax1.set_title('Calinski-Harabasz index')
+        ax1.set_xticks(xticks)
+        ax2.plot(silh_arr[:k_max, 0], silh_arr[:k_max, 1], 'r' + plt_sym)
+        ax2.set_title('Silhouette value')
+        ax3.plot(sdbw_arr[:k_max, 0], sdbw_arr[:k_max, 1], 'r' + plt_sym)
+        ax3.set_title('S_Dbw validity index')
+        ax4.plot(ari_arr[:k_max, 0], ari_arr[:k_max, 1], 'r' + plt_sym)
+        ax4.set_title('Adjusted Rand-index')
+        ax3.set_xlabel('Number of clusters')
+        ax4.set_xlabel('Number of clusters')
+        f.savefig(image_dir + 'four-plot-{0}.png'.format(params))
+    elif (arionly):
+        # xticks = np.arange(k_min, k_max+1)
+        f, ax = plt.subplots(1)
+        ax.plot(ari_arr[:k_max, 0], ari_arr[:k_max, 1], 'r' + plt_sym)
+        ax.set_title('Adjusted Rand-index')
+        # ax.set_xticks(xticks)
+        ax.set_xlabel('Number of clusters')
+        f.savefig(image_dir + 'ari-plot-{0}.png'.format(params))
+    else:
+        # f, (ax1, ax2, ax4) = plt.subplots(1, 3, sharex=False, figsize=(9, 3.5))
+        f, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4))
+        ax1.plot(c_h_arr[:k_max, 0], c_h_arr[:k_max, 1], 'r' + plt_sym)
+        ax1.set_title('Calinski-Harabasz index')
+        ax2.plot(silh_arr[:k_max, 0], silh_arr[:k_max, 1], 'r' + plt_sym)
+        ax2.set_title('Silhouette value')
+        # ax4.plot(ari_arr[:k_max, 0], ari_arr[:k_max, 1], 'r' + plt_sym)
+        # ax4.set_title('Adjusted Rand-index')
+        ax1.set_xlabel('Number of clusters')
+        ax2.set_xlabel('Number of clusters')
+        # ax4.set_xlabel('Number of clusters')
+        ax1.set_box_aspect(1)
+        ax2.set_box_aspect(1)
+        # ax4.set_box_aspect(1)
+        f.savefig(image_dir + 'c-h-silh-index-plot-{0}.png'.format(params))
+else:
+    # xticks = np.arange(k_min, k_max+1)
+    f, (ax1, ax2, ax3) = plt.subplots(3, sharex=True)
+    ax1.plot(c_h_arr[:k_max, 0], c_h_arr[:k_max, 1], 'r' + plt_sym)
+    ax1.set_title('Calinski-Harabasz index')
+    # ax1.set_xticks(xticks)
+    ax2.plot(silh_arr[:k_max, 0], silh_arr[:k_max, 1], 'r' + plt_sym)
+    ax2.set_title('Silhouette value')
+    ax3.plot(sdbw_arr[:k_max, 0], sdbw_arr[:k_max, 1], 'r' + plt_sym)
+    ax3.set_title('S_Dbw validity index')
+    ax3.set_xlabel('Number of clusters')
+    f.savefig(image_dir + 'c-h-silh-index-plot-{0}.png'.format(params))
