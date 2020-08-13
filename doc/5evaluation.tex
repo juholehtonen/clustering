@@ -4,9 +4,10 @@
 %5.0 Yleistä tuloksista
 We first calculated internal and external validation metrics for 
 the manually annotated subset of data to see how well our metrics 
-revealed our defined ground truth clustering. Based on metrics we 
-chose the number of clusters $n$ as our solution to the problem
-and clustered the whole data for one year.
+revealed our defined ground truth clustering. Based on this we tried 
+to evaluate the most suitable internal validation metric to be used 
+with the complete data set. This validation metric would suggest us
+the optimal number of clusters $k$ to be used in the clustering.
 % Finally we inspect the resulting clustering
 % and calculated internal validation metrics for it. 
 % Finally we compare the clustering with the initial WOS subject 
@@ -17,33 +18,34 @@ and clustered the whole data for one year.
 %5.4 Klusterointi kolmeen
 %5.5 Klustereiden havainnollistaminen
 \section{Manually annotated data}
-We evaluated our clustering by creating an evaluation set with
-hand labeled fields of science. This subset of data consisted of 
-$455$ publications from three different fields. The fields were:
+We evaluated our internal clustering validation metrics by 
+creating a smaller subset of publications with manually
+checked field of science. This subset consisted of 
+$455$ publications from three different fields:
 \emph{Computer science: Information systems}, $134$ publications,
-\emph{Computer science: Artificial intelligence} $127$ publications, 
-and \emph{Clinical neurology} $194$ publications.
-% as classified by publisher and manually validated. 
-% So, our manual classification will be subjective but gives some 
-% hint about the clustering performance.
+\emph{Computer science: Artificial intelligence}, $127$ publications
+and \emph{Clinical neurology}, $194$ publications.
+The term frequency cut-off values $min_df=2$ (number of occurences) 
+and $max_df=0.5$ (portion of documents with the term) resulted
+in $4455$ ignored terms and left the feature space of $3177$ terms. 
+Terms that were filtered out as too frequent or too rare were for 
+example: 
+``haemoglobin\_a'', ``jacobian\_matrix'', 
+``parthenogenetic'', ``chelation\_by\_saccharide\_molecules'', 
+``leg\_blood\_supply'', ``computational\_fluid\_dynamics'', 
+``pigment'', ``hdtv'', ``nicotinic\_receptor''. 
+% Add line break due to random layout glitch
+\linebreak
+(Note: keywords were
+combined with '\_' as described in Section \ref{sec:impl_preproc}.)
 % \fixme{Then we calculated precision and recall for the data set.} 
 
-This data set was then agglomeratively clustered with Ward's 
-method for number of cluster values $[2,260]$. The Figure 
-\ref{fig:ch-silh01} shows the results. We see that
-Calinski-Harabasz index reaches it's maximum value at the number
-of clusters two and that silhouette values increases with the
-number of clusters.
-Neither of these indices corresponds to the three disciplines
-that we selected manually. It's also worth to remember that there
-is only 455 data points to cluster. Comparison against preferred
-manual labeling is calculated with the 
-Adjusted Rand Index (ARI) for these clusterings in Figure 
-\ref{fig:ari01}. Because ARI uses manually annotated labels, the 
-ground truth cluster values for the publications, it peaks at 
-number of clusters at $3$. Adjusted Rand index value for $4$ 
-clusters is almost equally good.
-
+The dimensionality of data was then reduced with LSA from $3177$
+features (corresponding to the terms) to $800$ components which 
+resulted $100\%$ of the explained variance of the data to be 
+retained. The data was then agglomeratively clustered with Ward's 
+method for number of cluster values $k=[2,12]$. 
+The Figure \ref{fig:ch-silh01} shows the results. 
 \begin{figure}[ht]
   \begin{center}    
 \includegraphics[width=11.5cm]{images/c-h-silh-index-plot-455-2_12-800-hierarchical.png}
@@ -54,7 +56,29 @@ clusters is almost equally good.
     \label{fig:ch-silh01}
     \end{center}
 \end{figure}
+We see that Calinski-Harabasz index reaches its maximum value 
+with the number of clusters at two and that silhouette values 
+increases with the number of clusters.
+Neither of these indices suggests three clusters as the optimal 
+clustering solution. So according these specific metrics the data 
+doesn't support our initial idea of three ``natural'' clusters as
+we meant it. We repeated the clustering in case of ambiguousness
+in algorithm but that didn't affect the clustering result.
+Probably the low amount of samples compared to 
+still quite high dimensional feature space affects here. We can 
+conclude from the explained variance of $100\%$ that dimensionality
+could have been reduced more. We also 
+have to remember that Calinski-Harabasz index might suffer even 
+from moderate noise \cite{liu_understanding_2010}.
+% silhouette values (pros, cons...)
 
+% reference: statistical significance samples relation dimension
+To take the Comparison against preferred manual labeling was calculated with 
+the Adjusted Rand Index (ARI) for these clusterings in Figure 
+\ref{fig:ari01}. Because ARI uses manually annotated labels, the 
+ground truth cluster values for the publications, it peaks at 
+number of clusters at $3$. Adjusted Rand index value for $4$ 
+clusters is almost equally good.
 \begin{figure}[htp]
   \begin{center}    
 \includegraphics[width=7.5cm]{images/ari-plot-455-2_12-800-hierarchical.png}
@@ -67,21 +91,24 @@ clusters is almost equally good.
   \end{center}
 \end{figure}
 
-Top terms for maximum index values are shown in the Table 
+We inspected the resulting clustering for three clusters. Most
+frequent terms of the publications in each cluster can be used to 
+that. Top 15 terms for each cluster are shown in the Table 
 \ref{table:topterms_455_hier}. We can see that there is one cluster
 with computer science related terms and two clusters with clinical
 neurology related terms. So we can note that our clustering method
 didn't find the clusters we expected. This may also be visible 
 in adjusted rand index with the number of clusters three and four almost
-square (Figure \ref{fig:ari01}). For three clusters part of the samples are incorrectly 
-clustered and for four clusters, the situation is obviously the same.
+square (Figure \ref{fig:ari01}). For three clusters, part of the 
+samples are incorrectly clustered, when compared against manual
+labeling, and for four clusters, the situation is obviously the same.
 
 \input{tables/5_table_topterms_bl.tex}
 
 For a comparison we also tried clustering manually annotated data
 with K-means clustering. The idea was to see if this method would
-give clearer clusters that either silhouette values or 
-Calinski-Harabasz index would recognize. Its practically identical
+give clearer clusters where the clustering that either silhouette values or 
+Calinski-Harabasz index would recognize. Its similar
 index values for different number of clusters can be seen in 
 figure \ref{fig:ch-silh02}. K-means wasn't able to significantly 
 improve the clustering.

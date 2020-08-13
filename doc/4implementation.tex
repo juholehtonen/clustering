@@ -26,6 +26,7 @@ pre-processing managed with \texttt{doit} workflow. See Figure
 \end{figure}
 
 \section{Preprocessing}
+\label{sec:impl_preproc}
 First data was read from raw files obtained from publishers. 
 %(Actually YL probably also preprocessed data before passing it 
 % to me.)
@@ -62,6 +63,7 @@ and punctuation other than perioids separating the tokens (words).
 We get for example ``\emph{Pluto is a smart dog}'' $\rightarrow$ 
 ``\emph{Pluto}'', ``\emph{is}'', ``\emph{a}'', ``\emph{smart}'' 
 and ``\emph{dog}'' (the \emph{bag of words} representation).
+We made an exeption in tokenizing the keywords as explained above.
 Alternatively we could form n-grams out of the text to preserve 
 the meaning of combined terms. For example when tokenizing 
 ``\emph{allergic contact dermatitis}'', instead of 
@@ -93,8 +95,8 @@ Stop words were then removed after lemmatisation. We used Python's
 \texttt{NLTK} module's English stop words 
 combined with \texttt{scikit-learn's} stop words and our own stop 
 word list consisting mainly standard publisher notices 
-(\emph{``rights'', ``reserved''} and publising years). The stop 
-word list included 352 words.
+(\emph{``rights'', ``reserved''} and publishing years). The stop 
+word list included $383$ words.
 
 
 \section{Vectorizing}
@@ -108,14 +110,6 @@ having their \emph{tf-idf} value are ignored, to $min_df=2$, so
 two occurences. The maximum document frequency, over which the 
 terms having their \emph{tf-idf} value are ignored, to 
 $max_df=0.5$, so to 50 \% of the documents.
-These cut-off values resulted in 7123 ignored terms and the 
-feature space of 3372 terms. Terms that were filtered out as too 
-frequent or too few were for example: ``haemoglobin\_a'', 
-``jacobian\_matrix'', 
-``parthenogenetic'', ``chelation\_by\_saccharide\_molecules'', 
-``leg\_blood\_supply'', ``computational\_fluid\_dynamics'', 
-``pigment'', ``hdtv'', ``nicotinic\_receptor''.
-
 % \fixme{To verify these parameter values it would be interesting 
 % to know the frequencies of the filtered-out terms. It didn't come 
 % out straight from TfIdfVectroizer class used but taking different 
