@@ -21,3 +21,10 @@ cat data/baseline/groundtruth-preproc_CS-AI-IS_CN.txt | grep discipline: | grep 
 
 # Baseline data to appendix
 cat data/baseline/groundtruth-preproc_CS-AI-IS_CN.txt | grep "[0-9]\{1,3\}  title:"
+
+# Top terms
+head -203 data/processed/12000-188-800-hierarchical-results.txt
+ | tail -188 | sed -e 's/.\{27\}//' > data/processed/topterms
+ /12000-188-800-hierarchical-topterms.csv
+ 
+ head -45 data/processed/12000-30-800-hierarchical-results.txt | tail -30 | sed -e 's/.\{27\}//' > data/processed/topterms/12000-30-800-hierarchical-topterms.csv
