@@ -7,6 +7,7 @@
 from __future__ import print_function
 
 import logging
+from matplotlib import pyplot as plt
 from nltk.corpus import stopwords
 import numpy as np
 from optparse import OptionParser
@@ -45,7 +46,7 @@ op.add_option("--fields",
               help="Metadata fields to run analysis with.")
 op.add_option("--n-clusters",
               dest="n_clusters", type="int", default=16,
-              help="Number of clusters to be used.")
+              help="Number of clusters to be used or None for full tree.")
 op.add_option("--lsa",
               dest="n_components", type="int",
               help="Preprocess documents with latent semantic analysis.")
@@ -196,9 +197,8 @@ for k in range(opts.n_clusters):
     logging.info('  Cluster {0}:'.format(k))
     # FIXME: Tie publication's info columns to available fields
     for p in pubs_sample:
-        pub_info = '          ' + p['title'][:80]\
-                     + (80 - len(p['title'])) * ' ' + '|'
-        pub_info += p['discipline'][:30] if p.get('discipline') else ''
+        pub_info = '          ' + p['title'] + '|'
+        pub_info += p['discipline'] if p.get('discipline') else ''
         logging.info(pub_info)
 logging.info("  Done in %fs" % (time() - t0))
 
