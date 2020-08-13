@@ -1,8 +1,9 @@
 \chapter{Manually annotated data set}
 \label{chapter:first-appendix}
-Title, resulting classification and taken decision of manually 
-annotated publications.
-
+Sample of $20$ publications of total $455$ from manually annotated 
+data set. Discipline is the resulting classification and taken action
+is in 'Clarification' column. Complete list: 
+https://github.com/juholehtonen/clustering/blob/master/models/groundtruth\_labels\_CS-AI-IS\_CN\_supplement.csv
 \pgfplotstabletypeset[
     col sep=semicolon,
     verb string type,
@@ -16,7 +17,7 @@ annotated publications.
     every head row/.style={before row=\hline,after row=\hline},
     every head row/.append style={after row=\endhead},    
     every last row/.style={after row=\hline},
-    ]{../data/baseline/groundtruth_labels_CS-AI-IS_CN_for_appendix.csv}
+    ]{../data/baseline/groundtruth_labels_CS-AI-IS_CN_appendix.csv}
 
  
 \chapter{Top terms}
