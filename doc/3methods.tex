@@ -345,6 +345,21 @@ discipline. We will experiment which of the internal validation
 methods, Silhouette value or Calinski-Harabasz criterion, will
 indicate more clearly the known, correct number of clusters.
 
+\subsubsection{Adujsted Rand index}
+We will compare the internal validation result with Adjusted Rand 
+index (ARI) \cite{hubert_comparing_1985} which takes into account 
+our defined correct clustering. Adjusted Rand index is defined as 
+follows.
+\begin{equation}
+ ARI = \frac{RI - E[RI]}{max(RI) - E[RI]},
+\end{equation}
+where $RI$ is the ``raw'' Rand index and $E[RI]$ its expected
+value. The Rand index is defined then as:
+\begin{equation}
+  RI = \frac{TP + TN}{TP + FP + FN + TN},
+\end{equation}
+where $TP$ is the number of true positives, $TN$ true negatives, 
+$FP$ false positives and $FN$ false negatives.
 
 \subsubsection{Precision and recall}
 % määrittele peruskäsitteet kuten precision ja recall
@@ -451,8 +466,9 @@ corresponding number of members in clusters $A$ and $B$.
 
 
 \subsection{Algorithmic complexity}
-Both, time and space requirements of the used agglomerative clustering 
-method are $O(N^2)$, where $N$ is the number of publications 
+Time complexity of the used agglomerative clustering with Ward's 
+method is $O(N^3)$ and space complexity is $O(N^2)$, 
+where $N$ is the number of publications 
 \cite{willett_recent_1988}. These are quite demanding requirements
 when the number of publications increase. In this case it is 
 acceptable because there is no need for real time updates of 
