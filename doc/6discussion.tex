@@ -7,11 +7,20 @@ approaching the problem.
 % Alkuasetelma
 The problem of defining how the science should be classified into
 different fields of science is quite difficult and ambiguous.
+
 % Datasta
-Although the data was incomplete we chose to use it as such with out 
-pruning the bad samples. This was 
-Filtering out the bad samples could have improved the clustering 
-results.
+Although the data was incomplete we chose to use it as such without 
+pruning the possible defective samples. This was due to the 
+amount of data, manually checking over 10000 samples wasn't an 
+option and general rules to filter the data didn't occur in the
+beginning of this work. Some minimum length for the publication 
+data could leave out clearly inadequate samples and improve the 
+clustering results. General outlier detection techniques 
+\cite{hodge_survey_2004} could prove 
+problematic here when there obviously will be single publications 
+in some expected disciplines. Even including more data there
+probably could be disciplines with very few publications.
+
 % Piirreirroituksesta
 We tested some hand picked values of the feature extraction 
 parameters, minimum and maximum document frequency threshold for 
@@ -20,21 +29,41 @@ pre-processing related parameters could give robust results.
 Tokenization during preprocessing left one character tokens (words)
 in data which wasn't desired.
 - \fixme{``Suositus...'' ``Nämä parametriarvot...''}
+
 % Ulottuvuuksien vähentämisestä
 Selected number of reduced dimensions seemd to retain enough
 information while also allowing to run clustrings fast enough.
+The internal validation metrics might still have had trouble to 
+attain higher values with respect their scale with the fact that 
+$800$ dimensional data with just $455$ samples still probably is 
+too high dimensional \cite{aggarwal_surprising_2001}. 
+Reducing dimensionality more could have helped the internal 
+validation metrics to perform better, that is to find ... (vai 
+itse klusterointi olisi toiminut ``paremmin'' (vähemmällä informaatiolla tosin)?)
+Transforming data somewhere to $[50-150]$ components could be more
+justified range \cite{dolnicar_review_2002}. 
+
 % Model selection
 The model selected, agglomerative Ward's clustering, is one of the
 basic clustering methods. It is known to work well with compact,
 even-sized clusters.
 % while failing ...
+
+% Choosing the number of clusters
 Our manually annotated data set for choosing the number of clusters
 was propably too small ($455$) compared to number of components 
 ($800$). Some more elaborated method could improve the results. 
+We also have to remember that Calinski-Harabasz index might suffer
+even from moderate noise \cite{liu_understanding_2010}.
+There are other internal clustering validation metrics that might 
+work better with this kind of data \cite{liu_understanding_2010}.
 - \fixme{Vaihtoehtojen kokeiluiden havainnot. Linkitys 
 kirjallisuuteen.}
-% Itse klusteroinnista
 
+% Itse klusteroinnista
+Using the actual hierarchical structure of resulting clustering 
+was unfortunately not utilized here. It could have helped in 
+deciding the number of clusters \cite{kimes_statistical_2017}.
 - Compared to current classification of articles into fields of 
 science based on WoS classification...
 
@@ -42,3 +71,16 @@ science based on WoS classification...
 % Toteutuksen heikkoudet ja vahvuudet
 
 % Vertailu aiempaa suomalaiseen vastaavaan ``Suominen... et al.''
+
+
+\section*{Conclusions}
+\label{sec:conclusions}
+In future work 2-grams or higher order n-grams could improve the 
+results.
+% Two to four pages might be a good limit. 
+
+
+\section*{Future work}
+\label{sec:future}
+In future work 2-grams or higher order n-grams could improve the 
+results.
