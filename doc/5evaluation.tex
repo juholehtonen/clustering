@@ -45,14 +45,16 @@ features (corresponding to the terms) to $800$ components which
 resulted $100\%$ of the explained variance of the data to be 
 retained. The data was then agglomeratively clustered with Ward's 
 method for number of cluster values $k=[2,12]$. 
-The Figure \ref{fig:ch-silh01} shows the results. 
+The Figure \ref{fig:ch-silh01} shows the internal clustering 
+validation results for these clusterings. 
 \begin{figure}[ht]
   \begin{center}    
 \includegraphics[width=11.5cm]{images/c-h-silh-index-plot-455-2_12-800-hierarchical.png}
-    \caption{Hierarchical clustering. Calinski-Harabasz index and Silhoutte values for the
-    manually annotated set of 455 publications clustered with hierarchical
-    clustering, LSA with 800 components. The higher value means
-    more compact and better clustering in both graphs.}
+    \caption{Calinski-Harabasz index and Silhoutte values for the
+    manually annotated set of 455 publications clustered with 
+    hierarchical clustering, LSA with 800 components. The higher 
+    value means more compact and better clustering in both 
+    graphs.}
     \label{fig:ch-silh01}
     \end{center}
 \end{figure}
@@ -63,7 +65,7 @@ Neither of these indices suggests three clusters as the optimal
 clustering solution. So according these specific metrics the data 
 doesn't support our initial idea of three ``natural'' clusters as
 we meant it. We repeated the clustering in case of ambiguousness
-in algorithm but that didn't affect the clustering result.
+in the algorithm but that didn't affect the clustering result.
 Probably the low amount of samples compared to 
 still quite high dimensional feature space affects here. We can 
 conclude from the explained variance of $100\%$ that dimensionality
@@ -96,10 +98,10 @@ others clustering for $k=3$ from this data.
   \begin{center}    
 \includegraphics[width=7.5cm]{images/ari-plot-455-2_12-800-hierarchical.png}
     \caption{Hierarchical clustering. Adjusted Rand index for the
-    manually annotated set of 455 publications clustered with hierarchical
-    clustering, LSA with 800 components. The higher value means
-    more compact and better clustering. The index gains its peak value with 
-    number of clusters at $3$.}
+    manually annotated set of 455 publications clustered with
+    hierarchical clustering, LSA with 800 components. The higher 
+    value means more compact and better clustering. The index 
+    gains its peak value with number of clusters at $3$.}
     \label{fig:ari01}
   \end{center}
 \end{figure}
@@ -184,10 +186,10 @@ The silhouette and Calinski-Harabasz values are shown in Figure
 \begin{figure}[ht]
   \begin{center}    
 \includegraphics[width=10cm]{images/c-h-silh-index-plot-y2000-2_260-800-hierarchical.png}
-    \caption{Hierarchical clustering. Calinski-Harabasz index and Silhoutte values for the
-    Finnish publications from year 2000 clustered with hierarchical
-    clustering, LSA with 800 components. The higher values denote 
-    more compact and better clustering in both graphs.}
+    \caption{Hierarchical clustering. Calinski-Harabasz index and 
+    Silhoutte values for the Finnish publications from year 2000 
+    clustered with hierarchical clustering, LSA with 800 components. 
+    The higher value mean more compact and better clustering in both graphs.}
     \label{fig:ch-silh-2000-h}
   \end{center}
 \end{figure}
@@ -221,10 +223,9 @@ The Figure \ref{fig:ch-silh-full-h} shows the results.
 \begin{figure}[ht]
   \begin{center}    
 \includegraphics[width=10cm]{images/c-h-silh-index-plot-y2000-2_260-800-kmeans.png}
-    \caption{Calinski-Harabasz index and Silhoutte values of 
-10145 items clustered with k-means clustering, LSA with 800 
-components. The higher values denote more compact and better 
-clustering in both graphs.}
+  \caption{Calinski-Harabasz index and Silhoutte values of $10145$
+  items clustered with K-means clustering, LSA with 800 components. 
+  The higher value mean more compact and better clustering in both graphs.}
     \label{fig:ch-silh-full-h}
   \end{center}
 \end{figure}

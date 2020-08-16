@@ -412,8 +412,10 @@ items\}|}
 \label{sec:agglomerativeclustering}
 In this work we use agglomerative hierarchical clustering with 
 Ward's distance metric \cite{ward_jr_hierarchical_1963}. This 
-method was chosen because it was familiar to us is known to 
-perform well enough in simple settings. 
+method was chosen because it was familiar to us, the data naturally 
+has hierarchical structure of fields and subfields of science that 
+goes from general disciplines to more and more specialized research
+topics and is known to perform well enough in simple settings. 
 % \fixme{Miksi, perustelut?} 
 Agglomerative clustering starts with each document 
 as a cluster of its own and then merges pairs of clusters together 
@@ -443,7 +445,7 @@ Euclidean distance is the familiar distance used in everyday life:
 \begin{equation}
  ||a-b||_2 = \sqrt{\sum_i{(a_i-b_i)^2}}
 \end{equation}
-Because Ward's method assumes it, we use it.
+Because Ward's method assumes Euclidean distance, we use it.
 
 % Mahalnobis distance...
 
@@ -452,8 +454,7 @@ Because Ward's method assumes it, we use it.
 
 % Vain mitä aion käyttää!
 % Menetelmien kuvaus - mistä siinä on kyse!?!
-
-Linkage methods affects how clusters are formed and how the 
+Linkage method affects how clusters are formed and how the 
 distance metric is applied between two clusters.
 
 \subsubsection{Single linkage}
