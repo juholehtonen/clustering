@@ -73,12 +73,25 @@ from moderate noise \cite{liu_understanding_2010}.
 % silhouette values (pros, cons...)
 
 % reference: statistical significance samples relation dimension
-To take the Comparison against preferred manual labeling was calculated with 
-the Adjusted Rand Index (ARI) for these clusterings in Figure 
-\ref{fig:ari01}. Because ARI uses manually annotated labels, the 
-ground truth cluster values for the publications, it peaks at 
-number of clusters at $3$. Adjusted Rand index value for $4$ 
-clusters is almost equally good.
+% Perustelu ARI:n käyttämiseksi: eka katsottiin S ja C-H:lla josko
+% toinen osuu k=3:een. Sitten katsottaan myös ARI:ll miten vahvasti
+% k=3 erottuu muista k:n arvoista. Ei erotu juurikaan. Mitä tämä
+% kertoo tai olisi kertonut?
+% Jos olisi erottunut ja S tai C-H olisi erottunut: ok, yhteneväiset todistukset
+% Jos olisi erottunut ja S tai C-H ei olisi: klusterointi on siellä mutta S ja C-H oleellisesti huonommat sen ilmaisemiseen (kenties klusterien rakenteen takia)
+% Jos ei erotu ja S ja C-H erottaa: ei liene mahdollinen tilanne (?!) (ARI:n määritelmä?)
+% Jos ei erotu ja S ja C-H ei erota: haluttu ja viereiset klusteroinnit yhtä epäselviä, data ei riitä/sovellu, tilanne nyt
+We then use Adjusted Rand Index to check the quality of resulting 
+clustering compared to ground truth. ARI tells us the similarity 
+of the defined ground truth clustering and our resulting clustering. 
+Figure \ref{fig:ari01} shows ARI values for different number of 
+clusters $k=[2,12]$. Because ARI uses the ground truth cluster 
+labels for the publications, it peaks at number of clusters at 
+$3$. But we see that its value for $k=[4,6]$ is almost equally 
+good. We interpret this to mean that each of these clusterings 
+with $k=[3,6]$ have approximately equal amount of misclustered 
+publications, so our clustering method can't actually find above 
+others clustering for $k=3$ from this data.
 \begin{figure}[htp]
   \begin{center}    
 \includegraphics[width=7.5cm]{images/ari-plot-455-2_12-800-hierarchical.png}
@@ -91,17 +104,18 @@ clusters is almost equally good.
   \end{center}
 \end{figure}
 
-We inspected the resulting clustering for three clusters. Most
-frequent terms of the publications in each cluster can be used to 
-that. Top 15 terms for each cluster are shown in the Table 
+We inspected the resulting clustering for three clusters by 
+looking at the most frequent terms of the publications in each 
+cluster. Top 15 terms for each cluster are shown in the Table 
 \ref{table:topterms_455_hier}. We can see that there is one cluster
 with computer science related terms and two clusters with clinical
-neurology related terms. So we can note that our clustering method
-didn't find the clusters we expected. This may also be visible 
-in adjusted rand index with the number of clusters three and four almost
+neurology related terms. So we can notice that our clustering method
+didn't find the clusters we expected. This is also visible in 
+adjusted Rand index with the number of clusters $k=[3,6]$ almost 
 square (Figure \ref{fig:ari01}). For three clusters, part of the 
 samples are incorrectly clustered, when compared against manual
-labeling, and for four clusters, the situation is obviously the same.
+labeling, and for clusterings with four to six clusters, the 
+situation is obviously the same.
 
 \input{tables/5_table_topterms_bl.tex}
 

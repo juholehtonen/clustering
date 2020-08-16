@@ -369,9 +369,12 @@ methods, Silhouette value or Calinski-Harabasz criterion, will
 indicate more clearly the known, correct number of clusters.
 
 \subsubsection{Adujsted Rand index}
-We will compare the internal validation result with Adjusted Rand 
-index (ARI) \cite{hubert_comparing_1985} which takes into account 
-our defined correct clustering. Adjusted Rand index is defined as 
+Adjusted Rand index measures the similarity of the clustering result
+with our defined ground truth clustering. We will compare the 
+internal validation result over the clusterings with different number 
+of clusters with Adjusted Rand index (ARI) 
+\cite{hubert_comparing_1985} to see how well our expected number 
+of clusters $3$ stands out. Adjusted Rand index is defined as 
 follows.
 \begin{equation}
  ARI = \frac{RI - E[RI]}{max(RI) - E[RI]},
@@ -382,7 +385,9 @@ value. The Rand index is defined then as:
   RI = \frac{TP + TN}{TP + FP + FN + TN},
 \end{equation}
 where $TP$ is the number of true positives, $TN$ true negatives, 
-$FP$ false positives and $FN$ false negatives.
+$FP$ false positives and $FN$ false negatives. ARI values are 
+bounded to range $[-1, 1]$ where the perfect clustering would 
+be $1$.
 
 \subsubsection{Precision and recall}
 % määrittele peruskäsitteet kuten precision ja recall
