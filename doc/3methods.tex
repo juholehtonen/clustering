@@ -322,7 +322,7 @@ Calinski-Harabasz criterion, the better the cluster structure.
 Silhouette value of a single clustered observation $x$ is defined 
 as follows.
 \begin{equation}
- S(x) = \frac{1}{k}\sum_i{\frac{1}{n_i}\sum_{x \in C_i}\frac{b(x) - a(x)}{max(b(x), a(x))},
+ S(x) = \frac{1}{k}\sum_i \frac{1}{n_i}\sum_{x \in C_i}\frac{b(x) - a(x)}{max(b(x), a(x))},
 \end{equation}
 where $a(x)$ average dissimilarity of the observation $x$ to all 
 other observations in its own cluster 
@@ -455,28 +455,29 @@ Because Ward's method assumes Euclidean distance, we use it.
 % Vain mitä aion käyttää!
 % Menetelmien kuvaus - mistä siinä on kyse!?!
 Linkage method affects how clusters are formed and how the 
-distance metric is applied between two clusters.
+distance metric is applied between two clusters. In following 
+$d(a,b)$ denotes the distance between observations $a$ and $b$.
 
 \subsubsection{Single linkage}
-Single linkage defines that the distance between two clusters is 
-measured as distance between two closest items of the clusters 
-$A$ and $B$.
+Single linkage defines that the distance between two clusters $A$ 
+and $B$ is measured as distance between two closest items of the 
+clusters.
 \begin{equation}
- min\{d(a,b):a \in A, b \in B\}
+ d(A,B) = min\{d(a,b):a \in A, b \in B\}
 \end{equation}
 
 \subsubsection{Complete linkage}
 Complete linkage is defined as the distance between the most 
 distant items of clusters $A$ and $B$.
 \begin{equation}
- max\{d(a,b):a \in A, b \in B\}
+ d(A,B) = max\{d(a,b):a \in A, b \in B\}
 \end{equation}
 
 \subsubsection{Average linkage}
 Average linkage is defined as the average of the all pairwise 
 distances between the items of cluster $A$ and $B$.
 \begin{equation}
- \frac{1}{|A| \cdot |B|} \sum_{a \in A} \sum_{b \in B}d(a,b)
+ d(A,B) = \frac{1}{|A| \cdot |B|} \sum_{a \in A} \sum_{b \in B}d(a,b)
 \end{equation}
 
 \subsubsection{Ward's method}
