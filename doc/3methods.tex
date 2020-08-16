@@ -346,6 +346,12 @@ be clustered in the nearest neighbor cluster and values close to
 $-1$ mean that the observation is almost certainly in the wrong 
 cluster.
 
+We will calculate average silhouette value over all observations
+\begin{equation}
+  S = \frac{1}{N} \sum_x S(x) 
+\end{equation}
+for each clustering.
+
 \subsubsection{External validation of clustering results}
 \label{sec:ext_val}
 % Otsikko oli: Manually annotated validation set
