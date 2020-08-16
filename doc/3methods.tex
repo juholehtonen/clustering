@@ -292,36 +292,59 @@ to decide the correct number of clusters. We will use two
 of those; Calinski-Harabasz criterion \cite{calinski_dendrite_1974} 
 and Silhouette value \cite{rousseeuw_silhouettes:_1987}. We choose 
 these because they were familiar for us and have different
-weak spots as noted by Liu et al and thus could complement each 
-other. Calinski-Harabasz criterion is defined as
+weak spots as noted by Liu et al. and thus could complement each 
+other. 
+
+\subsubsection{Calinski-Harabasz criterion}
+Calinski-Harabasz criterion is defined as
 \begin{equation}
  CH = \frac{SS_B}{N-k} \frac{SS_W}{k-1},
 \end{equation}
-where $SS_B$ is \emph{the between-group sum of squares}, $SS_W$ is the
-within-group sum of squares, $k$ is the number of clusters 
-and $N$ is the number of observations.
-
-\emph{The between-group sum of squares} $SS_B$ gives the overall variance
-between clusters
+where $SS_B$ is \emph{the between-group sum of squares} that gives
+the overall variance between clusters
 \begin{equation}
  SS_B = \sum_{i=1}^k n_i ||m_i-m||^2,
 \end{equation}
-where $k$ is the number of clusters, $n_i$ is the number of 
-observations in cluster $i$, $m_i$ is the centroid of cluster $i$, 
-$m$ is the overall mean of sample data and $||m_i-m||$ is the 
-Euclidean distance between the two vectors.
-
-The within-group sum of squares $SS_W$ gives the over variance 
-within clusters
+and $SS_W$ is \emph{the within-group sum of squares} that gives 
+the overall variance within clusters
 \begin{equation}
- SS_W = \sum_{i=1}^k \sum_{x\in c_i} ||x-m_i||^2,
+ SS_W = \sum_{i=1}^k \sum_{x\in C_i} ||x-m_i||^2.
 \end{equation}
-where $k$ is the number of clusters, $x$ is the observation, 
-$c_i$ is the $i$th cluster, $m_i$ is the centroid of cluster $i$, and 
-$||x-m_i||$ is the Euclidean distance between the two vectors.
-The larger the Calinski-Harabasz criterion, the better the 
-cluster structure.
+In equations above $k$ is the number of clusters, $N$ is the 
+number of observations, $n_i$ is the number of observations in 
+cluster $i$, $m_i$ is the centroid of cluster $i$, $m$ is the 
+overall mean of sample data, $x$ is the observation, $C_i$ is the 
+$i$th cluster and $|| \cdot ||$ is the Euclidean 
+distance between the two vectors. The larger the 
+Calinski-Harabasz criterion, the better the cluster structure.
 
+\subsubsection{Silhouette value}
+Silhouette value of a single clustered observation $x$ is defined 
+as follows.
+\begin{equation}
+ S(x) = \frac{1}{k}\sum_i{\frac{1}{n_i}\sum_{x \in C_i}\frac{b(x) - a(x)}{max(b(x), a(x))},
+\end{equation}
+where $a(x)$ average dissimilarity of the observation $x$ to all 
+other observations in its own cluster 
+$C_i$:
+\begin{equation}
+  a(x) = \frac{1}{n_i - 1} \sum_{y \in C_i, y \neq x}d(x,y)  
+\end{equation}
+and $b(x)$ is the average dissimilarity of the observation $x$ to 
+all observations $y$ in the next closest cluster $C_j$:
+\begin{equation}
+  b(x) = min_{j,j \neq i}[\frac{1}{n_j} \sum_{y \in C_j}d(x,y)]
+\end{equation}
+In equations above $k$ is the number of clusters, $n_i$ is the 
+number of observations in cluster $i$, $x$ is the observation, 
+$C_i$ is the $i$th cluster and $d(x,y)$ is some dissimilarity 
+measure on ratio scale (eg. Euclidean distance) between the two 
+vectors. Silhouette values are bounded to range $[-1,1]$. Values
+close to $1$ mean that the observation $x$ is very well clustered 
+in its cluster, value $0$ means that the observation could as well
+be clustered in the nearest neighbor cluster and values close to 
+$-1$ mean that the observation is almost certainly in the wrong 
+cluster.
 
 \subsubsection{External validation of clustering results}
 \label{sec:ext_val}
