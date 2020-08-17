@@ -11,18 +11,20 @@ labels = ['mds']
 vect = 'tfidfvectorizer'
 # Define metadata fields used in clustering analysis
 analysis_fields = 'title,abstract,keyword'
-samples = [200, 500, 2000, 6000, 12000]
-filtering = True  # Filter out bad datapoints
+# size: We want to filter whole year data for the three disciplines:
+# grep "^Otsikko: " data/raw/SuomiRyväsData200[0-0]|wc -l
+size = 12000
+baseline = True
+filtering = True
 
-n_clusters = [4, 32, 64, 128, 220]
-cluster_range = range(2, 261)
-n_components = [800, 300, 200, 40]
+n_clusters = [12, 32, 64, 128, 220, 260]
+n_components = [800, 300, 90, 40]
 n_features = [10000]
 df_min = 2
 df_max = 0.1
 
-size = samples[1]
-k = n_clusters[1]
+
+cluster_range = range(2, n_clusters[0]+1)
 n_comp = n_components[0]
 n_comp_str = n_comp if n_comp < 600 else '-'
 n_feat = n_features[0]
