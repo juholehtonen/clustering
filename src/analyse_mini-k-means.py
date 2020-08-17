@@ -148,6 +148,7 @@ with open(opts.interim + '{0}-vectorizer_feature_names.pickle'.format(opts.size)
 # Dimensionality reduction
 if opts.n_components:
     logging.info("Performing dimensionality reduction using LSA")
+    logging.info("  Number of input features: {0}".format(X.shape[1]))
     t0 = time()
     # Vectorizer results are normalized, which makes KMeans behave as
     # spherical k-means for better results. Since LSA/SVD results are
@@ -158,12 +159,10 @@ if opts.n_components:
 
     X = lsa.fit_transform(X)
 
-    logging.info("  Done in %fs" % (time() - t0))
-
     explained_variance = svd.explained_variance_ratio_.sum()
     logging.info("  Explained variance of the SVD step: {0}% with {1} components".format(
         int(explained_variance * 100), opts.n_components))
-
+    logging.info("  Done in %fs" % (time() - t0))
 
 # #############################################################################
 # Do the actual clustering
