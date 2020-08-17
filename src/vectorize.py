@@ -177,7 +177,7 @@ logging.info('  Pre-tokenizer: {0}'.format(vectrzr.steps[1][0]))
 logging.info("  n_samples: %d, n_features: %d" % X.shape)
 logging.info("  Total discarded terms, cut by min_df and max_df: {0}".format(len(vectorizer.stop_words_) - len(stopwords_ext)))
 logging.info("  Stop words: {0}".format(stopwords_ext))
-logging.info("  Pruned words (incl. stop words): {0}".format(vectorizer.stop_words_))
-for chunk in split_list(list(vectorizer.stop_words_), 15):
+logging.info("  Pruned words (incl. stop words):")
+for chunk in split_list(list(vectorizer.stop_words_), 13):
     logging.info("  {0}".format(chunk))
 logging.info("  Done in {0}".format((time() - t0)))
