@@ -83,8 +83,9 @@ def task_analyze_mini_k_means():
     vectorized_file = interim_dir + '{0}-{1}-{2}-{3}-vectorized.npz'.format(size, df_min, df_max, n_feat)
 
     for n in cluster_range:
-        options = '--size {0} --n-clusters {1} --no-minibatch --lsa {2} --n-features {3} --fields {4} --source {5} --interim {6} --out {7}'\
-              .format(size, n, n_comp, n_feat, analysis_fields, preproc_file, interim_dir, results_dir)
+        options = '--size {0} --n-clusters {1} --no-minibatch --lsa {2} --n-features {3}' \
+                  ' --fields {4} --source {5} --interim {6} --out {7} --baseline {8}' \
+            .format(size, n, n_comp, n_feat, analysis_fields, preproc_file, interim_dir, results_dir, baseline)
         yield {
             'name': ' k: {0}'.format(n),
             'file_dep': ['analyse_mini-k-means.py',

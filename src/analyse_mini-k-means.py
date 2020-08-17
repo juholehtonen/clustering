@@ -50,7 +50,9 @@ import logging
 from nltk.corpus import stopwords
 import pickle
 from optparse import OptionParser
+import pandas as pd
 import random
+from s_dbw import S_Dbw
 import scipy.sparse
 import sys
 from time import time
@@ -103,10 +105,13 @@ op.add_option("--interim",
               help="Interim folder")
 op.add_option("--out",
               dest="out", type="string",
-              help="Output dircetory for results")
+              help="Output directory for results")
 op.add_option("--verbose",
               action="store_true", dest="verbose", default=False,
               help="Print progress reports inside k-means algorithm.")
+op.add_option("--baseline",
+              action="store_true", dest="baseline", default=False,
+              help="Define run as baseline run. We have ground truth (for ARI).")
 
 # print(__doc__)
 # op.print_help()
@@ -115,15 +120,18 @@ op.add_option("--verbose",
 def is_interactive():
     return not hasattr(sys.modules['__main__'], '__file__')
 
-
 # work-around for Jupyter notebook and IPython console
-argv = [] if is_interactive() else sys.argv[1:]
-(opts, args) = op.parse_args(argv)
-if len(args) > 0:
-    op.error("this script takes no arguments.")
-    sys.exit(1)
+# argv = [] if is_interactive() else sys.argv[1:]
+# (opts, args) = op.parse_args(argv)
+(opts, args) = op.parse_args()
+# if len(args) > 0:
+#     op.error("this script takes no arguments.")
+#     sys.exit(1)
+print('Options: {ops}'.format(ops=opts))
 
-# Define log file name and start log
+# Define log file name and start log. NOTE: 'w' overwrites every time!!
+#'--size {0} --n-clusters {1} --lsa {2} --n-features {3} --fields {4}'\
+#              .format(size, k, n_comp, n_feat, analysis_fields)
 results_prefix = '{0}-{1}-'.format(opts.size, opts.n_clusters)
 if opts.n_components:
     results_prefix += str(opts.n_components) + '-'
@@ -179,6 +187,9 @@ t0 = time()
 km.fit(X)
 logging.info("  Done in %0.3fs" % (time() - t0))
 
+# Calculate metrics
+t0 = time()
+silhouette_list = []
 
 #logging.info("Homogeneity: %0.3f" % metrics.homogeneity_score(labels, km.labels_))
 #logging.info("Completeness: %0.3f" % metrics.completeness_score(labels, km.labels_))
@@ -190,7 +201,16 @@ logging.info("  Silhouette Coefficient: %0.3f"
 X_to_CH = X if opts.n_components else X.toarray()
 logging.info("  Calinski-Harabasz Index: %0.3f"
       % metrics.calinski_harabasz_score(X_to_CH, km.labels_))
-
+# note S_Dbw increases metrics calculation time by 150 %
+logging.info("  S_Dbw validity index: %0.3f"
+             % S_Dbw(X, km.labels_, alg_noise='bind', centr='mean',
+                     metric='euclidean'))
+if opts.baseline:
+    truth_file = '../models/groundtruth_labels_final.csv'
+    labels = pd.read_csv(truth_file, index_col=0).values[:,0].tolist()
+    logging.info("  Adjusted Rand-Index: %0.3f"
+                 % metrics.adjusted_rand_score(labels, km.labels_))
+logging.info("  Metrics calculated in %fs" % (time() - t0))
 
 logging.info("Top terms per cluster:")
 if opts.n_components:
@@ -217,9 +237,8 @@ for k in range(opts.n_clusters):
     logging.info('  Cluster {0}:'.format(k))
     # FIXME: Tie publication's info columns to available fields
     for p in pubs_sample:
-        pub_info = '          ' + p['title'][:80]\
-                     + (80 - len(p['title'])) * ' ' + '|'
-        pub_info += p['discipline'][:30] if p.get('discipline') else ''
+        pub_info = '          ' + p['title'] + '|'
+        pub_info += p['discipline'] if p.get('discipline') else ''
         logging.info(pub_info)
 logging.info("  Done in %fs" % (time() - t0))
 
