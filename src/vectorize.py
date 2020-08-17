@@ -74,9 +74,6 @@ op.add_option("--size",
 op.add_option("--fields",
               dest="fields", type="string",
               help="Metadata fields to run analysis with.")
-op.add_option("--lsa",
-              dest="n_components", type="int",
-              help="Preprocess documents with latent semantic analysis.")
 op.add_option("--n-features",
               dest="n_features", type=int, default=10000,
               help="Maximum number of features (dimensions)"
@@ -100,6 +97,7 @@ op.add_option("--out",
               dest="out", type="string",
               help="Output dircetory for results")
 
+min_df = 2
 
 # print(__doc__)
 # op.print_help()
@@ -117,10 +115,7 @@ if len(args) > 0:
     sys.exit(1)
 
 # Define log file name and start log
-results_filename = opts.out + str(opts.size) + '-'
-if opts.n_components:
-    results_filename += str(opts.n_components) + '-'
-results_filename += 'vectorize.log'
+results_filename = opts.out + '{0}-vectorize.log'.format(opts.size)
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(message)s',
                     datefmt="%Y-%m-%d %H:%M",
@@ -137,7 +132,6 @@ stopwords_ext = list(set(ENGLISH_STOP_WORDS).union(stopwords.words('english')))
 stopwords_ext += ['reserved', 'rights', 'science', 'elsevier', '2000']
 
 logging.info("Extracting features from the training dataset using a sparse vectorizer")
-min_df = 2
 
 t0 = time()
 vectorizer = TfidfVectorizer(max_df=opts.max_df,

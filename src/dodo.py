@@ -76,8 +76,8 @@ def task_preprocess_small():
 
 def task_vectorize():
     """Step 2: vectorize data"""
-    options = '--size {0} --lsa {1} --n-features {2} --fields {3} --source {4} --interim {5} --out {6}'\
-              .format(size, n_comp, n_feat, analysis_fields, preproc_file, interim_dir, results_dir)
+    options = '--size {0} --n-features {1} --fields {2} --source {3} --interim {4} --out {5}'\
+              .format(size, n_feat, analysis_fields, preproc_file, interim_dir, results_dir)
     return {
         'file_dep': ['vectorize.py',
                      preproc_file],
