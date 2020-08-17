@@ -84,6 +84,9 @@ op.add_option("--no-idf",
 op.add_option("--max-df",
               dest="max_df", type=float, default=0.1,
               help="TfidfVectorizer's max_df parameter")
+op.add_option("--min-df",
+              dest="min_df", type=int, default=2,
+              help="TfidfVectorizer's min_df parameter")
 op.add_option("--verbose",
               dest="verbose", action="store_true", default=False,
               help="Print progress reports inside k-means algorithm.")
@@ -96,8 +99,6 @@ op.add_option("--interim",
 op.add_option("--out",
               dest="out", type="string",
               help="Output dircetory for results")
-
-min_df = 2
 
 # print(__doc__)
 # op.print_help()
@@ -142,7 +143,7 @@ logging.info("Extracting features from the training dataset using a sparse vecto
 t0 = time()
 vectorizer = TfidfVectorizer(max_df=opts.max_df,
                              max_features=opts.n_features,
-                             min_df=min_df,
+                             min_df=opts.min_df,
                              # stop_words=stopwords_ext,
                              use_idf=opts.use_idf,
                              # vocabulary=None,
@@ -162,7 +163,7 @@ vectrzr = make_pipeline(GeneralExtractor(fields=opts.fields.split(',')),
 X = vectrzr.fit_transform(data)
 
 # Save vectorized data and the vectorizer for the next step
-vctd_filename = '{0}-{1}-{2}-{3}-vectorized.npz'.format(opts.size, min_df, opts.max_df, opts.n_features)
+vctd_filename = '{0}-{1}-{2}-{3}-vectorized.npz'.format(opts.size, opts.min_df, opts.max_df, opts.n_features)
 scipy.sparse.save_npz(opts.interim + vctd_filename, X)
 terms = vectorizer.get_feature_names()
 with open(opts.interim + '{0}-vectorizer_feature_names.pickle'.format(str(opts.size)), 'wb') as handle:
@@ -170,7 +171,7 @@ with open(opts.interim + '{0}-vectorizer_feature_names.pickle'.format(str(opts.s
 
 logging.info('  Feature extraction steps: {0}'.format([s[0] for s in vectrzr.steps]))
 logging.info('  TfidfVectorizer, max_df: {0}, min_df: {1}, max_features: {2}, n_stopwords: {3}'
-             .format(opts.max_df, min_df, opts.n_features, len(stopwords_ext)))
+             .format(opts.max_df, opts.min_df, opts.n_features, len(stopwords_ext)))
 logging.info('  Vectorizer tokenizer: {0}'.format(vectorizer.tokenizer.__class__))
 logging.info('  Pre-tokenizer: {0}'.format(vectrzr.steps[1][0]))
 logging.info("  n_samples: %d, n_features: %d" % X.shape)

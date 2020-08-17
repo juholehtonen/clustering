@@ -45,10 +45,10 @@ def task_init():
     def init_nltk(corpus):
         nltk.download(corpus)
 
-    corpuses = ['stopwords', 'punkt', 'averaged_perceptron_tagger', 'wordnet']
+    corpora = ['stopwords', 'punkt', 'averaged_perceptron_tagger', 'wordnet']
     return {
         'targets': [usrhome + '/nltk_data/corpora/wordnet.zip'],
-        'actions': [(init_nltk, [corpuses])],
+        'actions': [(init_nltk, [corpora])],
         # force doit to always mark the task as up-to-date (unless target removed)
         'uptodate': [True]
     }
@@ -70,8 +70,8 @@ def task_preprocess_groundtruth():
 
 def task_vectorize():
     """Step 2: vectorize data"""
-    options = '--size {0} --n-features {1} --fields {2} --source {3} --interim {4} --out {5}'\
-              .format(size, n_feat, analysis_fields, preproc_file, interim_dir, results_dir)
+    options = '--size {0} --n-features {1} --fields {2} --max-df {3} --min-df {4} --source {5} --interim {6} --out {7}'\
+              .format(size, n_feat, analysis_fields, df_max, df_min, preproc_file, interim_dir, results_dir)
     return {
         'file_dep': ['vectorize.py', preproc_file],
         'targets': [interim_dir + '{0}-{1}-{2}-{3}-vectorized.npz'.format(size, df_min, df_max, n_feat)],
