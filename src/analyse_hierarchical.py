@@ -144,6 +144,11 @@ ward = AgglomerativeClustering(n_clusters=opts.n_clusters,
 logging.info("Compute unstructured hierarchical clustering with %s" % ward)
 t0 = time()
 ward.fit(X)
+# Save the fitted clustering for later use
+model_file = opts.interim + '{0}-{1}-{2}-{3}-model_hierarchical.pickle'.format(
+    opts.size, opts.n_clusters, min_df, opts.max_df)
+with open(model_file, 'wb') as handle:
+    pickle.dump(ward, handle)
 logging.info("  Done in %0.3fs" % (time() - t0))
 
 # Calculate metrics
