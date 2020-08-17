@@ -70,6 +70,9 @@ op.add_option("--out",
 op.add_option("--verbose",
               action="store_true", dest="verbose", default=False,
               help="Print progress reports inside k-means algorithm.")
+op.add_option("--baseline",
+              action="store_true", dest="baseline", default=False,
+              help="Define run as baseline run. We have ground truth (for ARI).")
 
 
 # print(__doc__)
@@ -145,10 +148,6 @@ logging.info("  Done in %0.3fs" % (time() - t0))
 
 # Calculate metrics
 t0 = time()
-model_dir = '../models/'
-truth_file = model_dir + 'groundtruth_labels_final.csv'
-labels = pd.read_csv(truth_file, index_col=0).values[:,0].tolist()
-
 silhouette_list = []
 
 logging.info("  Silhouette Coefficient: %0.3f"
@@ -156,12 +155,15 @@ logging.info("  Silhouette Coefficient: %0.3f"
 X_to_CH = X if opts.n_components else X.toarray()
 logging.info("  Calinski-Harabasz Index: %0.3f"
              % metrics.calinski_harabasz_score(X, ward.labels_))
-logging.info("  Adjusted Rand-Index: %0.3f"
-             % metrics.adjusted_rand_score(labels, ward.labels_))
 # note S_Dbw increases metrics calculation time by 150 %
 logging.info("  S_Dbw validity index: %0.3f"
              % S_Dbw(X, ward.labels_, alg_noise='bind', centr='mean',
                      metric='euclidean'))
+if opts.baseline:
+    truth_file = '../models/groundtruth_labels_final.csv'
+    labels = pd.read_csv(truth_file, index_col=0).values[:,0].tolist()
+    logging.info("  Adjusted Rand-Index: %0.3f"
+                 % metrics.adjusted_rand_score(labels, ward.labels_))
 logging.info("  Metrics calculated in %fs" % (time() - t0))
 
 
