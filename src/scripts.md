@@ -31,3 +31,6 @@ head -203 data/processed/12000-188-800-hierarchical-results.txt
  
 # Result files for plotting
 ls -tr processed/12000* | tail -78 | sort -V | cut -d '/' -f 2 > processed/48000-2-0.2-800-h-results-list.txt
+
+# Count combined words by '_', very roughly (only)
+tr -cd _ < data/processed/48000-2-0.2-50000-vectorize.log | wc -c
