@@ -92,11 +92,11 @@ database the word is returned unchanged.
 
 \section{Removing stop words}
 Stop words were then removed after lemmatisation. We used Python's
-\texttt{NLTK} module's English stop words 
-combined with \texttt{scikit-learn's} stop words and our own stop 
-word list consisting mainly standard publisher notices 
-(\emph{``rights'', ``reserved''} and publishing years). The stop 
-word list included $383$ words.
+\texttt{NLTK} module's English stop words combined with 
+\texttt{scikit-learn's} stop words and our own short stop word 
+list consisting standard publisher notices: (\emph{``rights'', 
+``reserved'', ``science'', ``elsevier'', ``2000''}). The stop word 
+list included $383$ words.
 
 
 \section{Vectorizing}
@@ -106,10 +106,10 @@ normalization).
 In this point we have the data vectorized.
 
 We set the minimum document frequency, under which the terms 
-having their \emph{tf-idf} value are ignored, to $min_df=2$, so 
-two occurences. The maximum document frequency, over which the 
-terms having their \emph{tf-idf} value are ignored, to 
-$max_df=0.5$, so to 50 \% of the documents.
+having their \emph{tf-idf} value are ignored, to $min_df=2$. So 
+terms that have less than two occurences are ignored. The maximum 
+document frequency is set to $max_df=0.1$. So to terms 
+occuring in more than 10 \% of the documents are also ignored.
 % \fixme{To verify these parameter values it would be interesting 
 % to know the frequencies of the filtered-out terms. It didn't come 
 % out straight from TfIdfVectroizer class used but taking different 
