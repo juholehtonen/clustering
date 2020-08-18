@@ -64,6 +64,12 @@ op.add_option("--min-df",
 op.add_option("--source",
               dest="source", type="string",
               help="Source file to process")
+op.add_option("--preproc-file",
+              dest="preproc_file", type="string",
+              help="Pre-processed file to for example titles")
+op.add_option("--svd-file",
+              dest="svd_file", type="string",
+              help="SVD of the data")
 op.add_option("--interim",
               dest="interim", type="string",
               help="Interim folder")
@@ -110,35 +116,20 @@ logging.info('#' * 18 + ' Starting clustering  ' + '#' *18)
 
 # #############################################################################
 # Load data from the previous step
-logging.info("Loading vectorized data")
+logging.info("Loading vectorized & reduced data")
 t_total = time()
-vect_file = opts.interim + '{0}-{1}-{2}-{3}-vectorized.npz'.format(opts.size, opts.min_df, opts.max_df, opts.n_features)
+vect_reduced_file = opts.source
 term_file = opts.interim + '{0}-{1}-{2}-{3}-vectorizer_feature_names.pickle'.format(opts.size, opts.min_df, opts.max_df, opts.n_features)
-logging.info("   vectorized data file: {0}".format(vect_file))
+svd_file = opts.svd_file
+logging.info("   vectorized data file: {0}".format(vect_reduced_file))
 logging.info("   term file: {0}".format(term_file))
-X = scipy.sparse.load_npz(vect_file)
+logging.info("   SVD file: {0}".format(svd_file))
+with open(vect_reduced_file, 'rb') as handle:
+    X = pickle.load(handle)
 with open(term_file, 'rb') as handle:
     terms = pickle.load(handle)
-
-# #############################################################################
-# Dimensionality reduction
-if opts.n_components:
-    logging.info("Performing dimensionality reduction using LSA")
-    logging.info("  Number of input features: {0}".format(X.shape[1]))
-    t0 = time()
-    # Vectorizer results are normalized, which makes KMeans behave as
-    # spherical k-means for better results. Since LSA/SVD results are
-    # not normalized, we have to redo the normalization.
-    svd = TruncatedSVD(opts.n_components)
-    normalizer = Normalizer(copy=False)
-    lsa = make_pipeline(svd, normalizer)
-
-    X = lsa.fit_transform(X)
-
-    explained_variance = svd.explained_variance_ratio_.sum()
-    logging.info("  Explained variance of the SVD step: {0}% with {1} components".format(
-        int(explained_variance * 100), opts.n_components))
-    logging.info("  Done in %fs" % (time() - t0))
+with open(svd_file, 'rb') as handle:
+    svd = pickle.load(handle)
 
 # #############################################################################
 # Do the actual clustering
@@ -203,7 +194,7 @@ logging.info("  Done in %fs" % (time() - t0))
 logging.info('Sample of publications per cluster:')
 t0 = time()
 sample_max = 5
-with open(opts.source, 'rb') as handle:
+with open(opts.preproc_file, 'rb') as handle:
     data = pickle.load(handle)
 for k in range(opts.n_clusters):
     cluster_k_pubs = [d for (d, l) in zip(data, ward.labels_) if l == k]
