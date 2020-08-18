@@ -28,3 +28,6 @@ head -203 data/processed/12000-188-800-hierarchical-results.txt
  /12000-188-800-hierarchical-topterms.csv
  
  head -45 data/processed/12000-30-800-hierarchical-results.txt | tail -30 | sed -e 's/.\{27\}//' > data/processed/topterms/12000-30-800-hierarchical-topterms.csv
+ 
+# Result files for plotting
+ls -tr processed/12000* | tail -78 | sort -V | cut -d '/' -f 2 > processed/48000-2-0.2-800-h-results-list.txt

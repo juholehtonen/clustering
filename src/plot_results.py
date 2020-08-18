@@ -44,10 +44,16 @@ sdbw_file = image_dir + 's_dbw_validity-index-{0}.txt'.format(params)
 plt_sym = '.'
 # plt_sym = '-'
 
-file_list = os.listdir(results_dir)
-pattern_method = r'12000-.*{0}-{1}-results.txt'.format(n_components, method)
-files_filtered = [f for f in file_list if re.match(pattern_method, f)]
-files_sorted = sorted(files_filtered, key=LooseVersion)
+# results_list = None
+results_list = '48000-2-0.2-800-h-results-list.txt'
+if results_list:
+    with open(results_list) as f:
+        files_sorted = [ l.rstrip() for l in f ]
+else:
+    file_list = os.listdir(results_dir)
+    pattern_method = r'12000-.*{0}-{1}-results.txt'.format(n_components, method)
+    files_filtered = [f for f in file_list if re.match(pattern_method, f)]
+    files_sorted = sorted(files_filtered, key=LooseVersion)
 
 pattern_k = r'[0-9]*-([0-9]*)-[0-9]*.*'
 pattern_silh = r'.* Silhouette Coefficient: (.*)'
