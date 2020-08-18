@@ -32,26 +32,23 @@ ref_sep = r'(\d+) /.*'
 ref_repl = '\\1'   # replacement for `ref_sep`
 ref_clean = r',*\/*\s+(\/*\s*)*'
 
+# used_fields = ['id', 'journal', 'issn', 'discipline', 'year', 'title', 'abstract', 'keyword_publisher', 'keyword',
+#                'reference']
+used_fields = ['id', 'journal', 'issn', 'discipline', 'year', 'title', 'abstract', 'keyword_publisher', 'keyword']
 
 # Read the parameters for a run.
-sample_size = int(sys.argv[1])
-used_fields = ['id', 'journal', 'issn', 'discipline', 'year', 'title', 'abstract', 'keyword_publisher', 'keyword',
-               'reference']
-# if len(sys.argv) > 2:
-#     used_fields = sys.argv[2].split(',')
-
-# filename = '../data/raw/SuomiRyväsData2000'
+if len(sys.argv) > 3:
+    sample_size = int(sys.argv[1])
+    input_file = sys.argv[2]
+    output_file = sys.argv[3]
+else:
+    exit(1)
 
 def get_data(batch_size):
-    if len(sys.argv) > 2:
-        filename = sys.argv[2]
-    else:
-        return False
-
     datasets = []
     current = {}
     k = 0
-    with open(filename) as f:
+    with open(input_file) as f:
         for line in f:
             m = re.match(opening_line, line)
             if m and 'id' in used_fields:
@@ -138,7 +135,7 @@ def get_data(batch_size):
 
 logging.info("Pre-processing data with fields: {0}".format(used_fields))
 data = get_data(batch_size=sample_size)
-with open('../data/interim/{0}-preprocessed.pickle'.format(str(sample_size)), 'wb') as handle:
+with open(output_file, 'wb') as handle:
     pickle.dump(data, handle)
-with open('../data/interim/preprocessed-preview.txt', 'w') as handle:
+with open(output_file + '.preview', 'w') as handle:
     handle.write(pprint.pformat(data[:5]))

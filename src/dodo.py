@@ -13,10 +13,10 @@ from pathlib import Path
 vect = 'tfidfvectorizer'
 # Define metadata fields used in clustering analysis
 analysis_fields = 'title,abstract,keyword'
-samples = [200, 400, 2000, 6000, 12000]
+samples = [200, 400, 6000, 12000, 48000]
 # 220 = roughly number of disciplines in 6000 first datasets
 # n_clusters = [4, 32, 64, 128, 220]
-cluster_range = list(range(500,20,-7)) + list(range(20,2,-2))
+cluster_range = list(range(500,20,-9)) + list(range(20,2,-3))
 # cluster_range = list(range(265,181,-7))
 # cluster_range.extend([150, 100, 30])
 # cluster_range = [30]
@@ -38,7 +38,7 @@ input_file = input_dir + input_filename
 interim_dir = '../data/interim/'
 #preprocess_view = '{size}-preprocessed.txt'
 # preproc_file_name = '{0}-preprocessed.pickle'.format(size)
-preproc_file_name = '{0}-preprocessed.pickle'.format(input_filename)
+preproc_file_name = '{0}-{1}-preproc.pickle'.format(input_filename, size)
 preproc_file = interim_dir + preproc_file_name
 vectorized_file_name = '{0}-{1}-{2}-{3}-vectorized.npz'.format(size, df_min, df_max, n_feat)
 vectorized_file = interim_dir + vectorized_file_name
@@ -69,12 +69,13 @@ def task_init():
 
 def task_preprocess_small():
     """Step 1: preprocess data"""
+    output_file = preproc_file
     return {
         #'name': 'size: {0}'.format(size),
         'file_dep': ['preprocess.py',
                      input_file],
         'targets': [preproc_file],
-        'actions': ['python preprocess.py {0} {1}'.format(size, input_file)],
+        'actions': ['python preprocess.py {0} {1} {2}'.format(size, input_file, output_file)],
     }
 
 
