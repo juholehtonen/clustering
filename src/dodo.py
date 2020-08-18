@@ -16,25 +16,29 @@ analysis_fields = 'title,abstract,keyword'
 samples = [200, 400, 2000, 6000, 12000]
 # 220 = roughly number of disciplines in 6000 first datasets
 # n_clusters = [4, 32, 64, 128, 220]
-# cluster_range = list(range(250,20,-7)) + list(range(20,2,-2))
-cluster_range = list(range(265,181,-7))
+cluster_range = list(range(500,20,-7)) + list(range(20,2,-2))
+# cluster_range = list(range(265,181,-7))
+# cluster_range.extend([150, 100, 30])
+# cluster_range = [30]
 # cluster_range = range(260, 250, -3)
 n_components = [800, 300, 200, 40]
-n_features = [10000]
+n_features = [10000, 50000]
 df_min = 2
-df_max = 0.1
+df_max = 0.2
 
 size = samples[4]
 # k = n_clusters[1]
 n_comp = n_components[0]
 n_comp_str = n_comp if n_comp < 600 else '-'
-n_feat = n_features[0]
+n_feat = n_features[1]
 
 input_dir = '../data/raw/'
-input_file = input_dir + 'SuomiRyväsData2000'
+input_filename = 'SuomiRyväsData2000-3'
+input_file = input_dir + input_filename
 interim_dir = '../data/interim/'
 #preprocess_view = '{size}-preprocessed.txt'
-preproc_file_name = '{0}-preprocessed.pickle'.format(size)
+# preproc_file_name = '{0}-preprocessed.pickle'.format(size)
+preproc_file_name = '{0}-preprocessed.pickle'.format(input_filename)
 preproc_file = interim_dir + preproc_file_name
 vectorized_file_name = '{0}-{1}-{2}-{3}-vectorized.npz'.format(size, df_min, df_max, n_feat)
 vectorized_file = interim_dir + vectorized_file_name
