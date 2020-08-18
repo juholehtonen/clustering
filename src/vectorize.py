@@ -122,7 +122,7 @@ if len(args) > 0:
     sys.exit(1)
 
 # Define log file name and start log
-results_filename = opts.out + '{0}-vectorize.log'.format(opts.size)
+results_filename = opts.out + '{0}-{1}-{2}-{3}-vectorize.log'.format(opts.size, opts.min_df, opts.max_df, opts.n_features)
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(message)s',
                     datefmt="%Y-%m-%d %H:%M",
@@ -161,20 +161,24 @@ vectrzr = make_pipeline(GeneralExtractor(fields=opts.fields.split(',')),
                         # FunctionTransformer(lambda x: x.todense(), accept_sparse=True)
                         )
 X = vectrzr.fit_transform(data)
-
-# Save vectorized data and the vectorizer for the next step
-vctd_filename = '{0}-{1}-{2}-{3}-vectorized.npz'.format(opts.size, opts.min_df, opts.max_df, opts.n_features)
-scipy.sparse.save_npz(opts.interim + vctd_filename, X)
-terms = vectorizer.get_feature_names()
-with open(opts.interim + '{0}-vectorizer_feature_names.pickle'.format(str(opts.size)), 'wb') as handle:
-    pickle.dump(terms, handle)
-
 logging.info('  Feature extraction steps: {0}'.format([s[0] for s in vectrzr.steps]))
 logging.info('  TfidfVectorizer, max_df: {0}, min_df: {1}, max_features: {2}, n_stopwords: {3}'
              .format(opts.max_df, opts.min_df, opts.n_features, len(stopwords_ext)))
 logging.info('  Vectorizer tokenizer: {0}'.format(vectorizer.tokenizer.__class__))
 logging.info('  Pre-tokenizer: {0}'.format(vectrzr.steps[1][0]))
 logging.info("  n_samples: %d, n_features: %d" % X.shape)
+
+
+# Save vectorized data and the vectorizer for the next step
+vctd_filename = '{0}-{1}-{2}-{3}-vectorized.npz'.format(opts.size, opts.min_df, opts.max_df, opts.n_features)
+terms_filename = '{0}-{1}-{2}-{3}-vectorizer_feature_names.pickle'.format(opts.size, opts.min_df, opts.max_df, opts.n_features)
+logging.info("   vectorized data file: {0}".format(vctd_filename))
+logging.info("   term file: {0}".format(terms_filename))
+scipy.sparse.save_npz(opts.interim + vctd_filename, X)
+terms = vectorizer.get_feature_names()
+with open(opts.interim + terms_filename, 'wb') as handle:
+    pickle.dump(terms, handle)
+
 logging.info("  Total discarded terms, cut by min_df and max_df: {0}".format(len(vectorizer.stop_words_) - len(stopwords_ext)))
 logging.info("  Stop words: {0}".format(stopwords_ext))
 logging.info("  Pruned words (incl. stop words):")

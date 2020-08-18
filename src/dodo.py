@@ -8,7 +8,7 @@ import nltk
 from pathlib import Path
 
 # labels = ['mds', 'baseline']
-labels = ['mds']
+# labels = ['mds']
 # vect = 'countvectorizer'
 vect = 'tfidfvectorizer'
 # Define metadata fields used in clustering analysis
@@ -121,8 +121,8 @@ def task_analyze_hierarchical():
 
     for n in cluster_range:
         options = '--size {0} --n-clusters {1} --lsa {2} --n-features {3}' \
-                  ' --fields {4} --source {5} --interim {6} --out {7}' \
-            .format(size, n, n_comp, n_feat, analysis_fields, preproc_file, interim_dir, results_dir)
+                  ' --fields {4} --source {5} --interim {6} --out {7} --min-df {8} --max-df {9}' \
+            .format(size, n, n_comp, n_feat, analysis_fields, preproc_file, interim_dir, results_dir, df_min, df_max)
         yield {
             'name': ' k: {0}'.format(n),
             'file_dep': ['analyse_hierarchical.py',

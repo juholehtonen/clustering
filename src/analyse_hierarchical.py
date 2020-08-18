@@ -58,6 +58,9 @@ op.add_option("--no-idf",
               help="Disable Inverse Document Frequency feature weighting.")
 op.add_option("--max-df", dest="max_df", type=float, default=0.1,
               help="TfidfVectorizer's max_df parameter")
+op.add_option("--min-df",
+              dest="min_df", type=int, default=2,
+              help="TfidfVectorizer's min_df parameter")
 op.add_option("--source",
               dest="source", type="string",
               help="Source file to process")
@@ -109,9 +112,12 @@ logging.info('#' * 18 + ' Starting clustering  ' + '#' *18)
 # Load data from the previous step
 logging.info("Loading vectorized data")
 t_total = time()
-min_df = 2
-X = scipy.sparse.load_npz(opts.interim + '{0}-{1}-{2}-{3}-vectorized.npz'.format(opts.size, min_df, opts.max_df, opts.n_features))
-with open(opts.interim + '{0}-vectorizer_feature_names.pickle'.format(opts.size), 'rb') as handle:
+vect_file = opts.interim + '{0}-{1}-{2}-{3}-vectorized.npz'.format(opts.size, opts.min_df, opts.max_df, opts.n_features)
+term_file = opts.interim + '{0}-{1}-{2}-{3}-vectorizer_feature_names.pickle'.format(opts.size, opts.min_df, opts.max_df, opts.n_features)
+logging.info("   vectorized data file: {0}".format(vect_file))
+logging.info("   term file: {0}".format(term_file))
+X = scipy.sparse.load_npz(vect_file)
+with open(term_file, 'rb') as handle:
     terms = pickle.load(handle)
 
 # #############################################################################
@@ -146,7 +152,7 @@ t0 = time()
 ward.fit(X)
 # Save the fitted clustering for later use
 model_file = opts.interim + '{0}-{1}-{2}-{3}-model_hierarchical.pickle'.format(
-    opts.size, opts.n_clusters, min_df, opts.max_df)
+    opts.size, opts.n_clusters, opts.min_df, opts.max_df)
 with open(model_file, 'wb') as handle:
     pickle.dump(ward, handle)
 logging.info("  Done in %0.3fs" % (time() - t0))
@@ -185,6 +191,9 @@ else:
     sorted_ctms = np.array(np.argsort(cluster_term_means))
 for i in range(opts.n_clusters):
     top_for_i = sorted_ctms[i, ::-1][:15]
+    # logging.info("   DEBUG: sorted_ctms: {0}".format(sorted_ctms[i, :-16:-1]))
+    # logging.info("   DEBUG: top_for_i: {0}".format(top_for_i))
+    # logging.info("   DEBUG: terms: {0}".format(len(terms)))
     term_str = ' '.join([terms[j] for j in top_for_i])
     logging.info("  Cluster {0}: {1}".format(i, term_str))
 logging.info("  Done in %fs" % (time() - t0))
