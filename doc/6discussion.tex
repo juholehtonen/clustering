@@ -1,74 +1,103 @@
 \chapter{Discussion}
 \label{chapter:discussion}
 
-The usefulness of my results lies in that they show how difficult
-the task at hand is and what aspects there are to consider when
+The usefulness of our results lies in that they show how difficult
+the task at hand is, and what aspects there are to consider when
 approaching the problem.
 % Alkuasetelma
 The problem of defining how the science should be classified into
-different fields of science is quite difficult and ambiguous.
+different disciplines is quite difficult and ambiguous.
 
 % Datasta
-Although the data was incomplete we chose to use it as such without 
+The data was incomplete but we chose to use it as such without 
 pruning the possible defective samples. This was due to the 
-amount of data, manually checking over 10000 samples wasn't an 
-option and general rules to filter the data didn't occur in the
-beginning of this work. Some minimum length for the publication 
-data could leave out clearly inadequate samples and improve the 
-clustering results. General outlier detection techniques 
-\cite{hodge_survey_2004} could prove 
+amount of data, manually checking over 20000 titles wasn't an 
+option and sufficient general rules to filter the data didn't 
+occur to us in the beginning of the work. Some minimum length for 
+the publication data could leave out clearly inadequate samples 
+and perhaps improve the clustering results. General outlier 
+detection techniques \cite{hodge_survey_2004} could prove 
 problematic here when there obviously will be single publications 
-in some expected disciplines. Even including more data there
-probably could be disciplines with very few publications.
+in some disciplines. There probably would be disciplines with very
+few publications, in spite of including more data.
+
+% Datan määrästä
+We tried to include a larger data set, covering years 2000-2003, 
+to cluster. This resulted $47303$ publications which was too much 
+for our laptop environment with 16 GB of RAM. Obviously more 
+capacity would have been available but taking over a new 
+environment wasn't possible within the limits of this work.
 
 % Piirreirroituksesta
-We tested some hand picked values of the feature extraction 
-parameters, minimum and maximum document frequency threshold for 
-terms. More systematic exploration of these and other 
-pre-processing related parameters could give robust results.
-Tokenization during preprocessing left one character tokens (words)
-in data which wasn't desired.
-- \fixme{``Suositus...'' ``Nämä parametriarvot...''}
+Tokenization during pre-processing left one and two character 
+words such as measurement units in data which wasn't desired. 
+Adjusting tokenization or extending the stop word list should 
+filter these out.
+During vectorisation we hit our limit of maximum number of terms 
+of $50000$. This might be undesirable because now our terms were
+from the most frequent end of the frequency range of minimum $2$ 
+occurences -- maximum in $10 \%$ of documents. This means that 
+rarer and thus more specific terms might have been discarded.
+We tested some hand picked values of minimum and maximum document 
+frequency threshold for terms but more systematic exploration of 
+these parameters could have given better set of features.
+%- \fixme{``Suositus...'' ``Nämä parametriarvot...''}
+Furthermore, the discarded terms contained quite many compounds 
+that were now joined with underscore '\_' to conserve the 
+constructs. It might be worth to try and split those to enable the 
+individual words to be counted.
 
 % Ulottuvuuksien vähentämisestä
-Selected number of reduced dimensions seemd to retain enough
-information while also allowing to run clustrings fast enough.
-The internal validation metrics might still have had trouble to 
-attain higher values with respect their scale with the fact that 
-$800$ dimensional data with just $455$ samples still probably is 
-too high dimensional \cite{aggarwal_surprising_2001}. 
-Reducing dimensionality more could have helped the internal 
-validation metrics to perform better, that is to find ... (vai 
-itse klusterointi olisi toiminut ``paremmin'' (vähemmällä informaatiolla tosin)?)
+Selected number of components in reducing dimensionality of the 
+data resulted quite low proprotion of explained variance (35 \%).
+%seemd to retain enough information while also allowing to run clustrings fast enough.
+On the other hand, the resulting $800$ component low-dimensional
+space is quite high dimensional too.
+With the manually annotated data set the explained variance was 
+100 \%. Yet the internal validation metrics gave insignificant 
+values. This probably shows that $800$ dimensional data with just 
+$455$ samples is still too high dimensional \cite{aggarwal_surprising_2001}. 
+Selecting and extracting features more carefully and then reducing
+dimensionality more could have helped.
 Transforming data somewhere to $[50-150]$ components could be more
 justified range \cite{dolnicar_review_2002}. 
 
 % Model selection
 The model selected, agglomerative Ward's clustering, is one of the
-basic clustering methods. It is known to work well with compact,
-even-sized clusters.
+basic clustering methods. We selected it because it produces 
+hierarchical cluster structure that is naturally expected of fiels
+and subfields od science. It is not too sensitive to noise.
 % while failing ...
+It is known to work well only with compact, even-sized clusters.
+This might be a problem with the current data where different 
+disciplines are expected to be varying in size.
+It can't cluster very large data sets because of the computational
+cost. We might have bumped to that in a smaller scale while trying 
+to cluster the four year data of ~47000 publications.
 
 % Choosing the number of clusters
+Choosing the number of clusters was a difficult part of this 
+problem. We tried two internal validation methods,
+Calinski-Harabasz criterion and silhouette values. Neither of them
+could reveal any meaningful clustering if any occured.
 Our manually annotated data set for choosing the number of clusters
-was propably too small ($455$) compared to number of components 
+was probably too small ($455$) compared to number of components 
 ($800$). Some more elaborated method could improve the results. 
 We also have to remember that Calinski-Harabasz index might suffer
 even from moderate noise \cite{liu_understanding_2010}.
 There are other internal clustering validation metrics that might 
 work better with this kind of data \cite{liu_understanding_2010}.
-- \fixme{Vaihtoehtojen kokeiluiden havainnot. Linkitys 
-kirjallisuuteen.}
+%- \fixme{Vaihtoehtojen kokeiluiden havainnot. Linkitys kirjallisuuteen.}
 
 % Itse klusteroinnista
-Using the actual hierarchical structure of resulting clustering 
-was unfortunately not utilized here. It could have helped in 
-deciding the number of clusters \cite{kimes_statistical_2017}.
-- Compared to current classification of articles into fields of 
-science based on WoS classification...
+We didn't utilize the hierarchical structure of agglomerative 
+clustering in this work. 
+% We tried but didn't have time and didn't manage to to find out 
+% how to extract and use the structure data.
+It could have helped in deciding the number of clusters \cite{kimes_statistical_2017}.
+% - Compared to current classification of articles into fields of 
+% science based on WoS classification...
 
-
-% Toteutuksen heikkoudet ja vahvuudet
 
 % Vertailu aiempaa suomalaiseen vastaavaan ``Suominen... et al.''
 We could have compared very roughly to existing classification by
@@ -79,10 +108,10 @@ categories.
 
 \section*{Conclusions}
 \label{sec:conclusions}
-In future work 2-grams or higher order n-grams could improve the 
-results.
-% Two to four pages might be a good limit. 
-
+We tried a basic clustering method too see if meaningful results
+could be obtained. Some sensible clusters might have been formed 
+but the overall result was unsatisfactory. There 
+% Toteutuksen heikkoudet ja vahvuudet
 
 \section*{Future work}
 \label{sec:future}
