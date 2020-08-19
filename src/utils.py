@@ -91,7 +91,7 @@ def identity_tokenizer(doc):
         doc = ''
     return doc
 
-def plot_silhouette(X, labels, n_clusters, method):
+def plot_silhouette(X, labels, n_clusters, method, highlight = []):
     if method == 'K-Means':
         try:
             X = X.todense()
@@ -99,10 +99,10 @@ def plot_silhouette(X, labels, n_clusters, method):
             return False
 
     fig, ax1 = plt.subplots()
-    fig.set_size_inches(16, 14)
+    fig.set_size_inches(26, 40)
 
     # Set the silhouette coefficient range
-    min_x = -0.15
+    min_x = -0.30
     ax1.set_xlim([min_x, 1])
     # Insert some blank space with (n_clusters+1)*10 to demarcate clusters
     ax1.set_ylim([0, len(X) + (n_clusters + 1) * 10])
@@ -121,13 +121,15 @@ def plot_silhouette(X, labels, n_clusters, method):
         # Aggregate the silhouette scores for samples belonging to
         # cluster i, and sort them
         ith_cluster_silhouette_values = sample_silhouette_values[labels == i]
-
         ith_cluster_silhouette_values.sort()
 
         size_cluster_i = ith_cluster_silhouette_values.shape[0]
         y_upper = y_lower + size_cluster_i
 
-        color = cm.nipy_spectral(float(i) / n_clusters)
+        if i in highlight:
+            color = cm.nipy_spectral(0.8)
+        else:
+            color = cm.nipy_spectral(float(i) / n_clusters)
         ax1.fill_betweenx(np.arange(y_lower, y_upper), 0, ith_cluster_silhouette_values, facecolor=color,
                           edgecolor=color, alpha=0.7)
 
@@ -141,20 +143,19 @@ def plot_silhouette(X, labels, n_clusters, method):
         # Compute the new y_lower for next plot
         y_lower = y_upper + 10  # 10 for the 0 samples
 
-    ax1.set_title("The silhouette plot")
-    ax1.set_xlabel("The silhouette coefficient values")
-    ax1.set_ylabel("Cluster label")
+    ax1.set_title("The silhouette plot", fontsize=36)
+    ax1.set_xlabel("Silhouette coefficient values", fontsize=30)
+    ax1.set_ylabel("Cluster label", labelpad=57, fontsize=28)
 
     # The vertical line for average silhouette score of all the values
     ax1.axvline(x=silhouette_avg, color="red", linestyle="--")
 
     ax1.set_yticks([])  # Clear the yaxis labels / ticks
     # xticks = np.linspace(min_x, 1, ((1 - min_x)/0.2) + 1 )
-    xticks = [-0.15, 0, 0.2, 0.4, 0.6, 0.8, 1]
+    xticks = [-0.2, 0, 0.2, 0.4, 0.6, 0.8, 1]
     ax1.set_xticks(xticks)
+    ax1.set_xticklabels(xticks, fontsize=20)
 
-    plt.suptitle(("Silhouette analysis for {0} clustering with n_clusters = {1}"
-                  .format(method, n_clusters)), fontsize=14, fontweight='bold')
-    n_comp = X.shape[1] if X.shape[1] < 600 else '-'
-    plt.savefig('../img/{0}-{1}-{2}-{3}-silhouette-plot.png'.format(len(labels), n_clusters, n_comp, method), bbox_inches='tight')
+    n_comp = X.shape[1]
+    plt.savefig('../img/{0}-{1}-{2}-{3}-silhouette.png'.format(len(labels), n_clusters, n_comp, method), bbox_inches='tight')
     #plt.show()

@@ -200,7 +200,7 @@ logging.info("  Done in %fs" % (time() - t0))
 plot_silh = False
 if plot_silh:
     t0 = time()
-    plot_silhouette(X, ward.labels_, opts.n_clusters, 'Hierarchical')
+    plot_silhouette(X, ward.labels_, opts.n_clusters, 'hierarchical', highlight=[9,19,31])
     logging.info("Silhouette plot in %fs" % (time() - t0))
 
 logging.info("Total running time: %fs" % (time() - t_total))
