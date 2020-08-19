@@ -25,7 +25,7 @@ $455$ publications from three different fields:
 \emph{Computer science: Information systems}, $134$ publications,
 \emph{Computer science: Artificial intelligence}, $127$ publications
 and \emph{Clinical neurology}, $194$ publications.
-The term frequency cut-off values $min_df=2$ (number of occurences) 
+The term frequency cut-off values $min_df=2$ (number of occurrences) 
 and $max_df=0.5$ (portion of documents with the term) resulted
 in $4455$ ignored terms and left the feature space of $3177$ terms. 
 Terms that were filtered out as too frequent or too rare were for 
@@ -50,7 +50,7 @@ validation results for these clusterings.
 \begin{figure}[ht]
   \begin{center}    
 \includegraphics[width=11.5cm]{images/c-h-silh-index-plot-455-2_12-800-hierarchical.png}
-    \caption{Calinski-Harabasz index and average silhoutte values for the
+    \caption{Calinski-Harabasz index and average silhouette values for the
     manually annotated set of 455 publications clustered with 
     hierarchical clustering, LSA with 800 components. The higher 
     value means more compact and better clustering in both 
@@ -116,7 +116,7 @@ didn't find the clusters we expected. This is also visible in
 adjusted Rand index values for the number of clusters $k=[3,6]$ almost 
 equals (Figure \ref{fig:ari01}). For three clusters, part of the 
 samples are incorrectly clustered, when compared against manual
-labeling, and for clusterings with four to six clusters, the 
+labelling, and for clusterings with four to six clusters, the 
 situation is obviously the same.
 
 \input{tables/5_table_topterms_bl.tex}
@@ -132,7 +132,7 @@ improve the clustering.
 \begin{figure}[htp]
   \begin{center}    
 \includegraphics[width=11.5cm]{images/c-h-silh-index-plot-455-2_12-800-kmeans.png}
-    \caption{Calinski-Harabasz index and average silhoutte values for the
+    \caption{Calinski-Harabasz index and average silhouette values for the
     manually annotated set of 455 publications clustered with 
     \emph{K-means clustering}, LSA with 800 components. The higher
     value means more compact and better clustering in both graphs.}
@@ -174,131 +174,147 @@ more data improves the clustering results.
 
 
 %5.2 Finnish publications
-\section{Finnish publications from year 2000}
-The analysis for one year's data followed the same steps as for 
+\section{Finnish publications from years 2000-2001}
+The analysis of 2000-2001 data followed the same steps as for 
 the manually annotated data except we couldn't calculate adjusted
 Rand index because of the lacking ground truth.
 % Vectorising
-Vectorising the year 2000 data, $10456$ publications, with term 
+Vectorising the two years of data, $21155$ publications, with term 
 frequency cut-off values $min_df=2$
-(number of occurences) and $max_df=0.1$ (portion of documents with
-the term) and maximum number of terms $10000$ resulted $68541$ 
-ignored terms and left the feature space of $10000$ most frequent 
-terms below the $max_df=0.1$ threshold. 
+(number of occurrences) and $max_df=0.1$ (portion of documents with
+the term) and maximum number of terms $50000$ resulted $101333$ 
+ignored terms and a feature space of $50000$ most frequent terms 
+just below the $max_df=0.1$ threshold. 
 % $\{2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 26, 33, 40, 47, 54, 61, 
 % 68, 75, 82, 89, 96, 103, 110, 117, 124, 131, 138, 145, 152, 159,
 % 166, 173, 180, 187, 194, 201, 208, 215, 222, 229, 236, 243, 250,
 % 251, 254, 257, 260\}$
-This feature space was then reduced with LSA to $800$ components 
-which resulted $47 \%$ of the explained variance of the data to be
-retained.
+This feature space was then reduced with LSA to $800$ component 
+reduced space. In this dimensionality reduction 35 \% of the 
+explained variance of the $50000$ term feature space data was retained.
 The data was then clustered using Ward's method with selected 
-values of number of clusters in a range $k=[2,260]$ to find the 
-optimal value for $k$.
+values of number of clusters in the range of $k=[4,500]$ to find 
+the optimal value for $k$.
 The Calinski-Harabasz and average silhouette values for this range
 are shown in Figure \ref{fig:ch-silh-2000-h}.
 \begin{figure}[htp]
   \begin{center}    
-\includegraphics[width=10cm]{images/c-h-silh-index-plot-y2000-2_260-800-hierarchical.png}
-    \caption{Hierarchical clustering. Calinski-Harabasz index and 
-    average silhoutte values for the Finnish publications from year 2000 
-    clustered with hierarchical clustering, LSA with 800 components. 
-    The higher value mean more compact and better clustering in both graphs.}
+\includegraphics[width=10cm]{images/c-h-silh-index-plot-48000-4_500-800-hierarchical.png}
+    \caption{Calinski-Harabasz index and average silhouette values 
+    for Ward's clusterings the 2000-2001 Finnish publications data
+    with number of clusters $4-500$. The higher value mean more 
+    compact and better clustering in both graphs.}
     \label{fig:ch-silh-2000-h}
   \end{center}
 \end{figure}
-We notice that the graphs are similar to the those of manually
-annotated data. Again Calinski-Harabasz index suggests that 
-optimal clustering is reached with just two clusters while 
-silhouette values tells us that clusterings improve with increasing
-number of clusters. Because these cluster validation measures are
-in conflict we choose a compromise for the number of clusters: $188$.
-We choose this as an educated guess of the order of magnitude for
+We can see that the index values follow the same pattern as with 
+the manually annotated data. Again Calinski-Harabasz index 
+suggests that optimal clustering is reached with very few clusters
+while silhouette values tells us that clusterings improve with 
+increasing number of clusters. Because these cluster validation 
+measures are in conflict we chose a compromise value for the 
+number of clusters, $188$, for further inspection. We chose this 
+as a haphazard sample in the order of magnitude of current amount 
+of WoS subject categories 
+($254$)\footnote{https://clarivate.com/webofsciencegroup/solutions/web-of-science-core-collection/}.
+We wanted to validate by looking into clusters whether there would
+be some meaningful clustering.
+%or not, as suggested by the validation metrics.
+
+% Silhouette plot
+We first plotted the silhouette of this clustering in Figure 
+\ref{fig:silh01}.
+\begin{figure}[htp]
+  \begin{center}    
+\includegraphics[width=13cm]{images/6000-64-400-Hierarchical-silhouette-plot.png}
+    \caption{Silhouette values of 188 clusters. Repeating shapes
+    are clusters consisting of stacked thin horizontal lines of 
+    silhouette values of individual items. Colour indicates the 
+    cluster.
+%     A line more into positive axis direction indicates an item
+%     better clustered. Value near zero means an item could almost
+%     equally well be clustered in its nearest neighboring cluster.
+%     Negative value means likely misclustered item.
+%     Each thin horizontal line corresponds to a silhouette value of
+%     an item. Lines are stacked to adjacent rows separated by gap 
+%     corresponds to a cluster.
+    Dashed line is the average over whole clustering.}
+    \label{fig:silh01}
+  \end{center}
+\end{figure}
+Colour indicates the cluster. Each cluster consists of stacked and 
+infinitesimally thin horizontal lines. Each line corresponds a
+silhouette value of a publication in its cluster. 
+From the plot we see that some of the clusters are limited in size
+and well clustered indicated by thinner horizontal silhouettes
+extending further to the positive axis direction. There are also 
+few very big clusters
+of items poorly clustered among their neighbouring items indicated 
+by broader silhouettes extending to the negative axis direction. Many clusters
+have both components, resulting a bow tie resembling silhouette. 
+Short lines as part of a silhouette indicate items that could 
+almost equally well be clustered in their nearest neighbouring cluster.
+As a result the average silhouette value of this clustering 
+($value here$, dashed line in the plot) is 
+very low low in absolute terms considering it's index space [-1,1].
+% We can see that the clusters 9, 19 and 31 have the shapes...
 
 
-The top terms of ten random clusters sampled from $188$ are listed
-in Table \ref{table:topterms-188-h-short}.
+% Top terms inspection
+By inspecting the top 15 terms of three random clusters sampled 
+from $188$ in Table \ref{table:topterms-188-h-short},
 \begin{table}[htp]
   \begin{center}
     \input{tables/5_table_topterms_188_h_short.tex}
-    \caption{Top terms for ten random clusters from total 188}
+    \caption{Top terms for three random clusters from total 188}
     \label{table:topterms-188-h-short}    
  \end{center}
 \end{table}
-We note that at least these ten clusters seem resonable concluded
-from the top terms. The Table \ref{table:articles-188-h-mini} 
-shows five random publication titles and their WoS subject 
-categories for three first clusters of Table \ref{table:topterms-188-h-short}. 
-See Appendix \ref{chapter:appendix-articles} for sample titles for
-all ten example clusters.
+we note that at least these three clusters seem reasonable. The 
+cluster 9 contains terms perhaps from some production technology
+area, the cluster 19 seems to contain computer science related
+terms and the cluster 31 medical research related terms.
+% Publication title & WoS category inspection
+To get little more concrete understanding of these clusters, we 
+listed five random publication titles and their WoS subject 
+categories in the Table \ref{table:articles-188-h-mini}. (See 
+Appendices \ref{chapter:second-appendix} and 
+\ref{chapter:appendix-articles} for top term and publication 
+title lists for ten sample clusters respectively.)
 \newpage
 \input{tables/5_table_articles_188_h_short.tex}
-
-
-The Figure \ref{fig:ch-silh-full-h} shows the results.
-\begin{figure}[ht]
-  \begin{center}    
-\includegraphics[width=10cm]{images/c-h-silh-index-plot-y2000-2_260-800-kmeans.png}
-  \caption{Calinski-Harabasz index and average silhoutte values of $10145$
-  items clustered with K-means clustering, LSA with 800 components. 
-  The higher value mean more compact and better clustering in both graphs.}
-    \label{fig:ch-silh-full-h}
-  \end{center}
-\end{figure}
-
-We can see from the values that they prefer different features in
-the data. Calinski-Harabasz index sees the fewest number of 
-clusters - two - as the most compact and optimal clustering. 
-% Also the form of the curve hints to perhaps power law that is also 
-% known as Zipf's law in text analysis. \fixme{Check this.}
-It should be noticed that the silhouette values are quite low 
-in absolute terms considering it's index space [-1,1]. This might 
-be in line with the fact that it's best suited for [normally?] 
-distributed and compact clusters. But we can also see that the 
-silhouette values grow with the number of clusters although no
-maximum seems to be reached with these cluster values.
-
-
-% \input{tables/5_table_topterms.tex}
-
-% \input{tables/5_table_topterms_30_h.tex}
+% Pari sanaa julkaisuotsikoista ja WoS-luokituksista
+We can now compare our first impression of these three clusters, 
+given by top terms, to full publication titles and WoS subject 
+categories inherited from the journal in which a publication was
+published. The cluster 9 turns out to be a mixed cluster of quite
+diverse publications including political science, psychology, 
+ecology and forestry. The cluster 19 contains computer science 
+related publications but also a publication related to music that 
+could be an outlier. The sample publications of cluster 31 are all
+related to medical sciences. 
+% We can see that the clusters 9, 19 and 31 have the shapes... in
+% silhouette plot on Figure...
+We see even from this narrow glimpse
+that the clustering wasn't satisfactory.
+% Kuvaile (kuten YL huomautti) jossain aiemmin tavoite paremmin,
+% eli miksi tämä klusterointi ei ole tyydyttävä
+While the cluster 31 might be consistent, which we can't know 
+unless we go through it thoroughly, the cluster 9 already shows
+that clustering like this can't substitute currently used 
+classifications.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% TODO: Kirjoita nämä oikeaan kohtaan tai poista
-% Silhoutte values for 6000 publications clustered with 
-% agglomerative clustering with Ward's method, number of clusters 
-% 64, are seen in Figure~\ref{fig:silh01}.
+% A comparison to K-means clustering in the Figure 
+% \ref{fig:ch-silh-full-h}...
+%
 % \begin{figure}[ht]
 %   \begin{center}    
-% \includegraphics[width=13cm]{images/6000-64-400-Hierarchical-silhouette-plot.png}
-%     \caption{Silhoutte values of 6000 items clustered with 
-%     agglomerative clustering with Wrad's method, 64 clusters, 
-%     LSA with 400 components. Each pixel row corresponds to a 
-%     Silhouette value of an item, adjacent rows separated by gap 
-%     corresponds to a cluster.
-%     Dashed line is the average.}
-%     \label{fig:silh01}
+% \includegraphics[width=10cm]{images/c-h-silh-index-plot-y2000-2_260-800-kmeans.png}
+%   \caption{Calinski-Harabasz index and average silhoutte values of $10145$
+%   items clustered with K-means clustering, LSA with 800 components. 
+%   The higher value mean more compact and better clustering in both graphs.}
+%     \label{fig:ch-silh-full-h}
 %   \end{center}
 % \end{figure}
