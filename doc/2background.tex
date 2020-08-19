@@ -60,7 +60,7 @@ of this discipline?'' and so on.
 % Mika bibliometriikan historia on?
 % OK --->-v
 Classifying things is often the first thing we do when we observe 
-the world. On the other hand, counting the frequenzies of objects
+the world. On the other hand, counting the frequencies of objects
 and comparing these numbers often helps to put things in 
 perspective.
 % Tahan voisi laittaa sidontaa todennakoisyyslaskennalla tjsp.
@@ -75,7 +75,7 @@ scholars from time to time, and to compare the advancement and
 devolution stages of the research with different societal 
 events \cite{bellis_bibliometrics_2009}.
 As the number of scientific publications has enormously increased
-the need to automatically analyze them has become apparent.
+the need to automatically analyse them has become apparent.
 The basic analysis on top of which more detailed studies can be 
 built on is classifying each publication to research areas and
 disciplines.
@@ -114,7 +114,7 @@ Also an independent journal level classification system has been
 developed \cite{archambault_towards_2011}.
 Journal level classification systems have known limitations.
 They are, for example, unable to meaningfully classify
-publications published in multidiscipline journals.
+publications published in multi-discipline journals.
 Also some discipline specific classification systems exists such 
 as Association for Computing Machinery's Computing Classification 
 System for computer science discipline \cite{noauthor_2012_2020}, 
@@ -154,7 +154,7 @@ abstract or the whole text content of the publication itself and
 classify the publications or journals by the topic model created 
 \cite{blei_latent_2003}.
 Hybrid models combine both approaches. Authors and their
-affilations are not used in this work because we cannot uniquely
+affiliations are not used in this work because we cannot uniquely
 identify them and we can't assume their field of science that is
 our interest here.
 
@@ -203,14 +203,14 @@ scientific disciplines to be used in bibliometric analyses.
 %Efforts to cluster Finnish research include a study by...
 
 Suominen and Toivanen \cite{suominen_map_2016} used unsupervised learning-based topic 
-modeling to create a map of science for Finnish publications from 
+modelling to create a map of science for Finnish publications from 
 1995-2011. They evaluated it by comparing the results with WoS 
 based classification and concluded that superiority of the method
 depends on the purpose of the analysis. Traditional manually created 
 classifications are relevant for information retrieval while 
 machine learning methods can reveal new emerging areas of science.
 Compared to our work here, their 
-analysis method topic modeling differs from hierarchical 
+analysis method topic modelling differs from hierarchical 
 clustering albeit both are unsupervised learning methods.
 \fixme{We will return to compare our results to those of Suominen and 
 Toivanen in Discussion chapter.}
@@ -219,15 +219,15 @@ Our research question here is: \emph{"How to automatically cluster
 Finnish scientific publications and how does that clustering 
 compare to existing fields of science classification by WoS?"} We 
 will use hierarchical clustering on features derived from titles,
-abstracts and keywords in publication metadata.
+abstracts and keywords in publication meta data.
 
 
 \section{Clustering}
 The methods discussed in this work belong to the field of machine 
-learnig. The field has it's roots in statistics and engineering 
+learning. The field has it's roots in statistics and engineering 
 and is itself part of artificial intelligence, a sub-field of 
 computer science.
-The methods in machine learnig can be divided to \emph{supervised}, 
+The methods in machine learning can be divided to \emph{supervised}, 
 \emph{unsupervised} and \emph{reinforced learning}
 \cite{alpaydin2004introduction}.
 
@@ -253,11 +253,11 @@ taught with example of characters along with their correct labels.
 For unsupervised learning the correct answer or the label $Y$ is not known. 
 Instead a model is applied such that it finds regularities in the
 input data $X$. Example of unsupervised learning problem is 
-finding anomalities that don't fit in the group, such as analysing
+finding anomalies that don't fit in the group, such as analysing
 log files of a computer system to find a possible intruder.
 
 Unsupervised learning methods include clustering, dimensionality
-reduction and topic modeling for instance. By clustering we try to 
+reduction and topic modelling for instance. By clustering we try to 
 distinguish patterns in the data and discriminate unrelated 
 objects into separate clusters and aggregate related objects into
 same cluster.
@@ -266,7 +266,7 @@ In reinforced learning we want the system to learn a sequence of
 actions leading to desired outcome. For example we may want the 
 system to learn to win a game. In that case individual actions
 are not important but the end result as there are many ways to win
-a game. So the system repaeatedly tries different combinations of
+a game. So the system repeatedly tries different combinations of
 actions while it receives the result of it's combined actions.
 
 

@@ -8,10 +8,10 @@ length symbolic data (text) into numerical vector representation,
 reducing the dimensionality of the data, selecting the model used 
 to learn from the data and finally the selected clustering method.
 
-\section{Publication metadata}
+\section{Publication meta data}
 \label{section:metadata}
 The data consists of $10456$ records of Clarivate's Web of Science 
-publication metadata from year 2000. Each record describes some 
+publication meta data from year 2000. Each record describes some 
 basic information about an article published in a scientific 
 journal. The data contains only publications with at least one
 author with an affiliation to a Finnish research organisation as
@@ -42,12 +42,12 @@ An example of a shortened record:
  /  1978
  \end{verbatim}
  
-Each metadata record contains a single instance of the title 
+Each meta data record contains a single instance of the title 
 (``\texttt{Lehti}''), ISSN (International Standard Serial Number), 
 the field of science (``\texttt{Ala}'') and publication year 
 (``\texttt{Ilmestymisvuosi}'') of the journal, the title 
 (``\texttt{Otsikko}'') and the abstract (``\texttt{Abstrakti}'') 
-of the article. Additionally each metadata record can contain
+of the article. Additionally each meta data record can contain
 multiple instances of keywords inferred by the publisher programmatically
 (``\texttt{Avainsana (KeywordPlus)}''), keywords produced by the 
 authors themselves (``\texttt{Avainsana (tekijät)}'') and the 
@@ -72,13 +72,13 @@ our case, is one row in the matrix. Each data sample consists of
 of the sample. So it follows that the rows of the matrix are 
 feature vectors of the data samples and the columns are the 
 individual features. Feature extraction is the process used to 
-transform text documents into feature vectors (ie. data samples).
+transform text documents into feature vectors (i.e. data samples).
 The number columns in the data matrix corresponds to the order of 
 the feature space of the task.
 
-\subsection{Analyzing textual data}
+\subsection{Analysing textual data}
 The descriptions are natural English language appended with the 
-citation references. When analyzing 
+citation references. When analysing 
 this kind of textual data the often used methods involve some 
 kind of counting. We count, for example, to find the most used 
 words in a document, which words appear together and so on.
@@ -98,22 +98,22 @@ presented by Luhn \cite{luhn_key_1960}
 
 \subsection{Lemmatisation}
 After removing stop words the next step is to unify the 
-different written forms a term. We might have eg. ``visual'' 
+different written forms a term. We might have e.g. ``visual''
 and ``visually'' or ``dog'' and ``dogs'' and we want them as 
 ``visual'' and ``dog'' only. This is desirable to reduce the 
-redundant repetion of the data and also to reduce the dimensionality of 
+redundant repetition of the data and also to reduce the dimensionality of 
 the feature space. \cite{siemens_lemmatization_1996} 
 \cite{hann_towards_1975}
 There are two possible options to achieve this. 
 
 \emph{Lemmatisation} means replacing each inflectional form of a 
-word with its nominative (ie. dictionary) form, or lemma. 
-The problem is the ambigousness of many natural words. To 
+word with its nominative (i.e. dictionary) form, or lemma. 
+The problem is the ambiguousness of many natural words. To 
 achieve lemmatisation, many tactics from simple dictionary look-ups to 
 rule-based systems, to sophisticated algorithms to infer the role 
 of the word in the sentence as well as using the larger context are
 employed. The stop words should be in their nominative form so they 
-should be removed after lemmatization.
+should be removed after lemmatisation.
 % The same lemmatizing should also be done to the stop words before they are 
 % removed.
 
@@ -122,13 +122,13 @@ that only the stem of the word is retained. No context is used
 and only the word itself is inspected. It is much simpler procedure
 compared to lemmatisation.
 
-Lemmatization results in better precision, or true negative rate 
+Lemmatisation results in better precision, or true negative rate 
 but poorer recall true positive rate compared to stemming. 
 \cite{manning_introduction_2008}
 
 
 \subsection{Vectorisation}
-After lemmatising the terms we count the occurences of each term 
+After lemmatising the terms we count the occurrences of each term 
 in each document. This is called \emph{the bag of words} 
 representation of the textual data because for each word in the 
 corpus, we only count it ignoring all its positional information 
@@ -137,11 +137,11 @@ a vector of its term frequencies. This vector is called \emph{the
 feature vector} of the document. 
 % This is called vectorising.
 % When vectorising whole data set
-The resulting term occurence 
+The resulting term occurrence 
 frequencies are normalized to decrease the importance of the 
 tokens that occur in the majority of documents. Usually these are 
 common terms not specific to the topic of the document. 
-These normalized occurence frequencies are called term 
+These normalized occurrence frequencies are called term 
 frequency inverse document frequencies, TF-IDF, and 
 they form the features of a document. The size of the feature 
 space is determined by the number of counted unique terms in all 
@@ -158,7 +158,7 @@ $df(t)$ the number of documents containing term $t$
 \cite{luhn_statistical_1957} \cite{jones_statistical_1972}.
 
 Here the size of the feature space is in the order of the the 
-size of the English language corpus ie. in tens of thousands. The 
+size of the English language corpus i.e. in tens of thousands. The 
 document feature matrix is very sparse, a single document only 
 having handful of terms of the whole corpus.
 % 29.4.2020 Vain prosenttiosuus tiheydestä.  Ei ehdi nyt.
@@ -198,7 +198,7 @@ $U$ is unitary matrix, $\Sigma$ is the diagonal matrix of singular
 values $\sigma_i$ and $V$ consists of orthonormal set of singular 
 vectors of $M$.
 
-SVD transforms data lineary into ``a new feature space'' in which the 
+SVD transforms data linearly into ``a new feature space'' in which the 
 features are not correlated. In the decomposition the new features are 
 ordered in decreasing order of variance so the least significant 
 ones can be omitted. 
@@ -218,7 +218,7 @@ hyperparameters of selected algorithm.
 
 Here we will use unsupervised learning to shape the mapping of 
 scientific disciplines because we want to learn the possible 
-intristic structure of sciencetific knowledge.  
+intrinsic structure of scientific knowledge.  
 There are many different clustering algorithms from which to 
 choose. Some often used common algorithms are k-means, hierarchical
 clustering, density based scan clustering and Gaussian clustering.
@@ -239,7 +239,7 @@ $k$ clusters regardless if they are meaningful or not. To make a
 decision about the number of clusters we can 1) inspect the data in 
 two dimensions using some dimensionality reduction method such as 
 PCA and then plot it, 2) set limits for the inter-cluster 
-distances at each step of merging clusters ie. if finding the 
+distances at each step of merging clusters i.e. if finding the 
 largest gap between the dendrogram levels or 3) measuring the 
 overall compactness of clusters and their separation from each 
 other over the number of clusters $k$ with suitable evaluation
@@ -286,7 +286,7 @@ give uninformative view of the data. We will use the third method.
 
 
 \subsubsection{Internal validation of clustering results}
-Liu et al. have reviewed 11 commmonly used internal clustering 
+Liu et al. have reviewed 11 commonly used internal clustering 
 validation indices \cite{liu_understanding_2010}. These are used 
 to decide the correct number of clusters. We will use two 
 of those; Calinski-Harabasz criterion \cite{calinski_dendrite_1974} 
@@ -338,11 +338,11 @@ all observations $y$ in the next closest cluster $C_j$:
 In equations above $k$ is the number of clusters, $n_i$ is the 
 number of observations in cluster $i$, $x$ is the observation, 
 $C_i$ is the $i$th cluster and $d(x,y)$ is some dissimilarity 
-measure on ratio scale (eg. Euclidean distance) between the two 
+measure on ratio scale (e.g. Euclidean distance) between the two 
 vectors. Silhouette values are bounded to range $[-1,1]$. Values
 close to $1$ mean that the observation $x$ is very well clustered 
 in its cluster, value $0$ means that the observation could as well
-be clustered in the nearest neighbor cluster and values close to 
+be clustered in the nearest neighbour cluster and values close to 
 $-1$ mean that the observation is almost certainly in the wrong 
 cluster.
 
@@ -358,7 +358,7 @@ for each clustering.
 % Gold standard set. Actually a gold standard set would be a set
 % of all data sets with abstract excluding sets that don't have it.
 % Tavoite
-To support the choise of internal validation method for choosing
+To support the choice of internal validation method for choosing
 the number of clusters, we will use the external validation 
 with a manually annotated data set. 
 % as a measure of best internal validation method.
@@ -374,7 +374,7 @@ discipline. We will experiment which of the internal validation
 methods, Silhouette value or Calinski-Harabasz criterion, will
 indicate more clearly the known, correct number of clusters.
 
-\subsubsection{Adujsted Rand index}
+\subsubsection{Adjusted Rand index}
 Adjusted Rand index measures the similarity of the clustering result
 with our defined ground truth clustering. We will compare the 
 internal validation result over the clusterings with different number 
@@ -405,7 +405,7 @@ total number of items in that class.
 \end{equation}
 
 Precision is the number of items correctly classified divided by 
-the total number of items classified into that class (ie. true and 
+the total number of items classified into that class (i.e. true and 
 false positives).
 \begin{equation}
  Precision = \frac{|\{relevant\ items\} \cap \{retrieved\ 
@@ -419,7 +419,7 @@ items\}|}
 In this work we use agglomerative hierarchical clustering with 
 Ward's distance metric \cite{ward_jr_hierarchical_1963}. This 
 method was chosen because it was familiar to us, the data naturally 
-has hierarchical structure of fields and subfields of science that 
+has hierarchical structure of fields and sub fields of science that 
 goes from general disciplines to more and more specialized research
 topics and is known to perform well enough in simple settings. 
 % \fixme{Miksi, perustelut?} 

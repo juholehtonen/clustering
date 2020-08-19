@@ -36,7 +36,7 @@ filter these out.
 During vectorisation we hit our limit of maximum number of terms 
 of $50000$. This might be undesirable because now our terms were
 from the most frequent end of the frequency range of minimum $2$ 
-occurences -- maximum in $10 \%$ of documents. This means that 
+occurrences -- maximum in $10 \%$ of documents. This means that 
 rarer and thus more specific terms might have been discarded.
 We tested some hand picked values of minimum and maximum document 
 frequency threshold for terms but more systematic exploration of 
@@ -49,7 +49,7 @@ individual words to be counted.
 
 % Ulottuvuuksien vähentämisestä
 Selected number of components in reducing dimensionality of the 
-data resulted quite low proprotion of explained variance (35 \%).
+data resulted quite low proportion of explained variance (35 \%).
 %seemd to retain enough information while also allowing to run clustrings fast enough.
 On the other hand, the resulting $800$ component low-dimensional
 space is quite high dimensional too.
@@ -65,8 +65,8 @@ justified range \cite{dolnicar_review_2002}.
 % Model selection
 The model selected, agglomerative Ward's clustering, is one of the
 basic clustering methods. We selected it because it produces 
-hierarchical cluster structure that is naturally expected of fiels
-and subfields od science. It is not too sensitive to noise.
+hierarchical cluster structure that is naturally expected of fields
+and sub fields of science. It is not too sensitive to noise.
 % while failing ...
 It is known to work well only with compact, even-sized clusters.
 This might be a problem with the current data where different 
@@ -79,7 +79,7 @@ to cluster the four year data of ~47000 publications.
 Choosing the number of clusters was a difficult part of this 
 problem. We tried two internal validation methods,
 Calinski-Harabasz criterion and silhouette values. Neither of them
-could reveal any meaningful clustering if any occured.
+could reveal any meaningful clustering if any occurred.
 Our manually annotated data set for choosing the number of clusters
 was probably too small ($455$) compared to number of components 
 ($800$). Some more elaborated method could improve the results. 
