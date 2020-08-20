@@ -96,17 +96,23 @@ to avoid the computational cost.
 % 29.4. 2-grammit 'future work' -osioon
 
 \section{Lemmatising}
-After tokenizing the words we lemmatised them against WordNet 
-lemmatiser \cite{noauthor_princeton_2010}.
+After tokenizing the words we lemmatised them with 
+NLTK's\footnote{https://www.nltk.org/, a Python package for natural language processing}
+WordNet lemmatiser. The lemmatiser uses WordNet lexical database 
+developed and maintained by Princeton University 
+\cite{noauthor_princeton_2010}. It is a large general purpose 
+English\footnote{Other languages are supported as well.} language 
+database with over $155000$ words and over $175000$ synonym 
+groups.
 % After parsing data is written to interim files.
 We choose to remove all plain numbers from
 data. Another option is to replace numbers with dummy '\#NUMBER'.
 That could help separate natural sciences from humanities. Because 
-we didn't have proper knowledge on the issue removal was chosen. 
+we did not have proper knowledge on the issue, removal was chosen. 
 We assumed that to be a more neutral way to treat them. 
 % \fixme{How? Explain...}
-If the lemmatiser didn't found the word in WordNet Lemmatiser 
-database the word is returned unchanged. 
+If the lemmatiser did not find the word in WordNet Lemmatiser 
+database, the word was returned unchanged. 
 % \fixme{Huomioita lemmatisoinnin tuloksesta}
 
 \section{Removing stop words}
@@ -142,10 +148,11 @@ occurring in more than 10 \% of the documents are also ignored.
 
 
 \section{Clustering}
+\label{sec:4clustering}
 When clustering with Ward's hierarchical clustering the 
 interesting parameter values are the number of the clusters, 
-the distance measure, the cluster connectivity measure, the 
-number of the components i.e. the amount of dimensionality 
+the distance measure, the cluster connectivity measure and the 
+number of the components or the amount of dimensionality 
 reduction. 
 
 To decide the number of clusters we experimented with the manually 
@@ -167,9 +174,9 @@ totalling $519$ publications in our data.
 Publications were inspected by title, abstract, keywords, journal
 and publisher assigned disciplines of the journal. Publications
 with critically missing data, unclear discipline assignment and
-heavily applied publications (e.g. a publication describing the 
-development of a virtual community and a community game platform)
-were excluded from validation set. 
+more like very application specific topics (e.g. a publication 
+describing the development of a virtual community and a community
+game platform) were excluded from validation set. 
 % Luokittelun varmistus käsin
 We then checked with layman's reasoning if the WoS labelled 
 discipline seemed plausible. Because of the journal based 
@@ -179,7 +186,7 @@ retained because we wanted to test if and how well our clustering
 method would cluster the samples compared to these three 
 groups. We asked an another opinion for 37 the most ambiguous 
 publications that could have been in more than one of our 
-categories. The second opinion was given academically educated 
+categories. The second opinion was given by an academically educated 
 person who was not an expert of all the fields in the data. 
 Decision for these was made on consensus or by draw if needed.
 For manually curated
@@ -217,7 +224,7 @@ It would have publications such as
 telecommunications and datacommunications service platforms'',
 ``Developing a distributed meeting service to support mobile 
 meeting participants'',
-``On voice quality of IP voice over GPRS'',
+``On voice quality of IP voice over GPRS''.
 Decision to assign publications to one discipline only was based 
 on using hard clustering, instead of probabilistic clustering. 
 % \fixme{Selvennä yläluokka-alaluokka-jako: CS general vs. CS 
