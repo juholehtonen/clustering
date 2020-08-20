@@ -48,7 +48,7 @@ Bibliometrics seeks to answer questions like ``How many
 publications has an author authored?'', ``How many citations an 
 author has'', ``What are the 
 cited publications of a scientific document?''. It also studies
-a bit more boarder questions like ``How many publications there 
+a bit more broader questions like ``How many publications there 
 has been published on a discipline X a year?'', ``Which research area
 does this publication belong to?'', ``What other publications 
 belong to this research area?'', ``When has this research area
@@ -95,7 +95,8 @@ disciplines.
 % \fixme{Onko Scopus tässä relevantti jos ei Scopus-dataa?}
 Currently, the most popular systems to classify the publications 
 into research areas are Clarivate's (formerly Thomson Reuters)
-Web of Science and Elsevier's Scopus classification
+Web of Science\footnote{https://clarivate.com/webofsciencegroup/solutions/web-of-science/} 
+and Elsevier's Scopus\footnote{https://www.scopus.com/} classification
 systems. These classification systems classify journals into
 one or more research areas \cite{waltman_new_2012}. Publications
 are then classified to research areas based on in which journal they
@@ -110,6 +111,7 @@ Wang and Waltman \cite{wang_large-scale_2016}, ``there seems to be no
 information at all on the construction of its classification 
 system''. We will use the data from WoS database in this work.
 
+% Journal level classification
 Also an independent journal level classification system has been 
 developed \cite{archambault_towards_2011}.
 Journal level classification systems have known limitations.
@@ -122,11 +124,12 @@ the U.S. National Library
 of Medicine Classification \cite{noauthor_national_2020} for medical 
 resources and American Physical Society's Physics Subject Headings
 \cite{noauthor_american_2020} for physics publications for example.
+% Publication level classification 
 An alternative classification system is publication level 
 classification where each publication is classified based on some 
-information extracted directly from the publication self such as
-words used in the title and/or abstract, keywords attached by the
-authors or publisher or citations to other publications.
+information extracted directly from the publication self. Commonly 
+used information is the title, the abstract, keywords attached by
+the authors or the publisher and citations to other publications.
 Shu et al. have compared journal and paper level classification
 approaches and found that publication level classification could
 provide better classification \cite{shu_comparing_2019}.
@@ -135,8 +138,12 @@ provide better classification \cite{shu_comparing_2019}.
 % the network based method and the combination of the two.
 % In the network method
 
-% ACM:n luokittelujärjestelmä esimerkkinä? CLSF?...
-Bibliometric research uses mainly three types of methods; citation 
+% TODO: YL: Luvussa 2 hyvä jaottelu, mutta jäin kaipaamaan kappaleeseen
+% 2.1 ehkä hiukan yksityiskohtaisempaa esitystä erilaisista 
+% laskennallisista/menetelmällisistä ratkaisuista, joita 
+% julkaisukohtaiseen alaluokitteluun on sovellettu
+Bibliometric research uses mainly three types of methods for 
+journal or publication level classification; citation 
 based, text analysis based or combination of the two 
 \cite{janssens_hybrid_2009}. Citation based methods study 
 citations of publications and produce networks where publications 
@@ -153,22 +160,14 @@ Text analysis based methods can examine for example the title, the
 abstract or the whole text content of the publication itself and 
 classify the publications or journals by the topic model created 
 \cite{blei_latent_2003}.
-Hybrid models combine both approaches. Authors and their
-affiliations are not used in this work because we cannot uniquely
-identify them and we can't assume their field of science that is
-our interest here.
-
-% Tama on kompelosti ilmaistu, korjaa
-% Verkkoanalyysin nakokulma
-% These research products and relations between them form a 
-% network that can reveal something about the structure of 
-% different scientific disciplines. Finding the structure of this 
-% kind of data set is called classification or clustering.
-
-
-% Previous results using clustering bibliometrics
-% ===============================================
-% Kirjoitettu yllä olevaan
+Hybrid models combine both approaches. 
+% TODO: Tämä pois?
+Authors and their affiliations are not used in this work because 
+we cannot uniquely identify them and we can not assume their field 
+of science that is our interest here.
+Classifying publications into scientific disciplines is an open
+problem and a subject of active research. Currently there is no 
+known general, good enough practical solution.
 
 
 \subsection{Bibliometrics in Finland}
@@ -212,8 +211,8 @@ machine learning methods can reveal new emerging areas of science.
 Compared to our work here, their 
 analysis method topic modelling differs from hierarchical 
 clustering albeit both are unsupervised learning methods.
-\fixme{We will return to compare our results to those of Suominen and 
-Toivanen in Discussion chapter.}
+% \fixme{We will return to compare our results to those of
+% Suominen and Toivanen in Discussion chapter.}
 
 Our research question here is: \emph{"How to automatically cluster 
 Finnish scientific publications and how does that clustering 
@@ -224,7 +223,7 @@ abstracts and keywords in publication meta data.
 
 \section{Clustering}
 The methods discussed in this work belong to the field of machine 
-learning. The field has it's roots in statistics and engineering 
+learning. The field has its roots in statistics and engineering 
 and is itself part of artificial intelligence, a sub-field of 
 computer science.
 The methods in machine learning can be divided to \emph{supervised}, 
@@ -253,7 +252,7 @@ taught with example of characters along with their correct labels.
 For unsupervised learning the correct answer or the label $Y$ is not known. 
 Instead a model is applied such that it finds regularities in the
 input data $X$. Example of unsupervised learning problem is 
-finding anomalies that don't fit in the group, such as analysing
+finding anomalies that do not fit in the group, such as analysing
 log files of a computer system to find a possible intruder.
 
 Unsupervised learning methods include clustering, dimensionality
@@ -267,6 +266,6 @@ actions leading to desired outcome. For example we may want the
 system to learn to win a game. In that case individual actions
 are not important but the end result as there are many ways to win
 a game. So the system repeatedly tries different combinations of
-actions while it receives the result of it's combined actions.
+actions while it receives the result of its combined actions.
 
 
