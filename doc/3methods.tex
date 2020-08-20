@@ -2,16 +2,17 @@
 \label{chapter:methods}
 In this chapter we present the data and methods used in the 
 clustering. We follow the logical order in which the methods are 
-applied on the data. We first describe the raw data, 
-pre-processing it, the feature extraction transforming irregular
-length symbolic data (text) into numerical vector representation,
-reducing the dimensionality of the data, selecting the model used 
-to learn from the data and finally the selected clustering method.
+applied on the data. We first describe the raw data and  
+pre-processing it. Then we explain the feature extraction 
+transforming irregular length symbolic data (text) into numerical 
+vector representation. Next to follow is reducing the 
+dimensionality of the data, selecting the model used to learn from 
+the data and finally the selected clustering method.
 
 \section{Publication meta data}
 \label{section:metadata}
-The data consists of $10456$ records of Clarivate's Web of Science 
-publication meta data from year 2000. Each record describes some 
+The data consists of $21155$ records of Clarivate's Web of Science 
+publication meta data from years 2000-2001. Each record describes some 
 basic information about an article published in a scientific 
 journal. The data contains only publications with at least one
 author with an affiliation to a Finnish research organisation as
@@ -53,12 +54,10 @@ multiple instances of keywords inferred by the publisher programmatically
 authors themselves (``\texttt{Avainsana (tekijät)}'') and the 
 cited references (``\texttt{Lähde}''). The data contains incomplete,
 erroneous and multiplicated records.
-
 % \fixme{Tarkista YL:ltä että lähteet ovat nimenomaan 
 % artikkelin omat. (Viitteet voivat olla metodologisia, 
 % historiallisia ja siten johtaa harhaan). Toisaalta en nyt käytä 
 % työssäni viitteitä (keskustelu LM:n kanssa 20.9.).} OK
-
 
  
 \section{Feature extraction}
@@ -73,8 +72,8 @@ of the sample. So it follows that the rows of the matrix are
 feature vectors of the data samples and the columns are the 
 individual features. Feature extraction is the process used to 
 transform text documents into feature vectors (i.e. data samples).
-The number columns in the data matrix corresponds to the order of 
-the feature space of the task.
+The number of columns in the data matrix corresponds to the order 
+of the feature space of the task.
 
 \subsection{Analysing textual data}
 The descriptions are natural English language appended with the 
@@ -98,12 +97,12 @@ presented by Luhn \cite{luhn_key_1960}
 
 \subsection{Lemmatisation}
 After removing stop words the next step is to unify the 
-different written forms a term. We might have e.g. ``visual''
-and ``visually'' or ``dog'' and ``dogs'' and we want them as 
-``visual'' and ``dog'' only. This is desirable to reduce the 
-redundant repetition of the data and also to reduce the dimensionality of 
-the feature space. \cite{siemens_lemmatization_1996} 
-\cite{hann_towards_1975}
+different written forms a term. We might have, for example 
+``visual'' and ``visually'' or ``dog'' and ``dogs'' and we want 
+them as ``visual'' and ``dog'' only. This is desirable to reduce 
+the redundant repetition of the data and also to reduce the 
+dimensionality of the feature space
+\cite{siemens_lemmatization_1996}\cite{hann_towards_1975}.
 There are two possible options to achieve this. 
 
 \emph{Lemmatisation} means replacing each inflectional form of a 
@@ -168,10 +167,9 @@ having handful of terms of the whole corpus.
 \section{Dimensionality reduction}
 \label{sec:dimensionalityreduction}
 The resulting publication-feature matrix has the dimensionality 
-of $m \times n$ where $m$ in 
-the number of records and $n$ is the number of features and very 
-sparse. In our case the record-feature matrix has the 
-dimensionality of approximately $10000 \times 20000$. 
+of $m \times n$ where $m$ is the number of records and $n$ is the 
+number of features and very sparse. In our case the record-feature
+matrix has the dimensionality of approximately $21000 \times 50000$. 
 So the dimensionality of our problem, number of features, is very
 high compared to the number of samples. This means that all
 samples are very sparsely and very far away from each other in the 
@@ -186,16 +184,14 @@ clustering we have to reduce the dimensionality of the feature space.
 \subsection{Singular value decomposition}
 In text analysis setting the logical reasoning for dimensionality
 reduction is known as Latent semantic analysis (LSA)\cite{dumais_using_1988}.
-LSA leads to a linear algebra tool called singular value 
+LSA is based on a linear algebra tool called singular value
 decomposition (SVD). SVD is a common method to reduce the 
 dimensionality of data. SVD for a matrix $M$ is defined as:
-
 \begin{equation}
  M = U \Sigma V^T
 \end{equation}
-
-$U$ is unitary matrix, $\Sigma$ is the diagonal matrix of singular
-values $\sigma_i$ and $V$ consists of orthonormal set of singular 
+Here $U$ is unitary matrix, $\Sigma$ is the diagonal matrix of singular
+values $\sigma_i$ of $M$ and $V$ consists of orthonormal set of singular 
 vectors of $M$.
 
 SVD transforms data linearly into ``a new feature space'' in which the 
@@ -205,8 +201,10 @@ ones can be omitted.
 Another commonly used method, principal component analysis (PCA), 
 achieves the same.
 Whereas PCA requires the data matrix to be square and have 
-eigendecomposition, SVD does not, but achieves the same goal.
-So it is in a way another algebraic solution to that.
+eigendecomposition, SVD does not, but achieves the same goal. 
+Because all matrices do have SVD but not necessarily 
+eigendecomposition, SVD is more general method.
+% So it is in a way another algebraic solution to that.
 
 
 \section{Model selection}
@@ -222,8 +220,9 @@ intrinsic structure of scientific knowledge.
 There are many different clustering algorithms from which to 
 choose. Some often used common algorithms are k-means, hierarchical
 clustering, density based scan clustering and Gaussian clustering.
-We will use hierarchical clustering because it's quite simple and 
-familiar to us.
+We will use hierarchical clustering because it produces 
+hierarchical cluster structure that is naturally expected of 
+fields and sub fields of science.
 In hierarchical clustering there are yet different parameters to 
 choose. 
 % We will handle those in later chapters.
@@ -239,14 +238,18 @@ $k$ clusters regardless if they are meaningful or not. To make a
 decision about the number of clusters we can 1) inspect the data in 
 two dimensions using some dimensionality reduction method such as 
 PCA and then plot it, 2) set limits for the inter-cluster 
-distances at each step of merging clusters i.e. if finding the 
+distances at each step of merging clusters, that is, finding the 
 largest gap between the dendrogram levels or 3) measuring the 
 overall compactness of clusters and their separation from each 
 other over the number of clusters $k$ with suitable evaluation
-criterion such as average Silhouette value 
-\cite{alpaydin2004introduction} \cite{calinski_dendrite_1974} 
-\cite{rousseeuw_silhouettes:_1987}. The first method is assumed to 
-give uninformative view of the data. We will use the third method.
+criterion such as average silhouette value 
+\cite{alpaydin2004introduction}\cite{calinski_dendrite_1974}\cite{rousseeuw_silhouettes:_1987}.
+The first method is assumed to give uninformative view of the 
+data. We will use the third method. We expect to observe a maximum
+in the criterion value indicating a ``natural'' cluster structure
+in the data. Currently the number of manually curated WoS subject
+categories is $254$\footnote{https://clarivate.com/webofsciencegroup/solutions/web-of-science-core-collection/} 
+so we position our initial expectations near that.
 % Toinen vaihtoehto mahdollisesti samankaltainen kolmannen kanssa?
 
 
@@ -298,7 +301,7 @@ other.
 \subsubsection{Calinski-Harabasz criterion}
 Calinski-Harabasz criterion is defined as
 \begin{equation}
- CH = \frac{SS_B}{N-k} \frac{SS_W}{k-1},
+ CH = \frac{SS_B}{SS_W} \frac{N-k}{k-1},
 \end{equation}
 where $SS_B$ is \emph{the between-group sum of squares} that gives
 the overall variance between clusters
@@ -322,10 +325,15 @@ Calinski-Harabasz criterion, the better the cluster structure.
 Silhouette value of a single clustered observation $x$ is defined 
 as follows.
 \begin{equation}
- S(x) = \frac{1}{k}\sum_i \frac{1}{n_i}\sum_{x \in C_i}\frac{b(x) - a(x)}{max(b(x), a(x))},
+ s(x) = \frac{b(x) - a(x)}{max(b(x), a(x))}
 \end{equation}
-where $a(x)$ average dissimilarity of the observation $x$ to all 
-other observations in its own cluster 
+Averaging over all observations in all clusters gives the average 
+silhouette value for the whole clustering:
+\begin{equation}
+ S = \frac{1}{k}\sum_{i=1}^k \frac{1}{n_i}\sum_{x \in C_i}\frac{b(x) - a(x)}{max(b(x), a(x))},
+\end{equation}
+where $a(x)$ is the average dissimilarity of the observation $x$ 
+to all other observations in its own cluster 
 $C_i$:
 \begin{equation}
   a(x) = \frac{1}{n_i - 1} \sum_{y \in C_i, y \neq x}d(x,y)  
@@ -370,7 +378,7 @@ clearly separated set of publications.
 We will create a manually annotated validation set for calculating
 precision, recall and other metrics derived from those.
 The validation set will consist of publications from three different
-discipline. We will experiment which of the internal validation
+disciplines. We will experiment which of the internal validation
 methods, Silhouette value or Calinski-Harabasz criterion, will
 indicate more clearly the known, correct number of clusters.
 
@@ -383,10 +391,11 @@ of clusters with Adjusted Rand index (ARI)
 of clusters $3$ stands out. Adjusted Rand index is defined as 
 follows.
 \begin{equation}
- ARI = \frac{RI - E[RI]}{max(RI) - E[RI]},
+ ARI = \frac{RI - E[RI]}{max_{perm}(RI) - E[RI]},
 \end{equation}
-where $RI$ is the ``raw'' Rand index and $E[RI]$ its expected
-value. The Rand index is defined then as:
+where $RI$ is the ``raw'' Rand index, $E[RI]$ its expected value 
+and $max_{perm}(RI)$ is its maximum value over all possible 
+clustering permutations. The Rand index is defined as:
 \begin{equation}
   RI = \frac{TP + TN}{TP + FP + FN + TN},
 \end{equation}
@@ -445,7 +454,7 @@ similarity metrics \cite{boyack_clustering_2011}.
 For example Manhattan distance works well with sparse data.
 % \cite{ref_here}
 \begin{equation}
- ||a-b||_1 = \sum_i{(a_i-b_i)}
+ ||a-b||_1 = \sum_i{|a_i-b_i|}
 \end{equation}
 Euclidean distance is the familiar distance used in everyday life:
 \begin{equation}
