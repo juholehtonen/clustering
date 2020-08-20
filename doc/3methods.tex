@@ -17,7 +17,7 @@ basic information about an article published in a scientific
 journal. The data contains only publications with at least one
 author with an affiliation to a Finnish research organisation as
 recorded in the publication. These publications were published in 
-total in $2539$ different scientific journals.
+total in $3518$ different scientific journals.
 An example of a shortened record:
 \begin{verbatim}
  Lehti: ACTA OPHTHALMOLOGICA SCANDINAVICA
@@ -92,7 +92,7 @@ removing of \emph{the stop words} from data. Stop words are the
 most frequent words in the data like: \emph{``the, of, and, where 
 etc.''} Because these words are present in any text they probably 
 don't tell much about the topics these records concern as 
-presented by Luhn \cite{luhn_key_1960}
+presented by Luhn \cite{luhn_key_1960}.
 
 
 \subsection{Lemmatisation}
@@ -120,9 +120,8 @@ should be removed after lemmatisation.
 that only the stem of the word is retained. No context is used 
 and only the word itself is inspected. It is much simpler procedure
 compared to lemmatisation.
-
 Lemmatisation results in better precision, or true negative rate 
-but poorer recall true positive rate compared to stemming. 
+but poorer recall, or true positive rate, compared to stemming. 
 \cite{manning_introduction_2008}
 
 
@@ -154,7 +153,7 @@ TF-IDF is defined as follows:
 where $tf(t,d)$ is the term frequency, count of a term $t$ in a 
 document $d$, $n$ is the number of documents in the data set and 
 $df(t)$ the number of documents containing term $t$ 
-\cite{luhn_statistical_1957} \cite{jones_statistical_1972}.
+\cite{luhn_statistical_1957}\cite{jones_statistical_1972}.
 
 Here the size of the feature space is in the order of the the 
 size of the English language corpus i.e. in tens of thousands. The 
@@ -322,15 +321,15 @@ distance between the two vectors. The larger the
 Calinski-Harabasz criterion, the better the cluster structure.
 
 \subsubsection{Silhouette value}
-Silhouette value of a single clustered observation $x$ is defined 
-as follows.
-\begin{equation}
- s(x) = \frac{b(x) - a(x)}{max(b(x), a(x))}
-\end{equation}
 Averaging over all observations in all clusters gives the average 
 silhouette value for the whole clustering:
 \begin{equation}
- S = \frac{1}{k}\sum_{i=1}^k \frac{1}{n_i}\sum_{x \in C_i}\frac{b(x) - a(x)}{max(b(x), a(x))},
+ S = \frac{1}{k}\sum_{i=1}^k \frac{1}{n_i}\sum_{x \in C_i} s(x).
+\end{equation}
+Here the silhouette value $s(x)$ of a single clustered observation $x$ is
+defined as follows.
+\begin{equation}
+ s(x) = \frac{b(x) - a(x)}{max(b(x), a(x))},
 \end{equation}
 where $a(x)$ is the average dissimilarity of the observation $x$ 
 to all other observations in its own cluster 
@@ -354,12 +353,6 @@ be clustered in the nearest neighbour cluster and values close to
 $-1$ mean that the observation is almost certainly in the wrong 
 cluster.
 
-We will calculate average silhouette value over all observations
-\begin{equation}
-  S = \frac{1}{N} \sum_x S(x) 
-\end{equation}
-for each clustering.
-
 \subsubsection{External validation of clustering results}
 \label{sec:ext_val}
 % Otsikko oli: Manually annotated validation set
@@ -375,8 +368,8 @@ clearly separated set of publications.
 % More vaguely classifiable publications were included for comparison.
 % For not to have to rely solely on internal clustering validation we
 % also try external clustering validation with small subset of data.
-We will create a manually annotated validation set for calculating
-precision, recall and other metrics derived from those.
+We will create a manually annotated validation set providing the
+ground truth needed for calculating the adjusted Rand index.
 The validation set will consist of publications from three different
 disciplines. We will experiment which of the internal validation
 methods, Silhouette value or Calinski-Harabasz criterion, will
@@ -403,24 +396,6 @@ where $TP$ is the number of true positives, $TN$ true negatives,
 $FP$ false positives and $FN$ false negatives. ARI values are 
 bounded to range $[-1, 1]$ where the perfect clustering would 
 be $1$.
-
-\subsubsection{Precision and recall}
-% määrittele peruskäsitteet kuten precision ja recall
-Recall is the number of items correctly classified divided by the 
-total number of items in that class.
-\begin{equation}
- Recall = \frac{|\{relevant\ items\} \cap \{retrieved\ items\}|} 
-{\{relevant\ items\}}
-\end{equation}
-
-Precision is the number of items correctly classified divided by 
-the total number of items classified into that class (i.e. true and 
-false positives).
-\begin{equation}
- Precision = \frac{|\{relevant\ items\} \cap \{retrieved\ 
-items\}|} 
-{\{retrieved\ items\}}
-\end{equation}
 
 
 \section{Agglomerative clustering}
