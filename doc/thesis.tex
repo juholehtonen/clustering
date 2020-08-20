@@ -418,23 +418,44 @@ ryhmittely tieteenaloittain klusteroimalla}
 % Abstract in English
 % ----------------------------------------------------------------
 \thesisabstract{english}{
-Clustering of data without knowing or making any assumptions about
-its structure is widely used data analysis method. It is used as
-an exploratory tool to gain insight of the structures or the 
-patterns that the data might hide.
-Clustering is used when all we have is the observations of the 
-data but no knowledge their wanted labeling.
-The method is unsupervised in that no external data of the 
-observations is provided and belongs to the field of machine 
-learning. Many other machine learning methods have advanced vastly
-during last 10-20 years such as deep neural networks (deep 
-learning), reinforced learning (e.g. AlphaGo). Clustering and other
-unsupervised methods still hold their place when no external 
-labeling is available.
-
-One such problem of unlabeled data is bibliomteric records of 
-scientific work. It is true that many bibliometric repositories for
-scientific records exists such as citatio
+Bibliometrics is a study of written scientific records such as 
+books and articles in scientific journals. Its goal is to 
+investigate how these outputs of research are connected and cite
+each other and what they can tell about science and its evolution.
+By studying scientific publications produced in Finland, the 
+development of Finnish research can be monitored and, for example,
+compared to that of similar countries. The information thus formed
+helps, among other things, to make decisions that promote Finnish 
+science and education. Designating scientific publications to the
+correct discipline is often a prerequisite for surveying that 
+discipline.
+The currently commonly used classification of publications into 
+disciplines is based on the journal level classification. All 
+articles of a journal receive its classification. However, the 
+journal is often classified into several disciplines, not all of
+which necessarily correspond to the topic covered by a single 
+article.
+In addition, problems are caused by articles published in 
+multidisciplinary journals, which now are left without a 
+classification. 
+A publication level classification that would more accurately 
+identify the actual topic of a publication, is a subject of active 
+research in bibliometrics. The goal is to create a classification 
+based solely on attributes of the publication such as title, 
+abstract and citations.
+One of widely studied methods is clustering. It is a commonly used 
+machine learning method used to group similar observations into 
+well separated clusters. Clustering is based only to the 
+similarity determined by the selected features of the 
+observations. The method does not need a pre-classified training 
+set. 
+In this thesis we look at the methods studied in bibliometrics to 
+implement publication level classification. We describe the tested
+agglomerative hierarchical clustering method and the test data 
+consisting of Finnish scientific publications. 
+As a conclusion, we note that although some meaningful clusters 
+seemed to emerge from the data, we did not achieve useful 
+clustering of publications by discipline with this method.
 }
 
 % Abstract in Finnish
@@ -465,8 +486,8 @@ muun muassa tekemään suomalaista tiedettä ja koulutusta edistäviä
 päätöksiä.
 % Lyhyesti b:n luokittelusta
 Tieteellisten julkaisujen nimeäminen kuuluvaksi oikeaan 
-tieteenalaan on usein esivaatimus kunkin tieteenalan tilan 
-selvittämiseksi.
+tieteenalaan on usein esivaatimus kutakin tieteenalaa 
+tarkasteltaessa.
 % Lehti- / julkaisukohtainen luokittelu
 Nykyisin yleisesti käytössä oleva julkaisujen luokittelu 
 tieteenaloihin perustuu julkaisukanavan eli tieteellisen 
@@ -477,12 +498,11 @@ vastaa yksittäisen artikkelin käsittelemää aihepiiriä. Lisäksi
 ongelmia luokitteluun tuottavat yleistieteelliset julkaisut,
 joissa julkaistut artikkelit jäävät vaille tieteenalaluokitusta.
 % Artikkelit voivat myös vaihdella aiheeltaan paljon Julkaisukanava voi myös 
-Julkaisukohtainen alaluokittelu, joka huomioisi paremmin lehtien 
-sisältämien julkaisujen vaihtelun, on bibliometriikan aktiivisen 
+Julkaisukohtainen alaluokittelu, joka tarkemmin tunnistaisi
+julkaisujen varsinaisen aiheen, on bibliometriikan aktiivisen 
 tutkimuksen kohteena. Tavoitteena on muodostaa pelkästään 
 julkaisun ominaisuuksiin kuten otsikkoon, tiivistelmään ja 
-viittauksiin perustuva luokittelu, joten valmista luokittelutietoa 
-ei ole.
+viittauksiin perustuva luokittelu.
 % Julkaisukohtaiset menetelmät b:ssä
 Eräs paljon tutkituista menetelmistä on julkaisujen ryvästys.
 % Lyhyesti klusteroinnista
@@ -501,7 +521,7 @@ sekä suomalaisia tieteellisiä julkaisuja sisältävän testiaineiston.
 % Lyhyesti tämän työn tuloksista
 Tämän työn tuloksena toteamme, että vaikka aineisto osittain 
 vaikutti ryvästyvän mielekkäisiin julkaisuryhmiin, emme 
-kokeillulla menetelmällä saaneet käyttökelpoista julkaisujen 
+kokeillulla menetelmällä saavuttaneet käyttökelpoista julkaisujen 
 ryhmittelyä tieteenaloittain.
 
 %
