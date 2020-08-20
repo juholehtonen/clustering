@@ -11,46 +11,48 @@ different disciplines is quite difficult and ambiguous.
 % Datasta
 The data was incomplete but we chose to use it as such without 
 pruning the possible defective samples. This was due to the 
-amount of data, manually checking over 20000 titles wasn't an 
-option and sufficient general rules to filter the data didn't 
+amount of data, manually checking over 20000 titles was not an 
+option and sufficient general rules to filter the data did not 
 occur to us in the beginning of the work. Some minimum length for 
 the publication data could leave out clearly inadequate samples 
 and perhaps improve the clustering results. General outlier 
 detection techniques \cite{hodge_survey_2004} could prove 
 problematic here when there obviously will be single publications 
 in some disciplines. There probably would be disciplines with very
-few publications, in spite of including more data.
+few publications in spite of including more data.
 
 % Datan määrästä
 We tried to include a larger data set, covering years 2000-2003, 
-to cluster. This resulted $47303$ publications which was too much 
-for our laptop environment with 16 GB of RAM. Obviously more 
+$47303$ publications, to cluster. This resulted running out of 
+memory in our laptop environment with 16 GB of RAM. Obviously more 
 capacity would have been available but taking over a new 
-environment wasn't possible within the limits of this work.
+environment was not possible within the limits of this work.
 
 % Piirreirroituksesta
 Tokenization during pre-processing left one and two character 
-words such as measurement units in data which wasn't desired. 
+words such as measurement units in data which was not desired. 
 Adjusting tokenization or extending the stop word list should 
-filter these out.
+filter these out. 
 During vectorisation we hit our limit of maximum number of terms 
 of $50000$. This might be undesirable because now our terms were
 from the most frequent end of the frequency range of minimum $2$ 
-occurrences -- maximum in $10 \%$ of documents. This means that 
+occurrences -- maximum in $10\ \%$ of documents. This means that 
 rarer and thus more specific terms might have been discarded.
 We tested some hand picked values of minimum and maximum document 
 frequency threshold for terms but more systematic exploration of 
-these parameters could have given better set of features.
+these parameters could give better set of features.
 %- \fixme{``Suositus...'' ``Nämä parametriarvot...''}
 Furthermore, the discarded terms contained quite many compounds 
-that were now joined with underscore '\_' to conserve the 
-constructs. It might be worth to try and split those to enable the 
-individual words to be counted.
+joined with underscore '\_' to conserve the constructs. It might 
+be worth to try and split those compounds to enable the individual 
+words to be counted. On the other hand, using 2-grams or higher 
+order n-grams in addition to single words could also be 
+interesting to try, although it will again increase the number terms.
 
 % Ulottuvuuksien vähentämisestä
 Selected number of components in reducing dimensionality of the 
 data resulted quite low proportion of explained variance (35 \%).
-%seemd to retain enough information while also allowing to run clustrings fast enough.
+%seemed to retain enough information while also allowing to run clusterings fast enough.
 On the other hand, the resulting $800$ component low-dimensional
 space is quite high dimensional too.
 With the manually annotated data set the explained variance was 
@@ -58,15 +60,17 @@ With the manually annotated data set the explained variance was
 values. This probably shows that $800$ dimensional data with just 
 $455$ samples is still too high dimensional \cite{aggarwal_surprising_2001}. 
 Selecting and extracting features more carefully and then reducing
-dimensionality more could have helped.
-Transforming data somewhere to $[50-150]$ components could be more
-justified range \cite{dolnicar_review_2002}. 
+dimensionality more could help. Transforming data somewhere to 
+$[50-150]$ components could be more justified range 
+\cite{dolnicar_review_2002}. Overall using more data such as whole
+world data could improve clustering results.
 
 % Model selection
 The model selected, agglomerative Ward's clustering, is one of the
 basic clustering methods. We selected it because it produces 
 hierarchical cluster structure that is naturally expected of fields
-and sub fields of science. It is not too sensitive to noise.
+and sub fields of science. The method should also tolerate noise 
+somewhat.
 % while failing ...
 It is known to work well only with compact, even-sized clusters.
 This might be a problem with the current data where different 
@@ -74,6 +78,9 @@ disciplines are expected to be varying in size.
 It can't cluster very large data sets because of the computational
 cost. We might have bumped to that limit in a smaller scale while 
 trying to cluster the four year data of ~47000 publications.
+The selected model is a hard clustering method in a sense that a
+publication is clustered to one discipline explicitly.
+
 
 % Choosing the number of clusters
 Choosing the number of clusters was a difficult part of this 
@@ -116,19 +123,18 @@ categories.
 
 \section*{Conclusions}
 \label{sec:conclusions}
-We tried a basic clustering method to see if meaningful results
-could be obtained. Some sensible clusters might have been formed 
-but there appeared also totally mixed clusters which reduces the 
-overall result as unsatisfactory.
+We tried a basic agglomerative clustering with Ward's method on 
+Finnish publications from years 2000-2001 to see if meaningful 
+clustering by scientific discipline could be obtained. Some 
+sensible clusters might have been formed but there appeared also 
+totally mixed clusters which reduces the overall result as 
+unsatisfactory.
 % Toteutuksen heikkoudet ja vahvuudet
 The clustering method was tested to the limit of our laptop 
 environment with the amount of data.
 
-
-\section*{Future work}
-\label{sec:future}
-In future work 2-grams or higher order n-grams could improve the 
-results.
-
-Using more data possibly with better scaling clustering method like 
-K-means.
+Future work should improve the pre-processing of the data, consider 
+using larger data set and test hybrid models mixing both text and
+citation analysis. Relaxing the hard clustering assumption to 
+allow for soft clustering of probability based discipline labelling
+could also prove interesting.
