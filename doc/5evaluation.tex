@@ -43,7 +43,7 @@ combined with '\_' as described in Section \ref{sec:impl_preproc}.)
 
 The dimensionality of data was then reduced with LSA from $3177$
 features (corresponding to the terms) to $800$ components which 
-resulted $100\%$ of the explained variance of the data to be 
+resulted $100\ \%$ of the explained variance of the data to be 
 retained. The data was then agglomeratively clustered with Ward's 
 method for number of cluster values $k=[2,12]$. 
 The Figure \ref{fig:ch-silh01} shows the internal clustering 
@@ -69,7 +69,7 @@ we meant it. We repeated the clustering in case of ambiguousness
 in the algorithm but that didn't affect the clustering result.
 Probably the low amount of samples compared to 
 still quite high dimensional feature space affects here. We can 
-conclude from the explained variance of $100\%$ that dimensionality
+conclude from the explained variance of $100\ \%$ that dimensionality
 could have been reduced more. We also 
 have to remember that Calinski-Harabasz index might suffer even 
 from moderate noise \cite{liu_understanding_2010}.
@@ -148,9 +148,8 @@ expected three clusters.
 As a result we also don't get strong support for using any of 
 these two measures to decide the number of clusters for the actual 
 one year data.
-
-We anyway try next to cluster the full year 2000 data to see if
-more data improves the clustering results.
+We cluster next the full data for years 2000-2001 to see if more 
+data improves the clustering results.
 
 %5.2 Metrics evaluation, also compare to precision and recall??
 % \subsection{Precision and recall}
@@ -176,7 +175,7 @@ more data improves the clustering results.
 
 %5.2 Finnish publications
 \section{Finnish publications from years 2000-2001}
-The analysis of 2000-2001 data followed the same steps as for 
+The analysis of full data set followed the same steps as for 
 the manually annotated data except we couldn't calculate adjusted
 Rand index because of the lacking ground truth.
 % Vectorising
@@ -200,7 +199,7 @@ The Calinski-Harabasz and average silhouette values for this range
 are shown in Figure \ref{fig:ch-silh-2000-h}.
 \begin{figure}[htp]
   \begin{center}    
-\includegraphics[width=10cm]{images/c-h-silh-index-plot-48000-4_500-800-hierarchical.png}
+\includegraphics[width=10cm]{images/c-h-silh-index-plot-22000-4_500-800-hierarchical.png}
     \caption{Calinski-Harabasz index and average silhouette values 
     for Ward's clusterings the 2000-2001 Finnish publications data
     with number of clusters $4-500$. The higher value mean more 
@@ -226,11 +225,11 @@ We first plotted the silhouette of this clustering in Figure
 \ref{fig:silh01}.
 \begin{figure}[htp]
   \begin{center}    
-\includegraphics[width=13cm]{images/6000-64-400-Hierarchical-silhouette-plot.png}
+\includegraphics[width=13cm]{images/21155-188-800-hierarchical-silhouette.png}
     \caption{Silhouette values of 188 clusters. Repeating shapes
     are clusters consisting of stacked thin horizontal lines of 
     silhouette values of individual items. Colour indicates the 
-    cluster.
+    cluster. Contrasting coloured ones are the sample clusters.
 %     A line more into positive axis direction indicates an item
 %     better clustered. Value near zero means an item could almost
 %     equally well be clustered in its nearest neighboring cluster.
@@ -251,14 +250,12 @@ extending further to the positive axis direction. There are also
 few very big clusters
 of items poorly clustered among their neighbouring items indicated 
 by broader silhouettes extending to the negative axis direction. Many clusters
-have both components, resulting a bow tie resembling silhouette. 
+have both components, resulting a silhouette resembling bow tie. 
 Short lines as part of a silhouette indicate items that could 
 almost equally well be clustered in their nearest neighbouring cluster.
-As a result the average silhouette value of this clustering 
-($value here$, dashed line in the plot) is 
-very low low in absolute terms considering it's index space [-1,1].
-% We can see that the clusters 9, 19 and 31 have the shapes...
-
+As a result the average silhouette value of this clustering $0.030$,
+(dashed line in the plot) is 
+very low in absolute terms considering its index space [-1,1].
 
 % Top terms inspection
 By inspecting the top 15 terms of three random clusters sampled 
@@ -281,8 +278,6 @@ categories in the Table \ref{table:articles-188-h-mini}. (See
 Appendices \ref{chapter:second-appendix} and 
 \ref{chapter:appendix-articles} for top term and publication 
 title lists for ten sample clusters respectively.)
-\newpage
-\input{tables/5_table_articles_188_h_short.tex}
 % Pari sanaa julkaisuotsikoista ja WoS-luokituksista
 We can now compare our first impression of these three clusters, 
 given by top terms, to full publication titles and WoS subject 
@@ -293,14 +288,35 @@ ecology and forestry. The cluster 19 contains computer science
 related publications but also a publication related to music that 
 could be an outlier. The sample publications of cluster 31 are all
 related to medical sciences. 
-% We can see that the clusters 9, 19 and 31 have the shapes... in
-% silhouette plot on Figure...
-We see even from this narrow glimpse
-that the clustering wasn't satisfactory.
-% Kuvaile (kuten YL huomautti) jossain aiemmin tavoite paremmin,
-% eli miksi tämä klusterointi ei ole tyydyttävä
-While the cluster 31 might be consistent, which we can't know 
-unless we go through it thoroughly, the cluster 9 already shows
+\newpage
+\input{tables/5_table_articles_188_h_short.tex}
+
+In Figure \ref{fig:silh01} these clusters are coloured with 
+contrasting colours, green and blue. (Cluster numbering got mixed, 
+so in the figure they have different positions.)
+% alin vihreä klusteri == cluster 31
+The lowest green cluster corresponds to the cluster 31. 
+Regardeless of the consistent top terms and the sample of 
+publication titles the cluster has its silhouette values in 
+$[-0.2, 0.1]$ range and the negative part of the silhouette is 
+slightly larger than positive. This tells us that the cluster 
+isn't very coherent when half of its items seems to be 
+misclustered. 
+% toka sininen klusteri == cluster 9
+The second blue cluster in the upper part of 
+the plot corresponds to the cluster 9. It has similar silhouette 
+shape with cluster 31 which is in line with the mixed sample of 
+titles it contains. 
+% ylin sininen klusteri == cluster 19
+The blue top cluster corresponds to the cluster 19. Its values are
+in the $[-0.05, 0.35]$ range which promises for a more meaningful 
+cluster. This is in line with the top term list and the sample of 
+titles.
+We see even from this narrow glimpse that the clustering wasn't 
+satisfactory. While the cluster 31 seemed consistent by top terms 
+and the sample of its titles, the silhouette values tells otherwise.
+Top terms and sample titles of clusters 9 and 19 are more in line
+with their silhouette values. Generally these random samples show
 that clustering like this can't substitute currently used 
 classifications.
 

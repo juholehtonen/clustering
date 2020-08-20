@@ -17,7 +17,7 @@ language. The core clustering and performance evaluation modules
 were imported from Python's \texttt{scikit-learn} package 
 \cite{scikit-learn}. \texttt{scikit-learn} is a widely used open 
 source package for machine learning, providing functions for 
-classification, regression, clustering and prepocessing amongst 
+classification, regression, clustering and pre-processing amongst 
 other things. It is openly developed by international community of
 developers. We wrote functions for pre-processing, feature 
 extraction, clustering and plotting around these modules. 
@@ -27,11 +27,10 @@ amounted roughly 1500 lines of functioning Python code,
 approximately half of which is our contribution and the rest from 
 open source documentation. All code is publicly 
 available\footnote{https://github.com/juholehtonen/clustering}. 
-Due to licencing agreements between Ministry of Education and 
+Due to licensing agreements between Ministry of Education and 
 Culture and Clarivate the data to reproduce the results is not 
 publicly available. The overall workflow is depicted in Figure 
 \ref{fig:wf}.
-
 \begin{figure}[ht]
   \begin{center}    
     \input{images/workflow.tex}
@@ -39,7 +38,6 @@ publicly available. The overall workflow is depicted in Figure
     \label{fig:wf}
   \end{center}
 \end{figure}
-
 The analysis was run on laptop environment with Fedora 28 Linux 
 5.0.16-100.fc28.x86\_64, Intel Core i7-4800MQ CPU @ 2.70GHz, 16 GB
 of RAM.
@@ -226,13 +224,14 @@ telecommunications and datacommunications service platforms'',
 meeting participants'',
 ``On voice quality of IP voice over GPRS''.
 Decision to assign publications to one discipline only was based 
-on using hard clustering, instead of probabilistic clustering. 
+on using hierarchical and thus hard clustering. Alternatively, 
+soft, or probabilistic, clustering would allow a publication to 
+be clustered to multiple clusters with varying probabilities. 
 % \fixme{Selvennä yläluokka-alaluokka-jako: CS general vs. CS 
 % information system tai CS artificial intelligence.}
-
-For clustering the whole year 2000 data set we chose the number 
-of clusters based on silhouette values and Calinski-Harabasz 
-criterion.
+For clustering the whole data for years 2000-2001 we chose the 
+number of clusters based on silhouette values and 
+Calinski-Harabasz criterion.
 
 
 
