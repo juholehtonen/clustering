@@ -72,22 +72,30 @@ It is known to work well only with compact, even-sized clusters.
 This might be a problem with the current data where different 
 disciplines are expected to be varying in size.
 It can't cluster very large data sets because of the computational
-cost. We might have bumped to that in a smaller scale while trying 
-to cluster the four year data of ~47000 publications.
+cost. We might have bumped to that limit in a smaller scale while 
+trying to cluster the four year data of ~47000 publications.
 
 % Choosing the number of clusters
 Choosing the number of clusters was a difficult part of this 
 problem. We tried two internal validation methods,
 Calinski-Harabasz criterion and silhouette values. Neither of them
-could reveal any meaningful clustering if any occurred.
+could reveal any meaningful optimal clustering if any occurred.
 Our manually annotated data set for choosing the number of clusters
 was probably too small ($455$) compared to number of components 
-($800$). Some more elaborated method could improve the results. 
-We also have to remember that Calinski-Harabasz index might suffer
-even from moderate noise \cite{liu_understanding_2010}.
+($800$). 
+It has been also noted that Calinski-Harabasz index 
+might suffer even from moderate noise \cite{liu_understanding_2010}.
 There are other internal clustering validation metrics that might 
-work better with this kind of data \cite{liu_understanding_2010}.
-%- \fixme{Vaihtoehtojen kokeiluiden havainnot. Linkitys kirjallisuuteen.}
+work better with our data, one perhaps worth testing could be
+S\_Dbw (Scatter and Density between clusters) index 
+\cite{halkidi_clustering_2001}. 
+It might also be that the merging of two computer science related 
+sub fields into one cluster and clinical neurology splitting into 
+two clusters can also result from the true properties of the data.
+Perceived human definitions might not always match up with the 
+underlying data. So there might be two sectors of clinical 
+neurology represented in the data that are more distant from each 
+other than these publications related to two computer science fields.
 
 % Itse klusteroinnista
 We didn't utilize the hierarchical structure of agglomerative 
@@ -98,20 +106,24 @@ It could have helped in deciding the number of clusters \cite{kimes_statistical_
 % - Compared to current classification of articles into fields of 
 % science based on WoS classification...
 
-
 % Vertailu aiempaa suomalaiseen vastaavaan ``Suominen... et al.''
-We could have compared very roughly to existing classification by
-calculating adjusted Rand index against WoS subject categories.
+We could have very roughly compared our clustering to existing 
+classification by calculating adjusted Rand index against WoS 
+subject categories.
 The question there would be how to automatically select WoS 
 category for comparison for a publication that has several 
 categories.
 
 \section*{Conclusions}
 \label{sec:conclusions}
-We tried a basic clustering method too see if meaningful results
+We tried a basic clustering method to see if meaningful results
 could be obtained. Some sensible clusters might have been formed 
-but the overall result was unsatisfactory. There 
+but there appeared also totally mixed clusters which reduces the 
+overall result as unsatisfactory.
 % Toteutuksen heikkoudet ja vahvuudet
+The clustering method was tested to the limit of our laptop 
+environment with the amount of data.
+
 
 \section*{Future work}
 \label{sec:future}
