@@ -3,6 +3,9 @@ grep "^Ala: " SuomiRyväsData2000|head -400|tr -s ' '|sort|uniq -c|wc -l
 # how many in disciplines in the whole data:
 grep "^Ala: " SuomiRyväsData200[0-3]|tr -s ' '|cut -f2,3 -d':'|sort|uniq -c|wc -l
 
+# how many journals in 2000-2001 data:
+grep "^ISSN: " SuomiRyväsData200[0-1]|tr -s ' '|cut -f2,3 -d':'|sort|uniq | wc -l
+
 # how many data sets in one year data (are these unanimous):
 grep "^ISSN: " data/raw/SuomiRyväsData200[0-0]|wc -l
 grep "^Otsikko: " data/raw/SuomiRyväsData200[0-0]|wc -l
