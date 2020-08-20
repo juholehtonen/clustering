@@ -264,11 +264,11 @@
 by discipline}
 \newcommand{\FTITLE}{Suomalaisten tieteellisten julkaisujen 
 ryhmittely tieteenaloittain klusteroimalla}
-\newcommand{\STITLE}{Klustring av finländska vetenskapliga 
-publikationer efter disciplin}
-\newcommand{\SUBTITLE}{No subtitle}
-\newcommand{\FSUBTITLE}{Ei alaotsikkoa}
-\newcommand{\SSUBTITLE}{Igen undertitel}
+% \newcommand{\STITLE}{Klustring av finländska vetenskapliga 
+% publikationer efter disciplin}
+\newcommand{\SUBTITLE}{}
+\newcommand{\FSUBTITLE}{}
+% \newcommand{\SSUBTITLE}{Igen undertitel}
 \newcommand{\DATE}{November 30, 2017}
 \newcommand{\FDATE}{30. marraskuuta 2017}
 \newcommand{\SDATE}{Den 30 November 2017}
@@ -324,9 +324,9 @@ publikationer efter disciplin}
 % Professorship code is the same in all languages
 \newcommand{\PROFCODE}{SCI3042}
 \newcommand{\KEYWORDS}{clustering, bibliomterics}
-\newcommand{\FKEYWORDS}{ryvästys, bibliometriikka}
+\newcommand{\FKEYWORDS}{ryvästys, klusterointi, bibliometriikka}
 \newcommand{\LANGUAGE}{English}
-\newcommand{\FLANGUAGE}{Englanti}
+\newcommand{\FLANGUAGE}{englanti}
 
 % Author is the same for all languages
 \newcommand{\AUTHOR}{Juho Lehtonen}
@@ -419,9 +419,22 @@ publikationer efter disciplin}
 % ----------------------------------------------------------------
 \thesisabstract{english}{
 Clustering of data without knowing or making any assumptions about
-its structure is widely used data analysis method....
+its structure is widely used data analysis method. It is used as
+an exploratory tool to gain insight of the structures or the 
+patterns that the data might hide.
+Clustering is used when all we have is the observations of the 
+data but no knowledge their wanted labeling.
+The method is unsupervised in that no external data of the 
+observations is provided and belongs to the field of machine 
+learning. Many other machine learning methods have advanced vastly
+during last 10-20 years such as deep neural networks (deep 
+learning), reinforced learning (e.g. AlphaGo). Clustering and other
+unsupervised methods still hold their place when no external 
+labeling is available.
 
-Bibliometric...
+One such problem of unlabeled data is bibliomteric records of 
+scientific work. It is true that many bibliometric repositories for
+scientific records exists such as citatio
 }
 
 % Abstract in Finnish
@@ -437,7 +450,87 @@ Bibliometric...
 %    sudo fmtutil -sys --all
 %    sudo fmtutil -sys --listcfg
 \thesisabstract{finnish}{
-Suomekielinen tiivistelmä
+% Lyhyesti bibliometriikasta
+Bibliometriikka tutkii kirjoitettuja tieteellisiä julkaisuja 
+kuten tutkimusartikkeleita ja -kirjoja. Sen tavoitteena on muun 
+muassa selvittää miten nämä tutkimuksen tuotokset liittyvät ja 
+viittaavat toisiinsa sekä mitä ne voivat kertoa tieteestä ja sen 
+kehityksestä.
+%sekä mitä muuta niitä tutkimalla voisi selvitä.
+% Lyhyesti b:stä Suomessa
+Suomessa tuotettuja tieteellisiä julkaisuja tutkimalla voidaan 
+seurata suomalaisen tutkimuksen kehitystä ja esimerkiksi verrata 
+sitä verrokkimaiden tutkimukseen. Näin muodostettu tieto auttaa 
+muun muassa tekemään suomalaista tiedettä ja koulutusta edistäviä
+päätöksiä.
+% Lyhyesti b:n luokittelusta
+Tieteellisten julkaisujen nimeäminen kuuluvaksi oikeaan 
+tieteenalaan on usein esivaatimus kunkin tieteenalan tilan 
+selvittämiseksi.
+% Lehti- / julkaisukohtainen luokittelu
+Nykyisin yleisesti käytössä oleva julkaisujen luokittelu 
+tieteenaloihin perustuu julkaisukanavan eli tieteellisen 
+aikakausilehden luokitteluun. Kaikki julkaisukanavan artikkelit
+saavat sen luokittelun. Julkaisukanava on kuitenkin usein 
+luokiteltu useaan tieteenalaan, jotka kaikki eivät välttämättä
+vastaa yksittäisen artikkelin käsittelemää aihepiiriä. Lisäksi 
+ongelmia luokitteluun tuottavat yleistieteelliset julkaisut,
+joissa julkaistut artikkelit jäävät vaille tieteenalaluokitusta.
+% Artikkelit voivat myös vaihdella aiheeltaan paljon Julkaisukanava voi myös 
+Julkaisukohtainen alaluokittelu, joka huomioisi paremmin lehtien 
+sisältämien julkaisujen vaihtelun, on bibliometriikan aktiivisen 
+tutkimuksen kohteena. Tavoitteena on muodostaa pelkästään 
+julkaisun ominaisuuksiin kuten otsikkoon, tiivistelmään ja 
+viittauksiin perustuva luokittelu, joten valmista luokittelutietoa 
+ei ole.
+% Julkaisukohtaiset menetelmät b:ssä
+Eräs paljon tutkituista menetelmistä on julkaisujen ryvästys.
+% Lyhyesti klusteroinnista
+Ryvästys, eli klusterointi, on yleisesti käytetty 
+koneoppimismenetelmä haluttaessa jakaa aineisto keskenään 
+samankaltaisten havaintojen toisistaan mahdollisimman selkeästi 
+erottuviin ryppäisiin. Ryvästys perustuu ainoastaan havaintojen 
+valittujen ominaisuuksien määräämään samankaltaisuuteen. Menetelmä 
+ei tarvitse valmiiksi luokiteltua opetusjoukkoa. % Kuten esimerkiksi luokittelu.
+%
+% Lyhyesti tämän työn tavoitteesta
+Tässä työssä tarkastelemme bibliometriikassa tutkittuja menetelmiä 
+julkaisukohtaisen luokittelun toteuttamiseksi.
+Kuvaamme kokeilemamme kokoavan hierarkkisen ryvästysmenetelmän 
+sekä suomalaisia tieteellisiä julkaisuja sisältävän testiaineiston.
+% Lyhyesti tämän työn tuloksista
+Tämän työn tuloksena toteamme, että vaikka aineisto osittain 
+vaikutti ryvästyvän mielekkäisiin julkaisuryhmiin, emme 
+kokeillulla menetelmällä saaneet käyttökelpoista julkaisujen 
+ryhmittelyä tieteenaloittain.
+
+%
+% Muista koneoppimismenetelmistä kuten luokittelusta, ryvästys eroaa
+% siinä ettei se käytä valmiiksi luokiteltua opetusjoukkoa algoritmin
+% opettamiseen. 
+
+% Menetelmää käytetään kun ei voida tai haluta tehdä mitään 
+% ennakko-oletuksia datan luokittelusta. 
+% kun havaintojen/aineiston luokka tai muu vastaava ominaisuus ei ole ennalta tiedossa. 
+
+% Ohjaamattomassa oppimisessa analysoitavalle aineistolle ei ole 
+% käytössä opetusaineistoa jonka luokka tiedettäisiin. 
+% Klusterointi eli ryvästys pyrkii muodostamaan datan
+% piirteisiin perustuvan luokittelun jossa samankaltaiset havainnot
+% muodostaisivat yhdessä nimetyn ryppään ja samalla olisivat 
+% mahdollisimman hyvin erotettuna muista havaintoryppäistä.
+%
+% Opetusjoukon luokittelu puuttuu myös bibliometriikan tutkimilta
+% tieteellisiltä julkaisuilta. On totta että lähes kaikki julkaistut
+% ja nykyään julkaistavat tieteelliset artikkelit luokitellaan 
+% yleensä vähintään jonkun luokittelevan tahon toimesta. Luokittelu
+% perustuu kuitenkin usein julkaisevan tieteellisen aikakausilehden
+% luokitukseen, ei niinkään itse artikkelin ominaisuuksiin. 
+% Julkaisuväylä siis määrittää usein artikkelin luokitellun 
+% tieteenalan. 
+
+% Tämä on aktiivisen tutkimuksen kohteena oleva ongelma, johon ei 
+% toistaiseksi ole löydetty riittävän hyvää ratkaisua.
 }
 
 
