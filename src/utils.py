@@ -1,3 +1,4 @@
+import math
 import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 from nltk import word_tokenize
@@ -91,7 +92,10 @@ def identity_tokenizer(doc):
         doc = ''
     return doc
 
-def plot_silhouette(X, labels, n_clusters, method, highlight = []):
+
+def plot_silhouette(X, labels, n_clusters, method, highlight=None):
+    if highlight is None:
+        highlight = []
     if method == 'K-Means':
         try:
             X = X.todense()
@@ -127,7 +131,7 @@ def plot_silhouette(X, labels, n_clusters, method, highlight = []):
         y_upper = y_lower + size_cluster_i
 
         if i in highlight:
-            color = cm.nipy_spectral(0.8)
+            color = cm.nipy_spectral(math.fmod(float(i) / n_clusters + 0.5, 1.0))  # complement hue in [0,1.0]
         else:
             color = cm.nipy_spectral(float(i) / n_clusters)
         ax1.fill_betweenx(np.arange(y_lower, y_upper), 0, ith_cluster_silhouette_values, facecolor=color,
