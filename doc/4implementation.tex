@@ -26,7 +26,7 @@ The top level workflow management was written using Python's
 amounted roughly 1500 lines of functioning Python code, 
 approximately half of which is our contribution and the rest from 
 open source documentation. All code is publicly 
-available\footnote{https://github.com/juholehtonen/clustering}. 
+available\footnote{https://github.com/juholehtonen/clustering/releases/tag/rc-1.2}.
 Due to licensing agreements between Ministry of Education and 
 Culture and Clarivate the data to reproduce the results is not 
 publicly available. The overall workflow is depicted in Figure 
@@ -129,9 +129,9 @@ normalization).
 In this point we have the data vectorized.
 
 We set the minimum document frequency, under which the terms 
-having their \emph{tf-idf} value are ignored, to $min_df=2$. So 
-terms that have less than two occurrences are ignored. The maximum 
-document frequency is set to $max_df=0.1$. So to terms 
+having their \emph{tf-idf} value are ignored, to $min_df=2$. 
+Thus, terms that have less than two occurrences are ignored. The maximum 
+document frequency is set to $max_df=0.1$. So, terms 
 occurring in more than 10 \% of the documents are also ignored.
 % \fixme{To verify these parameter values it would be interesting 
 % to know the frequencies of the filtered-out terms. It didn't come 
@@ -202,7 +202,7 @@ neurology, respectively, totalling $455$ publications.
 % ``Väärin'' luokiteltujen uudelleen luokittelusta
 The basic problem is that fields of science can not be 
 defined so that they clearly differ from each other. Where one 
-discipline end the other has already started like metallurgy and 
+discipline ends the other has already started like metallurgy and 
 material science. Likewise, there are lots of publications that 
 handle topics belonging to more than one discipline, e.g. this 
 thesis discusses clustering and bibliometrics. So when annotating 

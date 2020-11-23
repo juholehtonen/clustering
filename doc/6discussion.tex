@@ -67,10 +67,15 @@ world data could improve clustering results.
 
 % Model selection
 The model selected, agglomerative Ward's clustering, is one of the
-basic clustering methods. We selected it because it produces 
+basic clustering methods. The method should also tolerate noise 
+somewhat. We selected it because it produces 
 hierarchical cluster structure that is naturally expected of fields
-and sub fields of science. The method should also tolerate noise 
-somewhat.
+and sub fields of science. On the other hand, the existense of cross-
+disciplinary fields such as bioinformatics suggest that the 
+taxonomy of science could be understood as directed asyclic graph.
+That is, a tree with each child node having possibly multiple 
+parent nodes and all edges directed such a way that the graph has 
+no cycles.
 % while failing ...
 It is known to work well only with compact, even-sized clusters.
 This might be a problem with the current data where different 
